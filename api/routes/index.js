@@ -21,6 +21,10 @@ console.log("Olhá, o Back-End está rodando viu!");
 
 const userSchema = require('./models/userSchema');
 const locaisSchema = require('./models/locaisSchema');
+const fotolocaisSchema = require('./models/fotolocaisSchema');
+const orcamentoSchema = require('./models/orcamentoSchema');
+
+
 
 //Pega os dados para atualizar
 router.get('/getCadastrousuariosFromId/:id', async (req, res) => {
@@ -94,6 +98,61 @@ router.post('/Cadastrolocais', async (req, res) => {
 
     // Capturar os dados
     await local.save();
+
+    // Responde com o objeto de usuário salvo
+    res.json("Salvei");
+  } catch (error) {
+    // Se houver um erro, responde com um status de erro e mensagem
+    res.status(500).json({ erro: error.message });
+  }
+});
+
+
+//parte da Foto dos locais
+
+router.post('/Cadastrofotolocais', async (req, res) => {
+  try {
+    //Cria um novo usuário com base nos dados do corpo da requisição
+    let FotolocaisModel = mongoose.model('Fotolocais', fotolocaisSchema);
+
+    //Cria uma nova instância de usuário com base nos dados recebidos na requisição
+    let fotolocais = new FotolocaisModel({
+      nomedolocal: req.body.nomedolocal,
+      descricao: req.body.descricao,
+      fotodolocal: req.body.fotodolocal,
+      avaliacao: req.body.avaliacao,
+    });
+
+    // Capturar os dados
+    await fotolocais.save();
+
+    // Responde com o objeto de usuário salvo
+    res.json("Salvei");
+  } catch (error) {
+    // Se houver um erro, responde com um status de erro e mensagem
+    res.status(500).json({ erro: error.message });
+  }
+});
+
+//parte do Orçamento 
+
+//parte da Foto dos locais
+
+router.post('/Cadastroorcamento', async (req, res) => {
+  try {
+    //Cria um novo usuário com base nos dados do corpo da requisição
+    let OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
+
+    //Cria uma nova instância de usuário com base nos dados recebidos na requisição
+    let orcamento = new OrcamentoModel({
+      nomedolocal: req.body.nomedolocal,
+      descricao: req.body.descricao,
+      fotodolocal: req.body.fotodolocal,
+      avaliacao: req.body.avaliacao,
+    });
+
+    // Capturar os dados
+    await orcamento.save();
 
     // Responde com o objeto de usuário salvo
     res.json("Salvei");
