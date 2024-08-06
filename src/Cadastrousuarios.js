@@ -124,7 +124,7 @@ const Cadastrousuarios = () => {
             Sexo:
           </Form.Label>
           <Col sm="10">
-            <Form.Control type="date" value={sexo} onChange={handleChangeSexo} />
+          <Form.Control type="text" placeholder="Seu sexo" name="nome" value={sexo} onChange={handleChangeSexo} />
           </Col>
         </Form.Group>
 

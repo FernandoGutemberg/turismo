@@ -13,7 +13,7 @@ function App() {
         <Navbar.Brand>Turismo</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link as={Link} to="/cadastrousuarios">Cadastro de Usuários</Nav.Link>
-          <Nav.Link as={Link} to="/cadastrolocais">Cadastrolocais</Nav.Link>
+          <Nav.Link as={Link} to="/cadastrolocais">Cadastro dos Locais</Nav.Link>
         </Nav>
       </Navbar>
       <Routes>
@@ -21,6 +21,7 @@ function App() {
         <Route path="/cadastrolocais" element={<Cadastrolocais/>}/>
       </Routes>
     </Router>
+
   );
 }
 
