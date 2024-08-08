@@ -9,6 +9,11 @@ import Cadastrofotolocais from './Cadastrofotolocais';
 import Cadastroorcamento from './Cadastroorcamento';
 import Cadastromensagens from './Cadastromensagens';
 import Geolocalizacao from './Geolocalizacao';
+import Tabelausuarios from "./Tabelausuarios";
+import Tabelalocais from "./Tabelalocais";
+import Tabelafotos from "./Tabelafotos";
+import Tabelaorcamento from "./Tabelaorcamento";
+import Tabelamensagens from "./Tabelamensagens";
 
 function App() {
   return (
@@ -16,47 +21,33 @@ function App() {
       <Navbar bg="light" expand="lg">
         <Navbar.Brand>Turismo</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link as={Link} to="/cadastrousuarios">Cadastrar Usuário</Nav.Link>
+          <Nav.Link as={Link} to="/Cadastrousuarios/">Cadastrar Usuário</Nav.Link>
           <Nav.Link as={Link} to="/cadastrolocais">Cadastrar Local</Nav.Link>
           <Nav.Link as={Link} to="/Cadastrofotolocais">Cadastrar foto(s)</Nav.Link>
           <Nav.Link as={Link} to="/Cadastroorcamento">Cadastrar Orcamento</Nav.Link>
           <Nav.Link as={Link} to="/Cadastromensagens">Cadastrar Mensagens</Nav.Link>
           <Nav.Link as={Link} to="/Geolocalizacao">Geolocalizacao</Nav.Link>
 
-          {/* Cadastrar Orçamento */}
-          {/* Cadastrar Mensagens/Avaliacao */}
-          {/* Cadastrar Geolocalizacao*/}
-          {/* Butão de Logout */}
-
-          {/* Usuarios
-          Locais
-          Fotos
-          Orçamento
-          Mensagens
-          Geolocalizacao */}
+          <Nav.Link as={Link} to="/Tabelausuarios">Tabela Usuarios</Nav.Link>
+          <Nav.Link as={Link} to="/Tabelalocais">Tabela Locais</Nav.Link>
+          <Nav.Link as={Link} to="/Tabelafotos">Tabela Fotos</Nav.Link>
+          <Nav.Link as={Link} to="/Tabelaorcamento">Tabela Orcamento</Nav.Link>
+          <Nav.Link as={Link} to="/Tabelamensagens">Tabela Mensagens</Nav.Link>
 
         </Nav>
       </Navbar>
       <Routes>
-        <Route path="/cadastrousuarios" element={<Cadastrousuarios />} />
-        <Route path="/cadastrolocais" element={<Cadastrolocais />} />
+        <Route path="/Cadastrousuarios/:id?" element={<Cadastrousuarios />} />
+        <Route path="/Cadastrolocais" element={<Cadastrolocais />} />
         <Route path="/Cadastrofotolocais" element={<Cadastrofotolocais />} />
         <Route path="/Cadastroorcamento" element={<Cadastroorcamento />} />
         <Route path="/Cadastromensagens" element={<Cadastromensagens />} />
         <Route path="/Geolocalizacao" element={<Geolocalizacao />} />
-
-
-        {/* Cadastrar Orçamento */}
-        {/* Cadastrar Mensagens/Avaliacao */}
-        {/* Cadastrar Geolocalizacao*/}
-        {/* Butão de Logout */}
-
-        {/* Usuarios
-          Locais
-          Fotos
-          Orçamento
-          Mensagens
-          Geolocalizacao */}
+        <Route path="/Tabelausuarios" element={<Tabelausuarios />} />
+        <Route path="/Tabelalocais" element={<Tabelalocais />} />
+        <Route path="/Tabelafotos" element={<Tabelafotos />} />
+        <Route path="/Tabelaorcamento" element={<Tabelaorcamento />} />
+        <Route path="/Tabelamensagens" element={<Tabelamensagens />} />
 
       </Routes>
     </Router>

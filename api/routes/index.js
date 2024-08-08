@@ -19,11 +19,40 @@ router.get('/', function (req, res, next) {
 
 console.log("Olhá, o Back-End está rodando viu!");
 
+//Aqui estão os esquemas, seria como o modelo para criar o espaço de dados no MongoDB
 const userSchema = require('./models/userSchema');
 const locaisSchema = require('./models/locaisSchema');
 const fotolocaisSchema = require('./models/fotolocaisSchema');
 const orcamentoSchema = require('./models/orcamentoSchema');
 const mensagensSchema = require('./models/mensagensSchema');
+
+
+//AQUI NOS MANDAMOS OS DADOS PARA O MONGODB
+router.post('/Cadastrousuarios', async (req, res) => {
+  try {
+    //Cria um novo usuário com base nos dados do corpo da requisição
+    let UserModel = mongoose.model('User', userSchema);
+
+    //Cria uma nova instância de usuário com base nos dados recebidos na requisição
+    let usuario = new UserModel({
+      nomecompleto: req.body.nomeCompleto,
+      cpf: req.body.cpf,
+      sexo: req.body.sexo,
+      telefone: req.body.telefone,
+      email: req.body.email,
+      senha: req.body.senha,
+    });
+
+    // Capturar os dados
+    await usuario.save();
+
+    // Responde com o objeto de usuário salvo
+    res.json("Salvei");
+  } catch (error) {
+    // Se houver um erro, responde com um status de erro e mensagem
+    res.status(500).json({ erro: error.message });
+  }
+});
 
 //Pega os dados para atualizar
 router.get('/getCadastrousuariosFromId/:id', async (req, res) => {
@@ -51,32 +80,81 @@ router.get('/getCadastrousuariosFromId/:id', async (req, res) => {
   }
 });
 
-//Define uma rota http para '/cadastro' - AQUI NOS MANDAMOS OS DADOS PARA O MONGODB
-router.post('/Cadastrousuarios', async (req, res) => {
+
+//Aqui vai pegar os dados do MongoDB com a rota Get e atualiza na tabela
+router.get('/Tabelausuarios', async (req, res) => {
   try {
-    //Cria um novo usuário com base nos dados do corpo da requisição
-    let UserModel = mongoose.model('User', userSchema);
+    // Cria um modelo de usuário usando o mongoose
+    let UserModel = mongoose.model('Users', userSchema);
 
-    //Cria uma nova instância de usuário com base nos dados recebidos na requisição
-    let usuario = new UserModel({
-      nomecompleto: req.body.nomeCompleto,
-      cpf: req.body.cpf,
-      sexo: req.body.sexo,
-      telefone: req.body.telefone,
-      email: req.body.email,
-      senha: req.body.senha,
-    });
+    // Busca todos os usuários no banco de dados
+    let usuarios = await UserModel.find();
 
-    // Capturar os dados
-    await usuario.save();
+    // Responde com os dados dos usuários
+    res.json(usuarios);
 
-    // Responde com o objeto de usuário salvo
-    res.json("Salvei");
   } catch (error) {
     // Se houver um erro, responde com um status de erro e mensagem
     res.status(500).json({ erro: error.message });
   }
 });
+
+
+// Esta rota lida com requisições HTTP DELETE e é usada para excluir um usuário específico do banco de dados, baseado em seu ID.
+//  O ID é extraído da URL e o usuário correspondente é removido do banco de dados. O registro excluído é retornado como resposta.
+router.delete('/tabelausuarios/:id', async (req, res) => {
+  try {
+    //Obtendo o modelo de usuário definido no mongodb utilizando o mongoose. 
+    let UserModel = mongoose.model('Users', userSchema);
+    //Executa uma operação de exclusao no Banco de Dados. 
+    const deletedUser = await UserModel.findByIdAndDelete(req.params.id);
+    //Atualiza o que foi exluido e retorna sem o registro. 
+    res.json(deletedUser);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+
+//Aqui é a rota para ATUALIZAR
+router.patch('/Cadastrousuarios/:id?', async (req, res) => {
+  try {
+    // Obtém o ID do usuário da URL, se fornecido
+    const userId = req.params.id;
+
+    // Cria um modelo de usuário usando o mongoose
+    const UserModel = mongoose.model('Users', userSchema);
+
+    let usuario;
+
+    usuario = await UserModel.findById(userId);
+
+    // Preenche os dados do usuário com os dados fornecidos no corpo da requisição
+    usuario.nomecompleto = req.body.nomeCompleto;
+    usuario.cpf = req.body.cpf;
+    usuario.datanascimento = req.body.dataNascimento;
+    usuario.telefone = req.body.telefone;
+    usuario.email = req.body.email;
+    usuario.senha = req.body.senha;
+
+    // Salva o usuário no banco de dados
+    await usuario.save();
+
+    // Responde com os dados do usuário salvo
+    res.json(usuario);
+  } catch (error) {
+    // Se houver um erro, responde com um status de erro e mensagem
+    res.status(500).json({ erro: error.message });
+  }
+});
+
+
+
+
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------
 
 
 //parte dos LOCAIS
