@@ -23,8 +23,7 @@ const userSchema = require('./models/userSchema');
 const locaisSchema = require('./models/locaisSchema');
 const fotolocaisSchema = require('./models/fotolocaisSchema');
 const orcamentoSchema = require('./models/orcamentoSchema');
-
-
+const mensagensSchema = require('./models/mensagensSchema');
 
 //Pega os dados para atualizar
 router.get('/getCadastrousuariosFromId/:id', async (req, res) => {
@@ -107,7 +106,6 @@ router.post('/Cadastrolocais', async (req, res) => {
   }
 });
 
-
 //parte da Foto dos locais
 
 router.post('/Cadastrofotolocais', async (req, res) => {
@@ -136,8 +134,6 @@ router.post('/Cadastrofotolocais', async (req, res) => {
 
 //parte do Orçamento 
 
-//parte da Foto dos locais
-
 router.post('/Cadastroorcamento', async (req, res) => {
   try {
     //Cria um novo usuário com base nos dados do corpo da requisição
@@ -162,8 +158,30 @@ router.post('/Cadastroorcamento', async (req, res) => {
   }
 });
 
+//parte das mensagens
 
+router.post('/Cadastromensagens', async (req, res) => {
+  try {
+    //Cria um novo usuário com base nos dados do corpo da requisição
+    let MensagensModel = mongoose.model('Mensagens', mensagensSchema);
 
+    //Cria uma nova instância de usuário com base nos dados recebidos na requisição
+    let mensagens = new MensagensModel({
+      nomedolocal: req.body.nomedolocal,
+      descricao: req.body.descricao,
+      fotodolocal: req.body.fotodolocal,
+      avaliacao: req.body.avaliacao,
+    });
 
+    // Capturar os dados
+    await mensagens.save();
+
+    // Responde com o objeto de usuário salvo
+    res.json("Salvei");
+  } catch (error) {
+    // Se houver um erro, responde com um status de erro e mensagem
+    res.status(500).json({ erro: error.message });
+  }
+});
 
 module.exports = router;

@@ -10,7 +10,6 @@ import Cadastroorcamento from './Cadastroorcamento';
 import Cadastromensagens from './Cadastromensagens';
 import Geolocalizacao from './Geolocalizacao';
 
-
 function App() {
   return (
     <Router>
@@ -23,9 +22,6 @@ function App() {
           <Nav.Link as={Link} to="/Cadastroorcamento">Cadastrar Orcamento</Nav.Link>
           <Nav.Link as={Link} to="/Cadastromensagens">Cadastrar Mensagens</Nav.Link>
           <Nav.Link as={Link} to="/Geolocalizacao">Geolocalizacao</Nav.Link>
-
-
-
 
           {/* Cadastrar Orçamento */}
           {/* Cadastrar Mensagens/Avaliacao */}
@@ -48,8 +44,6 @@ function App() {
         <Route path="/Cadastroorcamento" element={<Cadastroorcamento />} />
         <Route path="/Cadastromensagens" element={<Cadastromensagens />} />
         <Route path="/Geolocalizacao" element={<Geolocalizacao />} />
-
-
 
 
         {/* Cadastrar Orçamento */}

@@ -52,7 +52,6 @@ const Cadastromensagens = () => {
     setAvaliacao(event.target.value);
   };
 
-
   const handleOnClickSalvar = () => {
     const dados = {
       nomeLocal,
@@ -72,7 +71,7 @@ const Cadastromensagens = () => {
       configuracaoEnvio.method = "PATCH";
     }
 
-    fetch(`http://localhost:9000/Cadastroorcamento${id ? `/${id}` : ""}`, configuracaoEnvio)
+    fetch(`http://localhost:9000/Cadastromensagens${id ? `/${id}` : ""}`, configuracaoEnvio)
       .then((response) => response.json())
       .then((data) => {
         console.log("Dados salvos:", data);
