@@ -1,189 +1,144 @@
-// Importa as funções useState e useEffect do React
 import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from 'react-router-dom'; // Assumindo que você está usando react-router-dom para navegação
+import { useNavigate } from 'react-router-dom';
 
-// Define o componente funcional Tabelausuarios
+// Componente Tabelalocais
 const Tabelalocais = () => {
   const navigate = useNavigate();
 
+  const notifyDelete = () => toast("Local deletado com sucesso!");
+  const notifyCadastro = () => toast("Local salvo com sucesso!");
 
-  const notifyDelete = () => toast("Usuário deletado com sucesso!");
-  const notifyCadastro = () => toast("Usuário salvo com sucesso!");
+  const [locais, setLocais] = useState([]);
 
-  // const notify = () => toast("Usuário salvo com sucesso!");
-
-  // Define um estado 'usuarios' usando o hook useState
-  // O estado 'usuarios' é inicializado como um array vazio
-  const [usuarios, setUsuarios] = useState([]);
-
-  // Função assíncrona que busca os usuários do servidor
-  const fetchUsuarios = async () => {
+  // Função para buscar os locais do servidor
+  const fetchLocais = async () => {
     try {
       const response = await fetch('http://localhost:9000/tabelalocais');
-      // Faz uma requisição para 'http://localhost:9000/tabela' usando fetch API
       const data = await response.json();
-      // Extrai os dados JSON da resposta
-      setUsuarios(data);
-      // Atualiza o estado 'usuarios' com os dados obtidos do servidor
+      setLocais(data);
     } catch (error) {
-      console.error(error);
-      // Se ocorrer um erro, ele será registrado no console
+      console.error("Erro ao buscar os locais:", error);
     }
   };
 
-  // Hook useEffect que executa a função fetchUsuarios quando o componente é montado
   useEffect(() => {
-    // if existir o localStorage x emita o notify
-    // depois de emitir, limpe Ele 
     if (localStorage.getItem("notificacao") === "true") {
-
       localStorage.setItem("notificacao", null);
-
       setTimeout(() => {
-
         notifyCadastro();
       }, 500);
-
     }
-
-    fetchUsuarios();
-    // Chama a função fetchUsuarios quando o componente é montado
+    fetchLocais();
   }, []);
 
-  // Função para lidar com a exclusão de um usuário
-
-  // Estado para controlar o modal de confirmação de exclusão
+  // Estado e funções para controle do modal de exclusão
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [localIdToDelete, setLocalIdToDelete] = useState('');
 
-  // Estado para armazenar o ID da categoria a ser excluída
-  const [usuariosIdToDelete, setUsuariosIdToDelete] = useState('');
-
-  // Função para lidar com a exclusão de uma categoria
-  const handleDelete = async (usuarioId) => {
-    // Exibe o modal de confirmação
+  const handleDelete = (localId) => {
     setShowDeleteModal(true);
-    setUsuariosIdToDelete(usuarioId);
+    setLocalIdToDelete(localId);
   };
 
-  // Função para confirmar a exclusão da categoria
   const handleDeleteConfirmed = async () => {
     try {
-      await fetch(`http://localhost:9000/tabelausuarios/${usuariosIdToDelete}`, {
+      await fetch(`http://localhost:9000/tabelalocais/${localIdToDelete}`, {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({}),
-      })
-        .then(() => {
-          fetchUsuarios();
-          setShowDeleteModal(false);
-          notifyDelete();
-
-        })
-        .catch(error => {
-          console.error('Erro durante a exclusão', error);
-        });
+        headers: { 'Content-Type': 'application/json' },
+      });
+      fetchLocais();
+      setShowDeleteModal(false);
+      notifyDelete();
     } catch (error) {
-      console.error('Erro ao tentar deletar a categoria', error);
+      console.error('Erro ao deletar o local:', error);
     }
   };
 
-  const redirecionarParaCadastroUsuarios = () => {
-    window.location.href = '/Cadastrousuarios'; // Redireciona para a página de cadastro de usuários
-  };
-
-
   // Modal de confirmação de exclusão
-  const DeleteModal = ({ show, handleClose }) => {
-    return (
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmar Exclusão</Modal.Title>
+  const DeleteModal = ({ show, handleClose }) => (
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Confirmar Exclusão</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <p>Deseja realmente excluir este local?</p>
+        <Button variant="danger" onClick={handleDeleteConfirmed}>
+          Excluir
+        </Button>
+        <Button variant="secondary" onClick={handleClose}>
+          Cancelar
+        </Button>
+      </Modal.Body>
+    </Modal>
+  );
 
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <p>Deseja realmente excluir a categoria?</p>
-            <Button variant="danger" onClick={handleDeleteConfirmed}>
-              Excluir
-            </Button>
-            <Button variant="secondary" onClick={handleClose}>
-              Cancelar
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
-    );
+  // Redireciona para a página de cadastro de locais
+  const redirecionarParaCadastroLocais = () => {
+    navigate('/Cadastrolocais');
   };
 
-  //Retorna a estrutura JSX do componente Tabela
   return (
     <div>
-      <h2>Tabela de locais</h2>
-      <Button onClick={redirecionarParaCadastroUsuarios}>Cadastrar Usuário</Button>
+      <h2>Tabela de Locais</h2>
+      <Button onClick={redirecionarParaCadastroLocais}>Cadastrar Local</Button>
 
-      <Table striped bordered hover >
+      <Table striped bordered hover>
         <thead>
           <tr>
             <th>#</th>
-            <th>Nome Completo</th>
-            <th>CPF</th>
-            <th>Data de Nascimento</th>
-            <th>Telefone</th>
-            <th>Senha</th>
-            <th>Email</th>
+            <th>País</th>
+            <th>Estado</th>
+            <th>Cidade</th>
+            <th>Bairro</th>
+            <th>Foto</th>
+            <th>Avaliação</th>
+            <th>Descrição</th>
             <th>Ação Deletar</th>
             <th>Ação Editar</th>
           </tr>
         </thead>
         <tbody>
-
-          {usuarios.map((usuario, index) => (
+          {locais.map((local, index) => (
             <tr key={index}>
-              <td>{index}</td>
-              <td>{usuario.nomecompleto}</td>
-              <td>{usuario.cpf}</td>
-              <td>{usuario.datanascimento}</td>
-              <td>{usuario.telefone}</td>
-              <td>{usuario.senha}</td>
-              <td>{usuario.email}</td>
-
-              {/* Botão para excluir um usuário */}
+              <td>{index + 1}</td>
+              <td>{local.paisLocal}</td>
+              <td>{local.estado}</td>
+              <td>{local.cidade}</td>
+              <td>{local.bairro}</td>
+              <td>
+                <img src={local.foto} alt={`Foto de ${local.cidade}`} width="100" />
+              </td>
+              <td>{local.avaliacao}</td>
+              <td>{local.descricao}</td>
               <td>
                 <Button
                   variant="danger"
                   className='delete'
                   type='button'
-                  onClick={() => handleDelete(usuario._id)}
+                  onClick={() => handleDelete(local._id)}
                 >DELETAR
                 </Button>
               </td>
-
-              {/* Botão para editar um usuário */}
-
               <td>
                 <Button
                   className='update'
                   type='button'
-                  onClick={() => window.location.href = '/Cadastrousuarios/' + usuario._id}
+                  onClick={() => window.location.href = '/Cadastrolocais/' + local._id}
                 >EDITAR
                 </Button>
               </td>
-
             </tr>
           ))}
         </tbody>
       </Table>
       <ToastContainer />
-
       <DeleteModal show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} />
-
     </div>
   );
 };
+
 export default Tabelalocais;

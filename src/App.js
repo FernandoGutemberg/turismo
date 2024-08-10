@@ -38,7 +38,7 @@ function App() {
       </Navbar>
       <Routes>
         <Route path="/Cadastrousuarios/:id?" element={<Cadastrousuarios />} />
-        <Route path="/Cadastrolocais" element={<Cadastrolocais />} />
+        <Route path="/Cadastrolocais/:id?" element={<Cadastrolocais />} />
         <Route path="/Cadastrofotolocais" element={<Cadastrofotolocais />} />
         <Route path="/Cadastroorcamento" element={<Cadastroorcamento />} />
         <Route path="/Cadastromensagens" element={<Cadastromensagens />} />

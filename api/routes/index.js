@@ -167,10 +167,13 @@ router.post('/Cadastrolocais', async (req, res) => {
 
     //Cria uma nova instância de usuário com base nos dados recebidos na requisição
     let local = new LocalModel({
-      nomedolocal: req.body.nomedolocal,
-      descricao: req.body.descricao,
-      fotodolocal: req.body.fotodolocal,
+      paisLocal: req.body.paisLocal,
+      estado: req.body.estado,
+      cidade: req.body.cidade,
+      bairro: req.body.bairro,
+      foto: req.body.foto, // Caminho do arquivo armazenado
       avaliacao: req.body.avaliacao,
+      descricao: req.body.descricao,
     });
 
     // Capturar os dados
@@ -183,6 +186,57 @@ router.post('/Cadastrolocais', async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 });
+
+//Aqui vai pegar os dados do MongoDB com a rota Get e atualiza na tabela
+router.get('/Tabelalocais', async (req, res) => {
+  try {
+    // Cria um modelo de usuário usando o mongoose
+    let LocalModel = mongoose.model('Locais', locaisSchema);
+
+    // Busca todos os usuários no banco de dados
+    let locais = await LocalModel.find();
+
+    // Responde com os dados dos usuários
+    res.json(locais);
+
+  } catch (error) {
+    // Se houver um erro, responde com um status de erro e mensagem
+    res.status(500).json({ erro: error.message });
+  }
+});
+
+// Esta rota lida com requisições HTTP DELETE e é usada para excluir um usuário específico do banco de dados, baseado em seu ID.
+//  O ID é extraído da URL e o usuário correspondente é removido do banco de dados. O registro excluído é retornado como resposta.
+router.delete('/tabelalocais/:id', async (req, res) => {
+  try {
+    //Obtendo o modelo de usuário definido no mongodb utilizando o mongoose. 
+    let LocalModel = mongoose.model('Locais', locaisSchema);
+    //Executa uma operação de exclusao no Banco de Dados. 
+    const deleteLocal = await LocalModel.findByIdAndDelete(req.params.id);
+    //Atualiza o que foi exluido e retorna sem o registro. 
+    res.json(deleteLocal);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+// Esta rota lida com requisições HTTP DELETE e é usada para excluir um usuário específico do banco de dados, baseado em seu ID.
+//  O ID é extraído da URL e o usuário correspondente é removido do banco de dados. O registro excluído é retornado como resposta.
+router.delete('/tabelausuarios/:id', async (req, res) => {
+  try {
+    //Obtendo o modelo de usuário definido no mongodb utilizando o mongoose. 
+    let UserModel = mongoose.model('Users', userSchema);
+    //Executa uma operação de exclusao no Banco de Dados. 
+    const deletedUser = await UserModel.findByIdAndDelete(req.params.id);
+    //Atualiza o que foi exluido e retorna sem o registro. 
+    res.json(deletedUser);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
 
 //parte da Foto dos locais
 

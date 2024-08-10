@@ -3,15 +3,17 @@ import { useParams, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from "react-toastify";
 import { Col, Form, Row, Button } from 'react-bootstrap';
-import InputMask from "react-input-mask";
 
 const Cadastrolocais = () => {
   const navigate = useNavigate();
 
-  const [nomeLocal, setNomeLocal] = useState("");
-  const [descricao, setDescricao] = useState("");
-  const [fotodolocal, setFotodoLocal] = useState("");
+  const [paisLocal, setPaisLocal] = useState("");
+  const [estado, setEstado] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [bairro, setBairro] = useState("");
+  const [foto, setFoto] = useState("");
   const [avaliacao, setAvaliacao] = useState("");
+  const [descricao, setDescricao] = useState("");
 
   const { id } = useParams();
 
@@ -25,10 +27,14 @@ const Cadastrolocais = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          setNomeLocal(data.nomedolocal);
-          setDescricao(data.descricao);
-          setFotodoLocal(data.fotodolocal);
+          setPaisLocal(data.paislocal);
+          setEstado(data.estado);
+          setCidade(data.cidade);
+          setBairro(data.bairro);
+          setFoto(data.foto);
           setAvaliacao(data.avaliacao);
+          setDescricao(data.descricao);
+
         })
         .catch((error) => {
           console.error("Erro ao carregar dados do usuário:", error);
@@ -36,29 +42,51 @@ const Cadastrolocais = () => {
     }
   }, [id]);
 
-  const handleChangeNomeLocal = (event) => {
-    setNomeLocal(event.target.value);
+  const handleChangePaisLocal = (event) => {
+    setPaisLocal(event.target.value);
+  };
+
+  const handleChangeEstado = (event) => {
+    setEstado(event.target.value);
+  };
+
+  const handleChangeCidade = (event) => {
+    setCidade(event.target.value);
+  };
+
+  const handleChangeBairro = (event) => {
+    setBairro(event.target.value);
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setFoto(file); // Armazena o arquivo no estado
+  };
+
+
+  const handleChangeAvaliacao = (event) => {
+    setAvaliacao(event.target.value);
   };
 
   const handleChangeDescricao = (event) => {
     setDescricao(event.target.value);
   };
 
-  const handleChangeFotodoLocal = (event) => {
-    setFotodoLocal(event.target.value);
-  };
+  
 
-  const handleChangeAvaliacao = (event) => {
-    setAvaliacao(event.target.value);
-  };
+ 
+
 
 
   const handleOnClickSalvar = () => {
     const dados = {
-      nomeLocal,
-      descricao,
-      fotodolocal,
+      paisLocal,
+      estado,
+      cidade,
+      bairro,
+      foto,
       avaliacao,
+      descricao,
     };
 
     const configuracaoEnvio = {
@@ -77,52 +105,100 @@ const Cadastrolocais = () => {
       .then((data) => {
         console.log("Dados salvos:", data);
         localStorage.setItem("notificacao", "true");
-        navigate('/Tabelausuarios');
+        navigate('/Tabelalocais');
       })
       .catch((error) => {
         console.error("Erro ao salvar dados:", error);
       });
   };
+  //País
+  //Estado
+  //Cidade
+  //Bairro
+  //Foto
+  //Avaliacao
+
 
   return (
     <div>
       <h1>Cadastro dos Locais de Turismo</h1>
+
       <Form>
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
           <Form.Label column sm="2">
-            Nome do Local:
+            País:
           </Form.Label>
           <Col sm="10">
-            <Form.Control type="text" placeholder="Seu nome do local" name="nome" value={nomeLocal} onChange={handleChangeNomeLocal} />
+            <Form.Control type="text" placeholder="Nome do País visitado" name="nome" value={paisLocal} onChange={handleChangePaisLocal} />
+          </Col>
+        </Form.Group>
+
+        {/* aqui */}
+
+        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+          <Form.Label column sm="2">
+            Estado:
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control type="text" placeholder="Nome do Estado visitado" name="nome" value={estado} onChange={handleChangeEstado} />
+          </Col>
+        </Form.Group>
+
+        {/* aqui */}
+
+
+        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+          <Form.Label column sm="2">
+            Cidade:
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control type="text" placeholder="Nome da cidade visitada" name="nome" value={cidade} onChange={handleChangeCidade} />
           </Col>
         </Form.Group>
 
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
           <Form.Label column sm="2">
-            Descricao:
+            Bairro:
           </Form.Label>
           <Col sm="10">
-            <InputMask className="estilizacaoInputText" placeholder="000.000.000-00" mask="999.999.999-99" value={descricao} onChange={handleChangeDescricao} />
+            <Form.Control type="text" placeholder="Nome do bairro visitado" name="nome" value={bairro} onChange={handleChangeBairro} />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-3" controlId="formFile">
+          <Form.Label column sm="2">
+            Foto do Local:
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control
+              type="file"
+              name="foto"
+              onChange={handleFileChange}
+            />
+          </Col>
+        </Form.Group>
+
+
+        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+          <Form.Label column sm="2">
+            Avaliação:
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control type="text" placeholder="Avaliação de 1 a 5" name="nome" value={avaliacao} onChange={handleChangeAvaliacao} />
           </Col>
         </Form.Group>
 
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
           <Form.Label column sm="2">
-            Foto do local:
+            Descrição:
           </Form.Label>
           <Col sm="10">
-          <Form.Control type="text" placeholder="Seu sexo" name="nome" value={fotodolocal} onChange={handleChangeFotodoLocal} />
+            <Form.Control type="text" placeholder="Descrição ou experiência do local visitado" name="nome" value={descricao} onChange={handleChangeDescricao} />
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-          <Form.Label column sm="2">
-            avaliacao:
-          </Form.Label>
-          <Col sm="10">
-            <InputMask className="estilizacaoInputText" placeholder="99999-9999" mask="99999-9999" value={avaliacao} onChange={handleChangeAvaliacao} />
-          </Col>
-        </Form.Group>
+
+
 
 
 
@@ -135,7 +211,7 @@ const Cadastrolocais = () => {
           variant="dark"
           className='voltar'
           type='button'
-          onClick={() => window.location.href = '/Tabelausuarios/'}
+          onClick={() => window.location.href = '/Tabelalocais/'}
         >
           Voltar
         </Button>
