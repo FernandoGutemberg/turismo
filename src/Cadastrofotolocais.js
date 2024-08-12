@@ -8,16 +8,19 @@ import InputMask from "react-input-mask";
 const Cadastrofotolocais = () => {
   const navigate = useNavigate();
 
-  const [nomeLocal, setNomeLocal] = useState("");
+  const [uploadfoto, setUploadFoto] = useState("");
+  const [local, setLocal] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [fotodolocal, setFotodoLocal] = useState("");
-  const [avaliacao, setAvaliacao] = useState("");
+  const [localizacao, setLocalizacao] = useState("");
+  const [adicionadopor, setAdicionadoPor] = useState("");
+  const [criadoem, setCriadoEm] = useState("");
+
 
   const { id } = useParams();
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:9000/getCadastrolocaisFromId/${id}`, {
+      fetch(`http://localhost:9000/getCadastrofotolocaisFromId/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -25,10 +28,14 @@ const Cadastrofotolocais = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          setNomeLocal(data.nomedolocal);
+          setUploadFoto(data.uploadfoto);
+          setLocal(data.local);
           setDescricao(data.descricao);
-          setFotodoLocal(data.fotodolocal);
-          setAvaliacao(data.avaliacao);
+          setLocalizacao(data.localizacao);
+          setAdicionadoPor(data.adicionadopor);
+          setCriadoEm(data.criadoem);
+
+
         })
         .catch((error) => {
           console.error("Erro ao carregar dados do usuário:", error);
@@ -36,29 +43,42 @@ const Cadastrofotolocais = () => {
     }
   }, [id]);
 
-  const handleChangeNomeLocal = (event) => {
-    setNomeLocal(event.target.value);
+  const handleChangeUploadFoto = (event) => {
+    setUploadFoto(event.target.value);
+  };
+
+  const handleChangeLocal = (event) => {
+    setLocal(event.target.value);
   };
 
   const handleChangeDescricao = (event) => {
     setDescricao(event.target.value);
   };
 
-  const handleChangeFotodoLocal = (event) => {
-    setFotodoLocal(event.target.value);
+  const handleChangeLocalizacao = (event) => {
+    setLocalizacao(event.target.value);
   };
 
-  const handleChangeAvaliacao = (event) => {
-    setAvaliacao(event.target.value);
+  const handleChangeAdicionadoPor = (event) => {
+    setAdicionadoPor(event.target.value);
   };
+
+  const handleChangeCriadoEm = (event) => {
+    setCriadoEm(event.target.value);
+  };
+
 
 
   const handleOnClickSalvar = () => {
     const dados = {
-      nomeLocal,
+      uploadfoto,
+      local,
       descricao,
-      fotodolocal,
-      avaliacao,
+      localizacao,
+      adicionadopor,
+      criadoem     
+
+
     };
 
     const configuracaoEnvio = {
@@ -84,25 +104,41 @@ const Cadastrofotolocais = () => {
       });
   };
 
+  //Fazer upload da foto
+  //Local
+  //Descrição
+  //Localização
+  //Adicionado por
+  //Criadoem
+  // const [uploadfoto, setUploadFoto] = useState("");
+  // const [local, setLocal] = useState("");
+  // const [descricao, setDescricao] = useState("");
+  // const [localizacao, setLocalizacao] = useState("");
+  // const [adicionadopor, setAdicionadoPor] = useState("");
+  // const [criadoem, setCriadoEm] = useState("");
+
   return (
     <div>
+      
       <h1>Foto dos locais</h1>
+
+      
       <Form>
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
           <Form.Label column sm="2">
-            Nome do Local:
+            Inserir Foto(s):
           </Form.Label>
           <Col sm="10">
-            <Form.Control type="text" placeholder="Seu nome do local" name="nome" value={nomeLocal} onChange={handleChangeNomeLocal} />
+            <Form.Control type="text" placeholder="Foto do local" name="nome" value={uploadfoto} onChange={handleChangeUploadFoto} />
           </Col>
         </Form.Group>
 
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
           <Form.Label column sm="2">
-            Descricao:
+            Local:
           </Form.Label>
           <Col sm="10">
-            <InputMask className="estilizacaoInputText" placeholder="000.000.000-00" mask="999.999.999-99" value={descricao} onChange={handleChangeDescricao} />
+            <Form.Control type="text" placeholder="Foto do local" name="nome" value={local} onChange={handleChangeLocal} />
           </Col>
         </Form.Group>
 
@@ -111,18 +147,37 @@ const Cadastrofotolocais = () => {
             Foto do local:
           </Form.Label>
           <Col sm="10">
-          <Form.Control type="text" placeholder="Seu sexo" name="nome" value={fotodolocal} onChange={handleChangeFotodoLocal} />
+          <Form.Control type="text" placeholder="Foto do local" name="nome" value={descricao} onChange={handleChangeDescricao} />
           </Col>
         </Form.Group>
 
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
           <Form.Label column sm="2">
-            avaliacao:
+            Localizacao:
           </Form.Label>
           <Col sm="10">
-            <InputMask className="estilizacaoInputText" placeholder="99999-9999" mask="99999-9999" value={avaliacao} onChange={handleChangeAvaliacao} />
+            <Form.Control type="text" placeholder="Localização" name="nome" value={localizacao} onChange={handleChangeLocalizacao} />
           </Col>
         </Form.Group>
+
+        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+          <Form.Label column sm="2">
+            Adicionado Por:
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control type="text" placeholder="Adicionado Por" name="nome" value={adicionadopor} onChange={handleChangeAdicionadoPor} />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+          <Form.Label column sm="2">
+            Criado em:
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control type="text" placeholder="Adicione o dia que foi criado" name="nome" value={criadoem} onChange={handleChangeCriadoEm} />
+          </Col>
+        </Form.Group>
+
 
 
 
@@ -135,7 +190,7 @@ const Cadastrofotolocais = () => {
           variant="dark"
           className='voltar'
           type='button'
-          onClick={() => window.location.href = '/Tabelausuarios/'}
+          onClick={() => window.location.href = '/Tabelafotos/'}
         >
           Voltar
         </Button>

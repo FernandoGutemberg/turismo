@@ -17,10 +17,12 @@ import Tabelamensagens from "./Tabelamensagens";
 
 function App() {
   return (
+
     <Router>
       <Navbar bg="light" expand="lg">
         <Navbar.Brand>Turismo</Navbar.Brand>
         <Nav className="mr-auto">
+          <Nav.Link as={Link} to="/">Home</Nav.Link>
           <Nav.Link as={Link} to="/Cadastrousuarios/">Cadastrar Usuário</Nav.Link>
           <Nav.Link as={Link} to="/cadastrolocais">Cadastrar Local</Nav.Link>
           <Nav.Link as={Link} to="/Cadastrofotolocais">Cadastrar foto(s)</Nav.Link>
