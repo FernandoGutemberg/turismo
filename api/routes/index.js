@@ -495,7 +495,7 @@ router.patch('/Cadastroorcamento/:id?', async (req, res) => {
     orcamento.custoAlimentacao = req.body.custoAlimentacao;
     orcamento.custoAtividades = req.body.custoAtividades;
     orcamento.outrosCustos = req.body.outrosCustos;
-    orcamento.observacao = req.body.observacao;sporte = req.body.custoTransporte;
+    orcamento.observacao = req.body.observacao; sporte = req.body.custoTransporte;
 
     await orcamento.save();
     res.json(orcamento);
@@ -504,9 +504,103 @@ router.patch('/Cadastroorcamento/:id?', async (req, res) => {
   }
 });
 
-module.exports = router;
 
 //parte das mensagens
+
+// Rota para criar uma nova mensagem
+router.post('/Cadastromensagens', async (req, res) => {
+  try {
+    let MensagensModel = mongoose.model('Mensagens', mensagensSchema);
+
+    let mensagem = new MensagensModel({
+      tituloMensagem: req.body.tituloMensagem,
+      conteudoMensagem: req.body.conteudoMensagem,
+      tipoMensagem: req.body.tipoMensagem,
+      anexos: req.body.anexos,
+      dataHora: req.body.dataHora,
+      avaliacao: req.body.avaliacao,
+      respostaComentarios: req.body.respostaComentarios,
+    });
+
+    await mensagem.save();
+    res.json("Mensagem salva com sucesso!");
+  } catch (error) {
+    res.status(500).json({ erro: error.message });
+  }
+});
+
+// Rota para pegar uma mensagem específica pelo ID
+router.get('/getCadastromensagensFromId/:id', async (req, res) => {
+  try {
+    const mensagemId = req.params.id;
+    const MensagensModel = mongoose.model('Mensagens', mensagensSchema);
+
+
+    const mensagem = await MensagensModel.findById(mensagemId);
+
+    if (!mensagem) {
+      return res.status(404).json({ erro: 'Mensagem não encontrada' });
+    }
+
+    res.json(mensagem);
+  } catch (error) {
+    res.status(500).json({ erro: error.message });
+  }
+});
+
+// Rota para pegar todas as mensagens do MongoDB
+router.get('/Tabelamensagens', async (req, res) => {
+  try {
+    let MensagensModel = mongoose.model('Mensagens', mensagensSchema);
+
+    let mensagens = await MensagensModel.find();
+    res.json(mensagens);
+  } catch (error) {
+    res.status(500).json({ erro: error.message });
+  }
+});
+
+// Rota para excluir uma mensagem específica pelo ID
+router.delete('/Tabelamensagens/:id', async (req, res) => {
+  try {
+    let MensagensModel = mongoose.model('Mensagens', mensagensSchema);
+
+    const deleteMensagem = await MensagensModel.findByIdAndDelete(req.params.id);
+    res.json(deleteMensagem);
+  } catch (error) {
+    res.status(500).json({ erro: error.message });
+  }
+});
+
+// Rota para atualizar uma mensagem específica
+router.patch('/Cadastromensagens/:id?', async (req, res) => {
+  try {
+    const mensagemId = req.params.id;
+    const MensagensModel = mongoose.model('Mensagens', mensagensSchema);
+
+    let mensagem = await MensagensModel.findById(mensagemId);
+
+    if (!mensagem) {
+      return res.status(404).json({ erro: 'Mensagem não encontrada' });
+    }
+
+    mensagem.tituloMensagem = req.body.tituloMensagem;
+    mensagem.conteudoMensagem = req.body.conteudoMensagem;
+    mensagem.tipoMensagem = req.body.tipoMensagem;
+    mensagem.anexos = req.body.anexos;
+    mensagem.dataHora = req.body.dataHora;
+    mensagem.avaliacao = req.body.avaliacao;
+    mensagem.respostaComentarios = req.body.respostaComentarios;
+
+    await mensagem.save();
+    res.json(mensagem);
+  } catch (error) {
+    res.status(500).json({ erro: error.message });
+  }
+});
+
+
+
 
 
 

@@ -43,7 +43,7 @@ function App() {
         <Route path="/Cadastrolocais/:id?" element={<Cadastrolocais />} />
         <Route path="/Cadastrofotolocais/:id?" element={<Cadastrofotolocais />} />
         <Route path="/Cadastroorcamento/:id?" element={<Cadastroorcamento />} />
-        <Route path="/Cadastromensagens" element={<Cadastromensagens />} />
+        <Route path="/Cadastromensagens/:id?" element={<Cadastromensagens />} />
         <Route path="/Geolocalizacao" element={<Geolocalizacao />} />
         <Route path="/Tabelausuarios" element={<Tabelausuarios />} />
         <Route path="/Tabelalocais" element={<Tabelalocais />} />

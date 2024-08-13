@@ -3,21 +3,23 @@ import { useParams, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from "react-toastify";
 import { Col, Form, Row, Button } from 'react-bootstrap';
-import InputMask from "react-input-mask";
 
 const Cadastromensagens = () => {
   const navigate = useNavigate();
 
-  const [nomeLocal, setNomeLocal] = useState("");
-  const [descricao, setDescricao] = useState("");
-  const [fotodolocal, setFotodoLocal] = useState("");
+  const [tituloMensagem, setTituloMensagem] = useState("");
+  const [conteudoMensagem, setConteudoMensagem] = useState("");
+  const [tipoMensagem, setTipoMensagem] = useState("");
+  const [anexos, setAnexos] = useState("");
+  const [dataHora, setDataHora] = useState("");
   const [avaliacao, setAvaliacao] = useState("");
+  const [respostaComentarios, setRespostaComentarios] = useState("");
 
   const { id } = useParams();
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:9000/getCadastrolocaisFromId/${id}`, {
+      fetch(`http://localhost:9000/getCadastromensagensFromId/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -25,39 +27,29 @@ const Cadastromensagens = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          setNomeLocal(data.nomedolocal);
-          setDescricao(data.descricao);
-          setFotodoLocal(data.fotodolocal);
+          setTituloMensagem(data.tituloMensagem);
+          setConteudoMensagem(data.conteudoMensagem);
+          setTipoMensagem(data.tipoMensagem);
+          setAnexos(data.anexos);
+          setDataHora(data.dataHora);
           setAvaliacao(data.avaliacao);
+          setRespostaComentarios(data.respostaComentarios);
         })
         .catch((error) => {
-          console.error("Erro ao carregar dados do usuário:", error);
+          console.error("Erro ao carregar dados da mensagem:", error);
         });
     }
   }, [id]);
 
-  const handleChangeNomeLocal = (event) => {
-    setNomeLocal(event.target.value);
-  };
-
-  const handleChangeDescricao = (event) => {
-    setDescricao(event.target.value);
-  };
-
-  const handleChangeFotodoLocal = (event) => {
-    setFotodoLocal(event.target.value);
-  };
-
-  const handleChangeAvaliacao = (event) => {
-    setAvaliacao(event.target.value);
-  };
-
   const handleOnClickSalvar = () => {
     const dados = {
-      nomeLocal,
-      descricao,
-      fotodolocal,
+      tituloMensagem,
+      conteudoMensagem,
+      tipoMensagem,
+      anexos,
+      dataHora,
       avaliacao,
+      respostaComentarios,
     };
 
     const configuracaoEnvio = {
@@ -76,54 +68,108 @@ const Cadastromensagens = () => {
       .then((data) => {
         console.log("Dados salvos:", data);
         localStorage.setItem("notificacao", "true");
-        navigate('/Tabelausuarios');
+        navigate('/Tabelamensagens');
       })
       .catch((error) => {
         console.error("Erro ao salvar dados:", error);
       });
   };
 
+  const handleChangeTituloMensagem = (event) => {
+    setTituloMensagem(event.target.value);
+  };
+
+  const handleChangeConteudoMensagem = (event) => {
+    setConteudoMensagem(event.target.value);
+  };
+
+  const handleChangeTipoMensagem = (event) => {
+    setTipoMensagem(event.target.value);
+  };
+
+  const handleChangeAnexos = (event) => {
+    setAnexos(event.target.value);
+  };
+
+  const handleChangeDataHora = (event) => {
+    setDataHora(event.target.value);
+  };
+
+  const handleChangeAvaliacao = (event) => {
+    setAvaliacao(event.target.value);
+  };
+
+  const handleChangeRespostaComentarios = (event) => {
+    setRespostaComentarios(event.target.value);
+  };
+
+ 
   return (
     <div>
       <h1>Cadastrar Mensagens</h1>
       <Form>
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+        <Form.Group as={Row} className="mb-3">
           <Form.Label column sm="2">
-            Nome do Local:
+            Título da Mensagem:
           </Form.Label>
           <Col sm="10">
-            <Form.Control type="text" placeholder="Seu nome do local" name="nome" value={nomeLocal} onChange={handleChangeNomeLocal} />
+            <Form.Control type="text" placeholder="Título da mensagem" value={tituloMensagem} onChange={handleChangeTituloMensagem} />
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+        <Form.Group as={Row} className="mb-3">
           <Form.Label column sm="2">
-            Descricao:
+            Conteúdo da Mensagem:
           </Form.Label>
           <Col sm="10">
-            <InputMask className="estilizacaoInputText" placeholder="000.000.000-00" mask="999.999.999-99" value={descricao} onChange={handleChangeDescricao} />
+            <Form.Control as="textarea" rows={3} placeholder="Conteúdo da mensagem" value={conteudoMensagem} onChange={handleChangeConteudoMensagem} />
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+        <Form.Group as={Row} className="mb-3">
           <Form.Label column sm="2">
-            Foto do local:
+            Tipo de Mensagem:
           </Form.Label>
           <Col sm="10">
-          <Form.Control type="text" placeholder="Seu sexo" name="nome" value={fotodolocal} onChange={handleChangeFotodoLocal} />
+            <Form.Control type="text" placeholder="Tipo de mensagem" value={tipoMensagem} onChange={handleChangeTipoMensagem} />
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+        <Form.Group as={Row} className="mb-3">
           <Form.Label column sm="2">
-            avaliacao:
+            Anexos:
           </Form.Label>
           <Col sm="10">
-            <InputMask className="estilizacaoInputText" placeholder="99999-9999" mask="99999-9999" value={avaliacao} onChange={handleChangeAvaliacao} />
+            <Form.Control type="file" multiple onChange={handleChangeAnexos} />
           </Col>
         </Form.Group>
 
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column sm="2">
+            Data e Hora:
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control type="datetime-local" value={dataHora} onChange={handleChangeDataHora} />
+          </Col>
+        </Form.Group>
 
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column sm="2">
+            Avaliação:
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control type="number" placeholder="Avaliação" value={avaliacao} onChange={handleChangeAvaliacao} />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column sm="2">
+            Resposta/Comentários:
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control as="textarea" rows={3} placeholder="Resposta/Comentários" value={respostaComentarios} onChange={handleChangeRespostaComentarios} />
+          </Col>
+        </Form.Group>
 
         <Button type="button" onClick={handleOnClickSalvar}>
           Salvar
@@ -134,7 +180,7 @@ const Cadastromensagens = () => {
           variant="dark"
           className='voltar'
           type='button'
-          onClick={() => window.location.href = '/Tabelausuarios/'}
+          onClick={() => window.location.href = '/Tabelamensagens/'}
         >
           Voltar
         </Button>
