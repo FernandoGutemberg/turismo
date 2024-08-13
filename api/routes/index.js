@@ -277,13 +277,7 @@ router.patch('/Cadastrolocais/:id?', async (req, res) => {
 });
 
 
-
-
-
 //---------------------------------------------------------------------------------------
-
-
-
 
 
 //parte da Foto dos locais
@@ -295,10 +289,14 @@ router.post('/Cadastrofotolocais', async (req, res) => {
 
     //Cria uma nova instância de usuário com base nos dados recebidos na requisição
     let fotolocais = new FotolocaisModel({
-      nomedolocal: req.body.nomedolocal,
+      uploadfoto: req.body.uploadfoto,
+      local: req.body.local,
       descricao: req.body.descricao,
-      fotodolocal: req.body.fotodolocal,
-      avaliacao: req.body.avaliacao,
+      localizacao: req.body.localizacao,
+      adicionadopor: req.body.adicionadopor,
+      criadoem: req.body.criadoem,
+
+
     });
 
     // Capturar os dados
@@ -314,6 +312,100 @@ router.post('/Cadastrofotolocais', async (req, res) => {
 
 
 
+
+//Pega os dados para atualizar
+router.get('/getCadastrofotolocaisFromId/:id', async (req, res) => {
+
+  try {
+    //Obtém o ID do usuário da URL
+    const fotolocaisId = req.params.id;
+
+    //Cria um modelo de usuário usando o mongoose
+    const FotolocaisModel = mongoose.model('Fotolocais', fotolocaisSchema);
+
+    //Busca o usuário pelo ID
+    const fotolocais = await FotolocaisModel.findById(fotolocaisId);
+
+    //Se o usuário não for encontrado, retorna um erro 404
+    if (!fotolocais) {
+      return res.status(404).json({ erro: 'Fotos Local não encontrado' });
+    }
+
+    //Retorna os dados do usuário
+    res.json(fotolocais);
+  } catch (error) {
+    //Se houver um erro, responde com um status de erro e mensagem
+    res.status(500).json({ erro: error.message });
+  }
+});
+
+//Aqui vai pegar os dados do MongoDB com a rota Get e atualiza na tabela
+router.get('/Tabelafotos', async (req, res) => {
+  try {
+    // Cria um modelo de usuário usando o mongoose
+    let FotolocaisModel = mongoose.model('Fotolocais', fotolocaisSchema);
+
+    // Busca todos os usuários no banco de dados
+    let fotolocais = await FotolocaisModel.find();
+
+    // Responde com os dados dos usuários
+    res.json(fotolocais);
+
+  } catch (error) {
+    // Se houver um erro, responde com um status de erro e mensagem
+    res.status(500).json({ erro: error.message });
+  }
+});
+
+// Esta rota lida com requisições HTTP DELETE e é usada para excluir um usuário específico do banco de dados, baseado em seu ID.
+//  O ID é extraído da URL e o usuário correspondente é removido do banco de dados. O registro excluído é retornado como resposta.
+router.delete('/Tabelafotos/:id', async (req, res) => {
+  try {
+    //Obtendo o modelo de usuário definido no mongodb utilizando o mongoose. 
+    let FotolocaisModel = mongoose.model('Fotolocais', fotolocaisSchema);
+    //Executa uma operação de exclusao no Banco de Dados. 
+    const deleteFotolocais = await FotolocaisModel.findByIdAndDelete(req.params.id);
+    //Atualiza o que foi exluido e retorna sem o registro. 
+    res.json(deleteFotolocais);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+//Aqui é a rota para ATUALIZAR
+router.patch('/Cadastrofotolocais/:id?', async (req, res) => {
+  try {
+    // Obtém o ID do usuário da URL, se fornecido
+    const fotolocaisId = req.params.id;
+
+    // Cria um modelo de usuário usando o mongoose
+    const FotolocaisModel = mongoose.model('Fotolocais', fotolocaisSchema);
+
+    let fotolocais;
+
+    fotolocais = await FotolocaisModel.findById(fotolocaisId);
+
+    // Preenche os dados do usuário com os dados fornecidos no corpo da requisição
+    fotolocais.nomedolocal = req.body.nomedolocal;
+    fotolocais.descricao = req.body.descricao;
+    fotolocais.fotodolocal = req.body.fotodolocal;
+    fotolocais.avaliacao = req.body.avaliacao;
+
+
+    // Salva o usuário no banco de dados
+    await fotolocais.save();
+
+    // Responde com os dados do usuário salvo
+    res.json(fotolocais);
+  } catch (error) {
+    // Se houver um erro, responde com um status de erro e mensagem
+    res.status(500).json({ erro: error.message });
+  }
+});
+
+
+
+
 //parte do Orçamento 
 
 router.post('/Cadastroorcamento', async (req, res) => {
@@ -323,10 +415,15 @@ router.post('/Cadastroorcamento', async (req, res) => {
 
     //Cria uma nova instância de usuário com base nos dados recebidos na requisição
     let orcamento = new OrcamentoModel({
-      nomedolocal: req.body.nomedolocal,
-      descricao: req.body.descricao,
-      fotodolocal: req.body.fotodolocal,
-      avaliacao: req.body.avaliacao,
+      tituloOrcamento: req.body.tituloOrcamento,
+      dataViagem: req.body.dataViagem,
+      moeda: req.body.moeda,
+      custoTransporte: req.body.custoTransporte,
+      custoHospedagem: req.body.custoHospedagem,
+      custoAlimentacao: req.body.custoAlimentacao,
+      custoAtividades: req.body.custoAtividades,
+      outrosCustos: req.body.outrosCustos,
+      observacao: req.body.observacao,
     });
 
     // Capturar os dados
@@ -340,30 +437,77 @@ router.post('/Cadastroorcamento', async (req, res) => {
   }
 });
 
-//parte das mensagens
-
-router.post('/Cadastromensagens', async (req, res) => {
+// Pega os dados para atualizar
+router.get('/getCadastroorcamentoFromId/:id', async (req, res) => {
   try {
-    //Cria um novo usuário com base nos dados do corpo da requisição
-    let MensagensModel = mongoose.model('Mensagens', mensagensSchema);
+    const orcamentoId = req.params.id;
+    const OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
+    const orcamento = await OrcamentoModel.findById(orcamentoId);
 
-    //Cria uma nova instância de usuário com base nos dados recebidos na requisição
-    let mensagens = new MensagensModel({
-      nomedolocal: req.body.nomedolocal,
-      descricao: req.body.descricao,
-      fotodolocal: req.body.fotodolocal,
-      avaliacao: req.body.avaliacao,
-    });
+    if (!orcamento) {
+      return res.status(404).json({ erro: 'Orçamento não encontrado' });
+    }
 
-    // Capturar os dados
-    await mensagens.save();
-
-    // Responde com o objeto de usuário salvo
-    res.json("Salvei");
+    res.json(orcamento);
   } catch (error) {
-    // Se houver um erro, responde com um status de erro e mensagem
     res.status(500).json({ erro: error.message });
   }
 });
+
+// Pega todos os orçamentos do MongoDB
+router.get('/Tabelaorcamento', async (req, res) => {
+  try {
+    let OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
+    let orcamentos = await OrcamentoModel.find();
+    res.json(orcamentos);
+  } catch (error) {
+    res.status(500).json({ erro: error.message });
+  }
+});
+
+// Exclui um orçamento específico baseado em seu ID
+router.delete('/Tabelaorcamento/:id', async (req, res) => {
+  try {
+    let OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
+    const deleteOrcamento = await OrcamentoModel.findByIdAndDelete(req.params.id);
+    res.json(deleteOrcamento);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Atualiza um orçamento específico
+router.patch('/Cadastroorcamento/:id?', async (req, res) => {
+  try {
+    const orcamentoId = req.params.id;
+    const OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
+    let orcamento = await OrcamentoModel.findById(orcamentoId);
+
+    if (!orcamento) {
+      return res.status(404).json({ erro: 'Orçamento não encontrado' });
+    }
+
+    orcamento.tituloOrcamento = req.body.tituloOrcamento;
+    orcamento.dataViagem = req.body.dataViagem;
+    orcamento.moeda = req.body.moeda;
+    orcamento.custoTransporte = req.body.custoTransporte;
+    orcamento.custoHospedagem = req.body.custoHospedagem;
+    orcamento.custoAlimentacao = req.body.custoAlimentacao;
+    orcamento.custoAtividades = req.body.custoAtividades;
+    orcamento.outrosCustos = req.body.outrosCustos;
+    orcamento.observacao = req.body.observacao;sporte = req.body.custoTransporte;
+
+    await orcamento.save();
+    res.json(orcamento);
+  } catch (error) {
+    res.status(500).json({ erro: error.message });
+  }
+});
+
+module.exports = router;
+
+//parte das mensagens
+
+
 
 module.exports = router;

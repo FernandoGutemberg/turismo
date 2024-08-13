@@ -97,7 +97,7 @@ const Cadastrofotolocais = () => {
       .then((data) => {
         console.log("Dados salvos:", data);
         localStorage.setItem("notificacao", "true");
-        navigate('/Tabelausuarios');
+        navigate('/Tabelafotos');
       })
       .catch((error) => {
         console.error("Erro ao salvar dados:", error);

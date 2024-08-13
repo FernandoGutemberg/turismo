@@ -3,21 +3,25 @@ import { useParams, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from "react-toastify";
 import { Col, Form, Row, Button } from 'react-bootstrap';
-import InputMask from "react-input-mask";
 
 const Cadastroorcamento = () => {
   const navigate = useNavigate();
 
-  const [nomeLocal, setNomeLocal] = useState("");
-  const [descricao, setDescricao] = useState("");
-  const [fotodolocal, setFotodoLocal] = useState("");
-  const [avaliacao, setAvaliacao] = useState("");
+  const [tituloOrcamento, setTituloOrcamento] = useState("");
+  const [dataViagem, setDataViagem] = useState("");
+  const [moeda, setMoeda] = useState("");
+  const [custoTransporte, setCustoTransporte] = useState("");
+  const [custoHospedagem, setCustoHospedagem] = useState("");
+  const [custoAlimentacao, setCustoAlimentacao] = useState("");
+  const [custoAtividades, setCustoAtividades] = useState("");
+  const [outrosCustos, setOutrosCustos] = useState("");
+  const [observacao, setObservacao] = useState("");
 
   const { id } = useParams();
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:9000/getCadastrolocaisFromId/${id}`, {
+      fetch(`http://localhost:9000/getCadastroorcamentoFromId/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -25,40 +29,35 @@ const Cadastroorcamento = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          setNomeLocal(data.nomedolocal);
-          setDescricao(data.descricao);
-          setFotodoLocal(data.fotodolocal);
-          setAvaliacao(data.avaliacao);
+          setTituloOrcamento(data.tituloOrcamento);
+          setDataViagem(data.dataViagem);
+          setMoeda(data.moeda);
+          setCustoTransporte(data.custoTransporte);
+          setCustoHospedagem(data.custoHospedagem);
+          setCustoAlimentacao(data.custoAlimentacao);
+          setCustoAtividades(data.custoAtividades);
+          setOutrosCustos(data.outrosCustos);
+          setObservacao(data.observacao);
         })
         .catch((error) => {
-          console.error("Erro ao carregar dados do usuário:", error);
+          console.error("Erro ao carregar dados do orçamento:", error);
         });
     }
   }, [id]);
 
-  const handleChangeNomeLocal = (event) => {
-    setNomeLocal(event.target.value);
-  };
-
-  const handleChangeDescricao = (event) => {
-    setDescricao(event.target.value);
-  };
-
-  const handleChangeFotodoLocal = (event) => {
-    setFotodoLocal(event.target.value);
-  };
-
-  const handleChangeAvaliacao = (event) => {
-    setAvaliacao(event.target.value);
-  };
-
+  
 
   const handleOnClickSalvar = () => {
     const dados = {
-      nomeLocal,
-      descricao,
-      fotodolocal,
-      avaliacao,
+      tituloOrcamento,
+      dataViagem,
+      moeda,
+      custoTransporte,
+      custoHospedagem,
+      custoAlimentacao,
+      custoAtividades,
+      outrosCustos,
+      observacao,
     };
 
     const configuracaoEnvio = {
@@ -77,54 +76,176 @@ const Cadastroorcamento = () => {
       .then((data) => {
         console.log("Dados salvos:", data);
         localStorage.setItem("notificacao", "true");
-        navigate('/Tabelausuarios');
+        navigate('/Tabelaorcamento');
       })
       .catch((error) => {
         console.error("Erro ao salvar dados:", error);
       });
   };
 
+  const handleChangeTituloOrcamento = (event) => {
+    setTituloOrcamento(event.target.value);
+  };
+
+  const handleChangeDataViagem = (event) => {
+    setDataViagem(event.target.value);
+  };
+
+  const handleChangeMoeda = (event) => {
+    setMoeda(event.target.value);
+  };
+
+  const handleChangeCustoTransporte = (event) => {
+    setCustoTransporte(event.target.value);
+  };
+
+  const handleChangeCustoHospedagem = (event) => {
+    setCustoHospedagem(event.target.value);
+  };
+
+  const handleChangeCustoAlimentacao = (event) => {
+    setCustoAlimentacao(event.target.value);
+  };
+
+  const handleChangeCustoAtividades = (event) => {
+    setCustoAtividades(event.target.value);
+  };
+
+  const handleChangeOutrosCustos = (event) => {
+    setOutrosCustos(event.target.value);
+  };
+
+
   return (
     <div>
-      <h1>Orçamento dos locais visitados</h1>
+      <h1>Orçamento de Viagem</h1>
       <Form>
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+        <Form.Group as={Row} className="mb-3" controlId="formTituloOrcamento">
           <Form.Label column sm="2">
-            Nome do Local:
+            Título do Orçamento:
           </Form.Label>
           <Col sm="10">
-            <Form.Control type="text" placeholder="Seu nome do local" name="nome" value={nomeLocal} onChange={handleChangeNomeLocal} />
+            <Form.Control 
+              type="text" 
+              placeholder="Viagem para Paris - Verão 2024" 
+              value={tituloOrcamento} 
+              onChange={handleChangeTituloOrcamento} 
+            />
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+        <Form.Group as={Row} className="mb-3" controlId="formDataViagem">
           <Form.Label column sm="2">
-            Descricao:
+            Data da Viagem:
           </Form.Label>
           <Col sm="10">
-            <InputMask className="estilizacaoInputText" placeholder="000.000.000-00" mask="999.999.999-99" value={descricao} onChange={handleChangeDescricao} />
+            <Form.Control 
+              type="text" 
+              placeholder="Data de início e término da viagem" 
+              value={dataViagem} 
+              onChange={handleChangeDataViagem} 
+            />
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+        <Form.Group as={Row} className="mb-3" controlId="formMoeda">
           <Form.Label column sm="2">
-            Foto do local:
+            Moeda:
           </Form.Label>
           <Col sm="10">
-          <Form.Control type="text" placeholder="Seu sexo" name="nome" value={fotodolocal} onChange={handleChangeFotodoLocal} />
+            <Form.Control 
+              type="text" 
+              placeholder="USD, EUR, BRL" 
+              value={moeda} 
+              onChange={handleChangeMoeda} 
+            />
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+        <Form.Group as={Row} className="mb-3" controlId="formCustoTransporte">
           <Form.Label column sm="2">
-            avaliacao:
+            Custo Total Estimado de Transporte:
           </Form.Label>
           <Col sm="10">
-            <InputMask className="estilizacaoInputText" placeholder="99999-9999" mask="99999-9999" value={avaliacao} onChange={handleChangeAvaliacao} />
+            <Form.Control 
+              type="text" 
+              placeholder="Valor estimado para transporte" 
+              value={custoTransporte} 
+              onChange={handleChangeCustoTransporte} 
+            />
           </Col>
         </Form.Group>
 
+        <Form.Group as={Row} className="mb-3" controlId="formCustoHospedagem">
+          <Form.Label column sm="2">
+            Custo Total Estimado de Hospedagem:
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control 
+              type="text" 
+              placeholder="Valor estimado para hospedagem" 
+              value={custoHospedagem} 
+              onChange={(e) => setCustoHospedagem(e.target.value)} 
+            />
+          </Col>
+        </Form.Group>
 
+        <Form.Group as={Row} className="mb-3" controlId="formCustoAlimentacao">
+          <Form.Label column sm="2">
+            Custo Total Estimado de Alimentação:
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control 
+              type="text" 
+              placeholder="Valor estimado para alimentação" 
+              value={custoAlimentacao} 
+              onChange={handleChangeCustoAlimentacao} 
+            />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-3" controlId="formCustoAtividades">
+          <Form.Label column sm="2">
+            Custo Total Estimado de Atividades/Turismo:
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control 
+              type="text" 
+              placeholder="Valor estimado para atividades e turismo" 
+              value={custoAtividades} 
+              onChange={handleChangeCustoAtividades} 
+            />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-3" controlId="formOutrosCustos">
+          <Form.Label column sm="2">
+            Outros Custos:
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control 
+              type="text" 
+              placeholder="Outros custos estimados" 
+              value={outrosCustos} 
+              onChange={handleChangeOutrosCustos} 
+            />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-3" controlId="formObservacao">
+          <Form.Label column sm="2">
+            Observação:
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control 
+              as="textarea" 
+              rows={3} 
+              placeholder="Observações adicionais sobre o orçamento" 
+              value={observacao} 
+              onChange={(e) => setObservacao(e.target.value)} 
+            />
+          </Col>
+        </Form.Group>
 
         <Button type="button" onClick={handleOnClickSalvar}>
           Salvar
@@ -135,7 +256,7 @@ const Cadastroorcamento = () => {
           variant="dark"
           className='voltar'
           type='button'
-          onClick={() => window.location.href = '/Tabelausuarios/'}
+          onClick={() => window.location.href = '/Tabelaorcamento/'}
         >
           Voltar
         </Button>

@@ -41,8 +41,8 @@ function App() {
       <Routes>
         <Route path="/Cadastrousuarios/:id?" element={<Cadastrousuarios />} />
         <Route path="/Cadastrolocais/:id?" element={<Cadastrolocais />} />
-        <Route path="/Cadastrofotolocais" element={<Cadastrofotolocais />} />
-        <Route path="/Cadastroorcamento" element={<Cadastroorcamento />} />
+        <Route path="/Cadastrofotolocais/:id?" element={<Cadastrofotolocais />} />
+        <Route path="/Cadastroorcamento/:id?" element={<Cadastroorcamento />} />
         <Route path="/Cadastromensagens" element={<Cadastromensagens />} />
         <Route path="/Geolocalizacao" element={<Geolocalizacao />} />
         <Route path="/Tabelausuarios" element={<Tabelausuarios />} />

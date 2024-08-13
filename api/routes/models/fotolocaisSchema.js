@@ -3,12 +3,16 @@ const mongoose = require('mongoose');
 
 //estamos definindo um novo schema para os documentos de usuário no B.D 
 const fotolocaisSchema = new mongoose.Schema({
-    nomedolocal: String,
+    uploadfoto: String,
+    local: String,
     descricao: String,
-    fotodolocal: String,
-    avaliacao: String,
+    localizacao: String,
+    adicionadopor: String,
+    criadoem: String,
+
 });
 const FotolocaisModel = mongoose.model('Fotolocais', fotolocaisSchema); //processo de compilação
 
 
 module.exports = fotolocaisSchema;
+

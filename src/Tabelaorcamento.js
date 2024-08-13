@@ -1,189 +1,146 @@
-// Importa as funções useState e useEffect do React
 import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from 'react-router-dom'; // Assumindo que você está usando react-router-dom para navegação
+import { useNavigate } from 'react-router-dom';
 
-// Define o componente funcional Tabelausuarios
 const Tabelaorcamento = () => {
   const navigate = useNavigate();
+  const notifyDelete = () => toast("Orçamento deletado com sucesso!");
+  const notifyCadastro = () => toast("Orçamento salvo com sucesso!");
 
+  const [orcamentos, setOrcamentos] = useState([]);
 
-  const notifyDelete = () => toast("Usuário deletado com sucesso!");
-  const notifyCadastro = () => toast("Usuário salvo com sucesso!");
-
-  // const notify = () => toast("Usuário salvo com sucesso!");
-
-  // Define um estado 'usuarios' usando o hook useState
-  // O estado 'usuarios' é inicializado como um array vazio
-  const [usuarios, setUsuarios] = useState([]);
-
-  // Função assíncrona que busca os usuários do servidor
-  const fetchUsuarios = async () => {
+  const fetchOrcamentos = async () => {
     try {
       const response = await fetch('http://localhost:9000/tabelaorcamento');
-      // Faz uma requisição para 'http://localhost:9000/tabela' usando fetch API
       const data = await response.json();
-      // Extrai os dados JSON da resposta
-      setUsuarios(data);
-      // Atualiza o estado 'usuarios' com os dados obtidos do servidor
+      setOrcamentos(data);
     } catch (error) {
       console.error(error);
-      // Se ocorrer um erro, ele será registrado no console
     }
   };
 
-  // Hook useEffect que executa a função fetchUsuarios quando o componente é montado
   useEffect(() => {
-    // if existir o localStorage x emita o notify
-    // depois de emitir, limpe Ele 
     if (localStorage.getItem("notificacao") === "true") {
-
       localStorage.setItem("notificacao", null);
-
       setTimeout(() => {
-
         notifyCadastro();
       }, 500);
-
     }
-
-    fetchUsuarios();
-    // Chama a função fetchUsuarios quando o componente é montado
+    fetchOrcamentos();
   }, []);
 
-  // Função para lidar com a exclusão de um usuário
-
-  // Estado para controlar o modal de confirmação de exclusão
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [orcamentoIdToDelete, setOrcamentoIdToDelete] = useState('');
 
-  // Estado para armazenar o ID da categoria a ser excluída
-  const [usuariosIdToDelete, setUsuariosIdToDelete] = useState('');
-
-  // Função para lidar com a exclusão de uma categoria
-  const handleDelete = async (usuarioId) => {
-    // Exibe o modal de confirmação
+  const handleDelete = async (orcamentoId) => {
     setShowDeleteModal(true);
-    setUsuariosIdToDelete(usuarioId);
+    setOrcamentoIdToDelete(orcamentoId);
   };
 
-  // Função para confirmar a exclusão da categoria
   const handleDeleteConfirmed = async () => {
     try {
-      await fetch(`http://localhost:9000/tabelausuarios/${usuariosIdToDelete}`, {
+      await fetch(`http://localhost:9000/tabelaorcamento/${orcamentoIdToDelete}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({}),
-      })
-        .then(() => {
-          fetchUsuarios();
-          setShowDeleteModal(false);
-          notifyDelete();
-
-        })
-        .catch(error => {
-          console.error('Erro durante a exclusão', error);
-        });
+      });
+      fetchOrcamentos();
+      setShowDeleteModal(false);
+      notifyDelete();
     } catch (error) {
-      console.error('Erro ao tentar deletar a categoria', error);
+      console.error('Erro durante a exclusão', error);
     }
   };
 
-  const redirecionarParaCadastroUsuarios = () => {
-    window.location.href = '/Cadastrousuarios'; // Redireciona para a página de cadastro de usuários
+  const redirecionarParaCadastroOrcamento = () => {
+    window.location.href = '/Cadastroorcamento';
   };
 
+  const DeleteModal = ({ show, handleClose }) => (
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Confirmar Exclusão</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <p>Deseja realmente excluir o orçamento?</p>
+          <Button variant="danger" onClick={handleDeleteConfirmed}>
+            Excluir
+          </Button>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancelar
+          </Button>
+        </Form>
+      </Modal.Body>
+    </Modal>
+  );
 
-  // Modal de confirmação de exclusão
-  const DeleteModal = ({ show, handleClose }) => {
-    return (
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmar Exclusão</Modal.Title>
-
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <p>Deseja realmente excluir a categoria?</p>
-            <Button variant="danger" onClick={handleDeleteConfirmed}>
-              Excluir
-            </Button>
-            <Button variant="secondary" onClick={handleClose}>
-              Cancelar
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
-    );
-  };
-
-  //Retorna a estrutura JSX do componente Tabela
   return (
     <div>
       <h2>Tabela de Orçamento</h2>
-      <Button onClick={redirecionarParaCadastroUsuarios}>Cadastrar Usuário</Button>
-
-      <Table striped bordered hover >
+      <Button onClick={redirecionarParaCadastroOrcamento}>Cadastrar Orçamento</Button>
+      <Table striped bordered hover>
         <thead>
           <tr>
             <th>#</th>
-            <th>Nome Completo</th>
-            <th>CPF</th>
-            <th>Data de Nascimento</th>
-            <th>Telefone</th>
-            <th>Senha</th>
-            <th>Email</th>
+            <th>Título do Orçamento</th>
+            <th>Data da Viagem</th>
+            <th>Moeda</th>
+            <th>Custo Transporte</th>
+            <th>Custo Hospedagem</th>
+            <th>Custo Alimentação</th>
+            <th>Custo Atividades</th>
+            <th>Outros Custos</th>
+            <th>Observação</th>
             <th>Ação Deletar</th>
             <th>Ação Editar</th>
           </tr>
         </thead>
         <tbody>
-
-          {usuarios.map((usuario, index) => (
+          {orcamentos.map((orcamento, index) => (
             <tr key={index}>
               <td>{index}</td>
-              <td>{usuario.nomecompleto}</td>
-              <td>{usuario.cpf}</td>
-              <td>{usuario.datanascimento}</td>
-              <td>{usuario.telefone}</td>
-              <td>{usuario.senha}</td>
-              <td>{usuario.email}</td>
-
-              {/* Botão para excluir um usuário */}
+              <td>{orcamento.tituloOrcamento}</td>
+              <td>{orcamento.dataViagem}</td>
+              <td>{orcamento.moeda}</td>
+              <td>{orcamento.custoTransporte}</td>
+              <td>{orcamento.custoHospedagem}</td>
+              <td>{orcamento.custoAlimentacao}</td>
+              <td>{orcamento.custoAtividades}</td>
+              <td>{orcamento.outrosCustos}</td>
+              <td>{orcamento.observacao}</td>
               <td>
                 <Button
                   variant="danger"
                   className='delete'
                   type='button'
-                  onClick={() => handleDelete(usuario._id)}
-                >DELETAR
+                  onClick={() => handleDelete(orcamento._id)}
+                >
+                  DELETAR
                 </Button>
               </td>
-
-              {/* Botão para editar um usuário */}
-
               <td>
                 <Button
                   className='update'
                   type='button'
-                  onClick={() => window.location.href = '/Cadastrousuarios/' + usuario._id}
-                >EDITAR
+                  onClick={() => window.location.href = '/Cadastroorcamento/' + orcamento._id}
+                >
+                  EDITAR
                 </Button>
               </td>
-
             </tr>
           ))}
         </tbody>
       </Table>
       <ToastContainer />
-
       <DeleteModal show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} />
-
     </div>
   );
 };
+
 export default Tabelaorcamento;
