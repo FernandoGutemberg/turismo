@@ -45,7 +45,6 @@ const Cadastroorcamento = () => {
     }
   }, [id]);
 
-  
 
   const handleOnClickSalvar = () => {
     const dados = {
@@ -115,6 +114,9 @@ const Cadastroorcamento = () => {
     setOutrosCustos(event.target.value);
   };
 
+  const handleChangsetObservacao = (event) => {
+    setObservacao(event.target.value);
+  };
 
   return (
     <div>
@@ -125,11 +127,11 @@ const Cadastroorcamento = () => {
             Título do Orçamento:
           </Form.Label>
           <Col sm="10">
-            <Form.Control 
-              type="text" 
-              placeholder="Viagem para Paris - Verão 2024" 
-              value={tituloOrcamento} 
-              onChange={handleChangeTituloOrcamento} 
+            <Form.Control
+              type="text"
+              placeholder="Viagem para Paris - Verão 2024"
+              value={tituloOrcamento}
+              onChange={handleChangeTituloOrcamento}
             />
           </Col>
         </Form.Group>
@@ -139,11 +141,11 @@ const Cadastroorcamento = () => {
             Data da Viagem:
           </Form.Label>
           <Col sm="10">
-            <Form.Control 
-              type="text" 
-              placeholder="Data de início e término da viagem" 
-              value={dataViagem} 
-              onChange={handleChangeDataViagem} 
+            <Form.Control
+              type="text"
+              placeholder="Data de início e término da viagem"
+              value={dataViagem}
+              onChange={handleChangeDataViagem}
             />
           </Col>
         </Form.Group>
@@ -153,11 +155,11 @@ const Cadastroorcamento = () => {
             Moeda:
           </Form.Label>
           <Col sm="10">
-            <Form.Control 
-              type="text" 
-              placeholder="USD, EUR, BRL" 
-              value={moeda} 
-              onChange={handleChangeMoeda} 
+            <Form.Control
+              type="text"
+              placeholder="USD, EUR, BRL"
+              value={moeda}
+              onChange={handleChangeMoeda}
             />
           </Col>
         </Form.Group>
@@ -167,11 +169,11 @@ const Cadastroorcamento = () => {
             Custo Total Estimado de Transporte:
           </Form.Label>
           <Col sm="10">
-            <Form.Control 
-              type="text" 
-              placeholder="Valor estimado para transporte" 
-              value={custoTransporte} 
-              onChange={handleChangeCustoTransporte} 
+            <Form.Control
+              type="text"
+              placeholder="Valor estimado para transporte"
+              value={custoTransporte}
+              onChange={handleChangeCustoTransporte}
             />
           </Col>
         </Form.Group>
@@ -181,11 +183,11 @@ const Cadastroorcamento = () => {
             Custo Total Estimado de Hospedagem:
           </Form.Label>
           <Col sm="10">
-            <Form.Control 
-              type="text" 
-              placeholder="Valor estimado para hospedagem" 
-              value={custoHospedagem} 
-              onChange={(e) => setCustoHospedagem(e.target.value)} 
+            <Form.Control
+              type="text"
+              placeholder="Valor estimado para hospedagem"
+              value={custoHospedagem}
+              onChange={handleChangeCustoHospedagem}
             />
           </Col>
         </Form.Group>
@@ -195,11 +197,11 @@ const Cadastroorcamento = () => {
             Custo Total Estimado de Alimentação:
           </Form.Label>
           <Col sm="10">
-            <Form.Control 
-              type="text" 
-              placeholder="Valor estimado para alimentação" 
-              value={custoAlimentacao} 
-              onChange={handleChangeCustoAlimentacao} 
+            <Form.Control
+              type="text"
+              placeholder="Valor estimado para alimentação"
+              value={custoAlimentacao}
+              onChange={handleChangeCustoAlimentacao}
             />
           </Col>
         </Form.Group>
@@ -209,11 +211,11 @@ const Cadastroorcamento = () => {
             Custo Total Estimado de Atividades/Turismo:
           </Form.Label>
           <Col sm="10">
-            <Form.Control 
-              type="text" 
-              placeholder="Valor estimado para atividades e turismo" 
-              value={custoAtividades} 
-              onChange={handleChangeCustoAtividades} 
+            <Form.Control
+              type="text"
+              placeholder="Valor estimado para atividades e turismo"
+              value={custoAtividades}
+              onChange={handleChangeCustoAtividades}
             />
           </Col>
         </Form.Group>
@@ -223,11 +225,11 @@ const Cadastroorcamento = () => {
             Outros Custos:
           </Form.Label>
           <Col sm="10">
-            <Form.Control 
-              type="text" 
-              placeholder="Outros custos estimados" 
-              value={outrosCustos} 
-              onChange={handleChangeOutrosCustos} 
+            <Form.Control
+              type="text"
+              placeholder="Outros custos estimados"
+              value={outrosCustos}
+              onChange={handleChangeOutrosCustos}
             />
           </Col>
         </Form.Group>
@@ -237,12 +239,12 @@ const Cadastroorcamento = () => {
             Observação:
           </Form.Label>
           <Col sm="10">
-            <Form.Control 
-              as="textarea" 
-              rows={3} 
-              placeholder="Observações adicionais sobre o orçamento" 
-              value={observacao} 
-              onChange={(e) => setObservacao(e.target.value)} 
+            <Form.Control
+              as="textarea"
+              rows={3}
+              placeholder="Observações adicionais sobre o orçamento"
+              value={observacao}
+              onChange={handleChangsetObservacao}
             />
           </Col>
         </Form.Group>

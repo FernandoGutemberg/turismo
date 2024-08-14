@@ -4,23 +4,18 @@ import Table from 'react-bootstrap/Table';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from 'react-router-dom'; // Assumindo que você está usando react-router-dom para navegação
+import { useNavigate } from 'react-router-dom';
 
-// Define o componente funcional Tabelausuarios
 const Tabelafotos = () => {
   const navigate = useNavigate();
 
-
   const notifyDelete = () => toast("Usuário deletado com sucesso!");
-  const notifyCadastro = () => toast("Usuário salvo com sucesso!");
-
-  
+  const notifyCadastro = () => toast("Usuário salvo com sucesso!");  
 
   const [fotos, setFotos] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [fotoIdToDelete, setFotoIdToDelete] = useState('');
 
-  // Função assíncrona que busca os usuários do servidor
   useEffect(() => {
     if (localStorage.getItem("notificacao") === "true") {
       localStorage.setItem("notificacao", null);

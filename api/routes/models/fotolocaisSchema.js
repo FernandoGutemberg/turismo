@@ -1,7 +1,5 @@
-//importa o modulo mongoose, que é uma biblioteca do Node.js usada para interagir com o banco de dados MongoDB
 const mongoose = require('mongoose');
 
-//estamos definindo um novo schema para os documentos de usuário no B.D 
 const fotolocaisSchema = new mongoose.Schema({
     uploadfoto: String,
     local: String,
@@ -11,8 +9,7 @@ const fotolocaisSchema = new mongoose.Schema({
     criadoem: String,
 
 });
-const FotolocaisModel = mongoose.model('Fotolocais', fotolocaisSchema); //processo de compilação
-
+const FotolocaisModel = mongoose.model('Fotolocais', fotolocaisSchema); 
 
 module.exports = fotolocaisSchema;
 

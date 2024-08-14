@@ -58,24 +58,18 @@ router.post('/Cadastrousuarios', async (req, res) => {
 router.get('/getCadastrousuariosFromId/:id', async (req, res) => {
 
   try {
-    //Obtém o ID do usuário da URL
     const userId = req.params.id;
 
-    //Cria um modelo de usuário usando o mongoose
     const UserModel = mongoose.model('Users', userSchema);
 
-    //Busca o usuário pelo ID
     const usuario = await UserModel.findById(userId);
 
-    //Se o usuário não for encontrado, retorna um erro 404
     if (!usuario) {
       return res.status(404).json({ erro: 'Usuário não encontrado' });
     }
 
-    //Retorna os dados do usuário
     res.json(usuario);
   } catch (error) {
-    //Se houver um erro, responde com um status de erro e mensagem
     res.status(500).json({ erro: error.message });
   }
 });
@@ -84,17 +78,13 @@ router.get('/getCadastrousuariosFromId/:id', async (req, res) => {
 //Aqui vai pegar os dados do MongoDB com a rota Get e atualiza na tabela
 router.get('/Tabelausuarios', async (req, res) => {
   try {
-    // Cria um modelo de usuário usando o mongoose
     let UserModel = mongoose.model('Users', userSchema);
 
-    // Busca todos os usuários no banco de dados
     let usuarios = await UserModel.find();
 
-    // Responde com os dados dos usuários
     res.json(usuarios);
 
   } catch (error) {
-    // Se houver um erro, responde com um status de erro e mensagem
     res.status(500).json({ erro: error.message });
   }
 });
@@ -104,33 +94,25 @@ router.get('/Tabelausuarios', async (req, res) => {
 //  O ID é extraído da URL e o usuário correspondente é removido do banco de dados. O registro excluído é retornado como resposta.
 router.delete('/tabelausuarios/:id', async (req, res) => {
   try {
-    //Obtendo o modelo de usuário definido no mongodb utilizando o mongoose. 
     let UserModel = mongoose.model('Users', userSchema);
-    //Executa uma operação de exclusao no Banco de Dados. 
     const deletedUser = await UserModel.findByIdAndDelete(req.params.id);
-    //Atualiza o que foi exluido e retorna sem o registro. 
     res.json(deletedUser);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-
-
 //Aqui é a rota para ATUALIZAR
 router.patch('/Cadastrousuarios/:id?', async (req, res) => {
   try {
-    // Obtém o ID do usuário da URL, se fornecido
     const userId = req.params.id;
 
-    // Cria um modelo de usuário usando o mongoose
     const UserModel = mongoose.model('Users', userSchema);
 
     let usuario;
 
     usuario = await UserModel.findById(userId);
 
-    // Preenche os dados do usuário com os dados fornecidos no corpo da requisição
     usuario.nomecompleto = req.body.nomeCompleto;
     usuario.cpf = req.body.cpf;
     usuario.datanascimento = req.body.dataNascimento;
@@ -138,47 +120,36 @@ router.patch('/Cadastrousuarios/:id?', async (req, res) => {
     usuario.email = req.body.email;
     usuario.senha = req.body.senha;
 
-    // Salva o usuário no banco de dados
     await usuario.save();
 
-    // Responde com os dados do usuário salvo
     res.json(usuario);
   } catch (error) {
-    // Se houver um erro, responde com um status de erro e mensagem
     res.status(500).json({ erro: error.message });
   }
 });
 
-
 //--------------------------------------------------------------------------------------------------------------------------------------------
 
-
 //parte dos LOCAIS
-
 //Define uma rota http para '/cadastro' - AQUI NOS MANDAMOS OS DADOS PARA O MONGODB
 router.post('/Cadastrolocais', async (req, res) => {
   try {
-    //Cria um novo usuário com base nos dados do corpo da requisição
     let LocalModel = mongoose.model('Locais', locaisSchema);
 
-    //Cria uma nova instância de usuário com base nos dados recebidos na requisição
     let local = new LocalModel({
       paisLocal: req.body.paisLocal,
       estado: req.body.estado,
       cidade: req.body.cidade,
       bairro: req.body.bairro,
-      foto: req.body.foto, // Caminho do arquivo armazenado
+      foto: req.body.foto, 
       avaliacao: req.body.avaliacao,
       descricao: req.body.descricao,
     });
 
-    // Capturar os dados
     await local.save();
 
-    // Responde com o objeto de usuário salvo
     res.json("Salvei");
   } catch (error) {
-    // Se houver um erro, responde com um status de erro e mensagem
     res.status(500).json({ erro: error.message });
   }
 });
@@ -187,24 +158,18 @@ router.post('/Cadastrolocais', async (req, res) => {
 router.get('/getCadastrolocaisFromId/:id', async (req, res) => {
 
   try {
-    //Obtém o ID do usuário da URL
     const locaisId = req.params.id;
 
-    //Cria um modelo de usuário usando o mongoose
     const LocalModel = mongoose.model('Locais', locaisSchema);
 
-    //Busca o usuário pelo ID
     const locais = await LocalModel.findById(locaisId);
 
-    //Se o usuário não for encontrado, retorna um erro 404
     if (!locais) {
       return res.status(404).json({ erro: 'Local não encontrado' });
     }
 
-    //Retorna os dados do usuário
     res.json(locais);
   } catch (error) {
-    //Se houver um erro, responde com um status de erro e mensagem
     res.status(500).json({ erro: error.message });
   }
 });
@@ -212,30 +177,24 @@ router.get('/getCadastrolocaisFromId/:id', async (req, res) => {
 //Aqui vai pegar os dados do MongoDB com a rota Get e atualiza na tabela
 router.get('/Tabelalocais', async (req, res) => {
   try {
-    // Cria um modelo de usuário usando o mongoose
     let LocalModel = mongoose.model('Locais', locaisSchema);
 
-    // Busca todos os usuários no banco de dados
     let locais = await LocalModel.find();
 
-    // Responde com os dados dos usuários
     res.json(locais);
 
   } catch (error) {
-    // Se houver um erro, responde com um status de erro e mensagem
     res.status(500).json({ erro: error.message });
   }
 });
 
 // Esta rota lida com requisições HTTP DELETE e é usada para excluir um usuário específico do banco de dados, baseado em seu ID.
-//  O ID é extraído da URL e o usuário correspondente é removido do banco de dados. O registro excluído é retornado como resposta.
 router.delete('/tabelalocais/:id', async (req, res) => {
   try {
-    //Obtendo o modelo de usuário definido no mongodb utilizando o mongoose. 
     let LocalModel = mongoose.model('Locais', locaisSchema);
-    //Executa uma operação de exclusao no Banco de Dados. 
+
     const deleteLocal = await LocalModel.findByIdAndDelete(req.params.id);
-    //Atualiza o que foi exluido e retorna sem o registro. 
+
     res.json(deleteLocal);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -245,17 +204,14 @@ router.delete('/tabelalocais/:id', async (req, res) => {
 //Aqui é a rota para ATUALIZAR
 router.patch('/Cadastrolocais/:id?', async (req, res) => {
   try {
-    // Obtém o ID do usuário da URL, se fornecido
     const localId = req.params.id;
 
-    // Cria um modelo de usuário usando o mongoose
     const LocalModel = mongoose.model('Locais', locaisSchema);
 
     let local;
 
     local = await LocalModel.findById(localId);
 
-    // Preenche os dados do usuário com os dados fornecidos no corpo da requisição
     local.paislocal = req.body.paislocal;
     local.estado = req.body.estado;
     local.cidade = req.body.cidade;
@@ -264,30 +220,21 @@ router.patch('/Cadastrolocais/:id?', async (req, res) => {
     local.avaliacao = req.body.avaliacao;
     local.descricao = req.body.descricao;
 
-
-    // Salva o usuário no banco de dados
     await local.save();
 
-    // Responde com os dados do usuário salvo
     res.json(local);
   } catch (error) {
-    // Se houver um erro, responde com um status de erro e mensagem
     res.status(500).json({ erro: error.message });
   }
 });
 
-
 //---------------------------------------------------------------------------------------
 
-
 //parte da Foto dos locais
-
 router.post('/Cadastrofotolocais', async (req, res) => {
   try {
-    //Cria um novo usuário com base nos dados do corpo da requisição
     let FotolocaisModel = mongoose.model('Fotolocais', fotolocaisSchema);
 
-    //Cria uma nova instância de usuário com base nos dados recebidos na requisição
     let fotolocais = new FotolocaisModel({
       uploadfoto: req.body.uploadfoto,
       local: req.body.local,
@@ -296,42 +243,31 @@ router.post('/Cadastrofotolocais', async (req, res) => {
       adicionadopor: req.body.adicionadopor,
       criadoem: req.body.criadoem,
 
-
     });
 
-    // Capturar os dados
     await fotolocais.save();
 
-    // Responde com o objeto de usuário salvo
     res.json("Salvei");
   } catch (error) {
-    // Se houver um erro, responde com um status de erro e mensagem
     res.status(500).json({ erro: error.message });
   }
 });
-
-
 
 
 //Pega os dados para atualizar
 router.get('/getCadastrofotolocaisFromId/:id', async (req, res) => {
 
   try {
-    //Obtém o ID do usuário da URL
     const fotolocaisId = req.params.id;
 
-    //Cria um modelo de usuário usando o mongoose
     const FotolocaisModel = mongoose.model('Fotolocais', fotolocaisSchema);
 
-    //Busca o usuário pelo ID
     const fotolocais = await FotolocaisModel.findById(fotolocaisId);
 
-    //Se o usuário não for encontrado, retorna um erro 404
     if (!fotolocais) {
       return res.status(404).json({ erro: 'Fotos Local não encontrado' });
     }
 
-    //Retorna os dados do usuário
     res.json(fotolocais);
   } catch (error) {
     //Se houver um erro, responde com um status de erro e mensagem
@@ -342,30 +278,24 @@ router.get('/getCadastrofotolocaisFromId/:id', async (req, res) => {
 //Aqui vai pegar os dados do MongoDB com a rota Get e atualiza na tabela
 router.get('/Tabelafotos', async (req, res) => {
   try {
-    // Cria um modelo de usuário usando o mongoose
     let FotolocaisModel = mongoose.model('Fotolocais', fotolocaisSchema);
 
-    // Busca todos os usuários no banco de dados
     let fotolocais = await FotolocaisModel.find();
 
-    // Responde com os dados dos usuários
     res.json(fotolocais);
 
   } catch (error) {
-    // Se houver um erro, responde com um status de erro e mensagem
     res.status(500).json({ erro: error.message });
   }
 });
 
 // Esta rota lida com requisições HTTP DELETE e é usada para excluir um usuário específico do banco de dados, baseado em seu ID.
-//  O ID é extraído da URL e o usuário correspondente é removido do banco de dados. O registro excluído é retornado como resposta.
 router.delete('/Tabelafotos/:id', async (req, res) => {
   try {
-    //Obtendo o modelo de usuário definido no mongodb utilizando o mongoose. 
     let FotolocaisModel = mongoose.model('Fotolocais', fotolocaisSchema);
-    //Executa uma operação de exclusao no Banco de Dados. 
+
     const deleteFotolocais = await FotolocaisModel.findByIdAndDelete(req.params.id);
-    //Atualiza o que foi exluido e retorna sem o registro. 
+
     res.json(deleteFotolocais);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -375,45 +305,34 @@ router.delete('/Tabelafotos/:id', async (req, res) => {
 //Aqui é a rota para ATUALIZAR
 router.patch('/Cadastrofotolocais/:id?', async (req, res) => {
   try {
-    // Obtém o ID do usuário da URL, se fornecido
     const fotolocaisId = req.params.id;
 
-    // Cria um modelo de usuário usando o mongoose
     const FotolocaisModel = mongoose.model('Fotolocais', fotolocaisSchema);
 
     let fotolocais;
 
     fotolocais = await FotolocaisModel.findById(fotolocaisId);
 
-    // Preenche os dados do usuário com os dados fornecidos no corpo da requisição
     fotolocais.nomedolocal = req.body.nomedolocal;
     fotolocais.descricao = req.body.descricao;
     fotolocais.fotodolocal = req.body.fotodolocal;
     fotolocais.avaliacao = req.body.avaliacao;
 
-
-    // Salva o usuário no banco de dados
     await fotolocais.save();
 
-    // Responde com os dados do usuário salvo
     res.json(fotolocais);
   } catch (error) {
-    // Se houver um erro, responde com um status de erro e mensagem
     res.status(500).json({ erro: error.message });
   }
 });
-
-
 
 
 //parte do Orçamento 
 
 router.post('/Cadastroorcamento', async (req, res) => {
   try {
-    //Cria um novo usuário com base nos dados do corpo da requisição
     let OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
 
-    //Cria uma nova instância de usuário com base nos dados recebidos na requisição
     let orcamento = new OrcamentoModel({
       tituloOrcamento: req.body.tituloOrcamento,
       dataViagem: req.body.dataViagem,
@@ -426,13 +345,10 @@ router.post('/Cadastroorcamento', async (req, res) => {
       observacao: req.body.observacao,
     });
 
-    // Capturar os dados
     await orcamento.save();
 
-    // Responde com o objeto de usuário salvo
     res.json("Salvei");
   } catch (error) {
-    // Se houver um erro, responde com um status de erro e mensagem
     res.status(500).json({ erro: error.message });
   }
 });
@@ -441,7 +357,9 @@ router.post('/Cadastroorcamento', async (req, res) => {
 router.get('/getCadastroorcamentoFromId/:id', async (req, res) => {
   try {
     const orcamentoId = req.params.id;
+
     const OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
+
     const orcamento = await OrcamentoModel.findById(orcamentoId);
 
     if (!orcamento) {
@@ -458,6 +376,7 @@ router.get('/getCadastroorcamentoFromId/:id', async (req, res) => {
 router.get('/Tabelaorcamento', async (req, res) => {
   try {
     let OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
+
     let orcamentos = await OrcamentoModel.find();
     res.json(orcamentos);
   } catch (error) {
@@ -469,7 +388,9 @@ router.get('/Tabelaorcamento', async (req, res) => {
 router.delete('/Tabelaorcamento/:id', async (req, res) => {
   try {
     let OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
+
     const deleteOrcamento = await OrcamentoModel.findByIdAndDelete(req.params.id);
+
     res.json(deleteOrcamento);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -480,7 +401,9 @@ router.delete('/Tabelaorcamento/:id', async (req, res) => {
 router.patch('/Cadastroorcamento/:id?', async (req, res) => {
   try {
     const orcamentoId = req.params.id;
+
     const OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
+
     let orcamento = await OrcamentoModel.findById(orcamentoId);
 
     if (!orcamento) {
@@ -498,6 +421,7 @@ router.patch('/Cadastroorcamento/:id?', async (req, res) => {
     orcamento.observacao = req.body.observacao; sporte = req.body.custoTransporte;
 
     await orcamento.save();
+
     res.json(orcamento);
   } catch (error) {
     res.status(500).json({ erro: error.message });
@@ -523,6 +447,7 @@ router.post('/Cadastromensagens', async (req, res) => {
     });
 
     await mensagem.save();
+
     res.json("Mensagem salva com sucesso!");
   } catch (error) {
     res.status(500).json({ erro: error.message });
@@ -533,6 +458,7 @@ router.post('/Cadastromensagens', async (req, res) => {
 router.get('/getCadastromensagensFromId/:id', async (req, res) => {
   try {
     const mensagemId = req.params.id;
+
     const MensagensModel = mongoose.model('Mensagens', mensagensSchema);
 
 
@@ -554,7 +480,9 @@ router.get('/Tabelamensagens', async (req, res) => {
     let MensagensModel = mongoose.model('Mensagens', mensagensSchema);
 
     let mensagens = await MensagensModel.find();
+
     res.json(mensagens);
+
   } catch (error) {
     res.status(500).json({ erro: error.message });
   }
@@ -566,6 +494,7 @@ router.delete('/Tabelamensagens/:id', async (req, res) => {
     let MensagensModel = mongoose.model('Mensagens', mensagensSchema);
 
     const deleteMensagem = await MensagensModel.findByIdAndDelete(req.params.id);
+
     res.json(deleteMensagem);
   } catch (error) {
     res.status(500).json({ erro: error.message });
@@ -576,6 +505,7 @@ router.delete('/Tabelamensagens/:id', async (req, res) => {
 router.patch('/Cadastromensagens/:id?', async (req, res) => {
   try {
     const mensagemId = req.params.id;
+
     const MensagensModel = mongoose.model('Mensagens', mensagensSchema);
 
     let mensagem = await MensagensModel.findById(mensagemId);
@@ -593,15 +523,12 @@ router.patch('/Cadastromensagens/:id?', async (req, res) => {
     mensagem.respostaComentarios = req.body.respostaComentarios;
 
     await mensagem.save();
+    
     res.json(mensagem);
   } catch (error) {
     res.status(500).json({ erro: error.message });
   }
 });
-
-
-
-
 
 
 module.exports = router;

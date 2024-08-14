@@ -1,7 +1,5 @@
-//importa o modulo mongoose, que é uma biblioteca do Node.js usada para interagir com o banco de dados MongoDB
 const mongoose = require('mongoose');
 
-//estamos definindo um novo schema para os documentos de usuário no B.D 
 const locaisSchema = new mongoose.Schema({
     paisLocal: String,
     estado: String,
@@ -12,8 +10,7 @@ const locaisSchema = new mongoose.Schema({
     descricao: String,
 
 });
-const LocalModel = mongoose.model('Locais', locaisSchema); //processo de compilação
-
+const LocalModel = mongoose.model('Locais', locaisSchema);
 
 module.exports = locaisSchema;
 

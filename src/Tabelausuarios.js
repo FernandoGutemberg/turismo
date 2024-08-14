@@ -4,9 +4,9 @@ import Table from 'react-bootstrap/Table';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from 'react-router-dom'; // Assumindo que você está usando react-router-dom para navegação
+import { useNavigate } from 'react-router-dom';
 
-// Define o componente funcional Tabelausuarios
+
 const Tabelausuarios = () => {
   const navigate = useNavigate();
 
@@ -14,31 +14,19 @@ const Tabelausuarios = () => {
   const notifyDelete = () => toast("Usuário deletado com sucesso!");
   const notifyCadastro = () => toast("Usuário salvo com sucesso!");
 
-  // const notify = () => toast("Usuário salvo com sucesso!");
-
-  // Define um estado 'usuarios' usando o hook useState
-  // O estado 'usuarios' é inicializado como um array vazio
   const [usuarios, setUsuarios] = useState([]);
 
-  // Função assíncrona que busca os usuários do servidor
   const fetchUsuarios = async () => {
     try {
       const response = await fetch('http://localhost:9000/tabelausuarios');
-      // Faz uma requisição para 'http://localhost:9000/tabela' usando fetch API
       const data = await response.json();
-      // Extrai os dados JSON da resposta
       setUsuarios(data);
-      // Atualiza o estado 'usuarios' com os dados obtidos do servidor
     } catch (error) {
       console.error(error);
-      // Se ocorrer um erro, ele será registrado no console
     }
   };
 
-  // Hook useEffect que executa a função fetchUsuarios quando o componente é montado
   useEffect(() => {
-    // if existir o localStorage x emita o notify
-    // depois de emitir, limpe Ele 
     if (localStorage.getItem("notificacao") === "true") {
 
       localStorage.setItem("notificacao", null);
@@ -51,25 +39,17 @@ const Tabelausuarios = () => {
     }
 
     fetchUsuarios();
-    // Chama a função fetchUsuarios quando o componente é montado
   }, []);
 
-  // Função para lidar com a exclusão de um usuário
 
-  // Estado para controlar o modal de confirmação de exclusão
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-  // Estado para armazenar o ID da categoria a ser excluída
   const [usuariosIdToDelete, setUsuariosIdToDelete] = useState('');
 
-  // Função para lidar com a exclusão de uma categoria
   const handleDelete = async (usuarioId) => {
-    // Exibe o modal de confirmação
     setShowDeleteModal(true);
     setUsuariosIdToDelete(usuarioId);
   };
 
-  // Função para confirmar a exclusão da categoria
   const handleDeleteConfirmed = async () => {
     try {
       await fetch(`http://localhost:9000/tabelausuarios/${usuariosIdToDelete}`, {
@@ -94,11 +74,10 @@ const Tabelausuarios = () => {
   };
 
   const redirecionarParaCadastroUsuarios = () => {
-    window.location.href = '/Cadastrousuarios'; // Redireciona para a página de cadastro de usuários
+    window.location.href = '/Cadastrousuarios';
   };
 
 
-  // Modal de confirmação de exclusão
   const DeleteModal = ({ show, handleClose }) => {
     return (
       <Modal show={show} onHide={handleClose}>
@@ -121,7 +100,6 @@ const Tabelausuarios = () => {
     );
   };
 
-  //Retorna a estrutura JSX do componente Tabela
   return (
     <div>
       <h2>Tabela de Usuários</h2>
@@ -151,7 +129,6 @@ const Tabelausuarios = () => {
               <td>{usuario.senha}</td>
               <td>{usuario.email}</td>
 
-              {/* Botão para excluir um usuário */}
               <td>
                 <Button
                   variant="danger"
@@ -161,8 +138,6 @@ const Tabelausuarios = () => {
                 >DELETAR
                 </Button>
               </td>
-
-              {/* Botão para editar um usuário */}
 
               <td>
                 <Button

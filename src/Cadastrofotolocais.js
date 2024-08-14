@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from "react-toastify";
 import { Col, Form, Row, Button } from 'react-bootstrap';
-import InputMask from "react-input-mask";
 
 const Cadastrofotolocais = () => {
   const navigate = useNavigate();
@@ -14,7 +13,6 @@ const Cadastrofotolocais = () => {
   const [localizacao, setLocalizacao] = useState("");
   const [adicionadopor, setAdicionadoPor] = useState("");
   const [criadoem, setCriadoEm] = useState("");
-
 
   const { id } = useParams();
 
@@ -34,7 +32,6 @@ const Cadastrofotolocais = () => {
           setLocalizacao(data.localizacao);
           setAdicionadoPor(data.adicionadopor);
           setCriadoEm(data.criadoem);
-
 
         })
         .catch((error) => {
@@ -67,8 +64,6 @@ const Cadastrofotolocais = () => {
     setCriadoEm(event.target.value);
   };
 
-
-
   const handleOnClickSalvar = () => {
     const dados = {
       uploadfoto,
@@ -77,7 +72,6 @@ const Cadastrofotolocais = () => {
       localizacao,
       adicionadopor,
       criadoem     
-
 
     };
 
@@ -104,24 +98,10 @@ const Cadastrofotolocais = () => {
       });
   };
 
-  //Fazer upload da foto
-  //Local
-  //Descrição
-  //Localização
-  //Adicionado por
-  //Criadoem
-  // const [uploadfoto, setUploadFoto] = useState("");
-  // const [local, setLocal] = useState("");
-  // const [descricao, setDescricao] = useState("");
-  // const [localizacao, setLocalizacao] = useState("");
-  // const [adicionadopor, setAdicionadoPor] = useState("");
-  // const [criadoem, setCriadoEm] = useState("");
-
   return (
     <div>
       
       <h1>Foto dos locais</h1>
-
       
       <Form>
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
@@ -177,9 +157,6 @@ const Cadastrofotolocais = () => {
             <Form.Control type="text" placeholder="Adicione o dia que foi criado" name="nome" value={criadoem} onChange={handleChangeCriadoEm} />
           </Col>
         </Form.Group>
-
-
-
 
         <Button type="button" onClick={handleOnClickSalvar}>
           Salvar

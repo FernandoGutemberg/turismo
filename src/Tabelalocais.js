@@ -5,7 +5,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 
-// Componente Tabelalocais
 const Tabelalocais = () => {
   const navigate = useNavigate();
 
@@ -14,7 +13,6 @@ const Tabelalocais = () => {
 
   const [locais, setLocais] = useState([]);
 
-  // Função para buscar os locais do servidor
   const fetchLocais = async () => {
     try {
       const response = await fetch('http://localhost:9000/tabelalocais');
@@ -35,7 +33,6 @@ const Tabelalocais = () => {
     fetchLocais();
   }, []);
 
-  // Estado e funções para controle do modal de exclusão
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [localIdToDelete, setLocalIdToDelete] = useState('');
 
@@ -58,7 +55,6 @@ const Tabelalocais = () => {
     }
   };
 
-  // Modal de confirmação de exclusão
   const DeleteModal = ({ show, handleClose }) => (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>

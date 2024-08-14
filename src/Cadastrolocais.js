@@ -37,7 +37,7 @@ const Cadastrolocais = () => {
 
         })
         .catch((error) => {
-          console.error("Erro ao carregar dados do usuário:", error);
+          console.error("Erro ao carregar dados dos locais:", error);
         });
     }
   }, [id]);
@@ -71,11 +71,6 @@ const Cadastrolocais = () => {
   const handleChangeDescricao = (event) => {
     setDescricao(event.target.value);
   };
-
-  
-
- 
-
 
 
   const handleOnClickSalvar = () => {
@@ -111,13 +106,7 @@ const Cadastrolocais = () => {
         console.error("Erro ao salvar dados:", error);
       });
   };
-  //País
-  //Estado
-  //Cidade
-  //Bairro
-  //Foto
-  //Avaliacao
-
+ 
 
   return (
     <div>
@@ -133,7 +122,6 @@ const Cadastrolocais = () => {
           </Col>
         </Form.Group>
 
-        {/* aqui */}
 
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
           <Form.Label column sm="2">
@@ -143,8 +131,6 @@ const Cadastrolocais = () => {
             <Form.Control type="text" placeholder="Nome do Estado visitado" name="nome" value={estado} onChange={handleChangeEstado} />
           </Col>
         </Form.Group>
-
-        {/* aqui */}
 
 
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
@@ -178,7 +164,6 @@ const Cadastrolocais = () => {
           </Col>
         </Form.Group>
 
-
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
           <Form.Label column sm="2">
             Avaliação:
@@ -196,11 +181,6 @@ const Cadastrolocais = () => {
             <Form.Control type="text" placeholder="Descrição ou experiência do local visitado" name="nome" value={descricao} onChange={handleChangeDescricao} />
           </Col>
         </Form.Group>
-
-
-
-
-
 
         <Button type="button" onClick={handleOnClickSalvar}>
           Salvar
