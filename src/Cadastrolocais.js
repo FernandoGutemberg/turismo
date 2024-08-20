@@ -11,7 +11,8 @@ const Cadastrolocais = () => {
   const [estado, setEstado] = useState("");
   const [cidade, setCidade] = useState("");
   const [bairro, setBairro] = useState("");
-  const [foto, setFoto] = useState("");
+  // State to hold the image as a base64 string
+  const [fotoBase64, setFotoBase64] = useState("");
   const [avaliacao, setAvaliacao] = useState("");
   const [descricao, setDescricao] = useState("");
 
@@ -31,7 +32,7 @@ const Cadastrolocais = () => {
           setEstado(data.estado);
           setCidade(data.cidade);
           setBairro(data.bairro);
-          setFoto(data.foto);
+          setFotoBase64(data.foto); // Assuming 'foto' is already stored as base64 in MongoDB
           setAvaliacao(data.avaliacao);
           setDescricao(data.descricao);
 
@@ -60,7 +61,12 @@ const Cadastrolocais = () => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    setFoto(file); // Armazena o arquivo no estado
+    const reader = new FileReader();
+    reader.readAsDataURL(file);   
+
+    reader.onloadend = () => {
+      setFotoBase64(reader.result);
+    };
   };
 
 
@@ -79,7 +85,7 @@ const Cadastrolocais = () => {
       estado,
       cidade,
       bairro,
-      foto,
+      foto: fotoBase64, // Send the base64 string to the backend
       avaliacao,
       descricao,
     };
@@ -106,6 +112,7 @@ const Cadastrolocais = () => {
         console.error("Erro ao salvar dados:", error);
       });
   };
+
  
 
   return (
