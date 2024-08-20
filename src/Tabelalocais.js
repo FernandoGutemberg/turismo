@@ -89,10 +89,7 @@ const Tabelalocais = () => {
             <th>País</th>
             <th>Estado</th>
             <th>Cidade</th>
-            <th>Bairro</th>
             <th>Foto</th>
-            <th>Avaliação</th>
-            <th>Descrição</th>
             <th>Ação Deletar</th>
             <th>Ação Editar</th>
           </tr>
@@ -100,16 +97,13 @@ const Tabelalocais = () => {
         <tbody>
           {locais.map((local, index) => (
             <tr key={index}>
-              <td>{index + 1}</td>
+              <td>{index}</td>
               <td>{local.paisLocal}</td>
               <td>{local.estado}</td>
               <td>{local.cidade}</td>
-              <td>{local.bairro}</td>
               <td>
                 <img src={local.foto} alt={`Foto de ${local.cidade}`} width="100" />
               </td>
-              <td>{local.avaliacao}</td>
-              <td>{local.descricao}</td>
               <td>
                 <Button
                   variant="danger"

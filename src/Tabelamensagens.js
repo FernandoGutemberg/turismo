@@ -101,10 +101,7 @@ const Tabelamensagens = () => {
             <th>Título da Mensagem</th>
             <th>Conteúdo da Mensagem</th>
             <th>Tipo de Mensagem</th>
-            <th>Anexos</th>
-            <th>Data e Hora</th>
             <th>Avaliação</th>
-            <th>Resposta/Comentários</th>
             <th>Ação Deletar</th>
             <th>Ação Editar</th>
           </tr>
@@ -116,10 +113,7 @@ const Tabelamensagens = () => {
               <td>{mensagem.tituloMensagem}</td>
               <td>{mensagem.conteudoMensagem}</td>
               <td>{mensagem.tipoMensagem}</td>
-              <td>{mensagem.anexos}</td>
-              <td>{mensagem.dataHora}</td>
               <td>{mensagem.avaliacao}</td>
-              <td>{mensagem.respostaComentarios}</td>
               <td>
                 <Button
                   variant="danger"

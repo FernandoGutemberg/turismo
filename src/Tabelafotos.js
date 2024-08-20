@@ -1,4 +1,3 @@
-// Importa as funções useState e useEffect do React
 import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import { Modal, Button, Form } from 'react-bootstrap';
@@ -9,8 +8,8 @@ import { useNavigate } from 'react-router-dom';
 const Tabelafotos = () => {
   const navigate = useNavigate();
 
-  const notifyDelete = () => toast("Usuário deletado com sucesso!");
-  const notifyCadastro = () => toast("Usuário salvo com sucesso!");  
+  const notifyDelete = () => toast("Foto deletada com sucesso!");
+  const notifyCadastro = () => toast("Foto salva com sucesso!");
 
   const [fotos, setFotos] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -80,25 +79,28 @@ const Tabelafotos = () => {
         <thead>
           <tr>
             <th>#</th>
-            <th>Local</th>
+            <th>Foto do Local</th>
             <th>Descrição</th>
-            <th>Localização</th>
-            <th>Adicionado por</th>
-            <th>Criado em</th>
-            <th>Ações</th>
+            <th>Ação Deletar</th>
+            <th>Ação Editar</th>
           </tr>
         </thead>
         <tbody>
           {fotos.map((foto, index) => (
             <tr key={index}>
-              <td>{index + 1}</td>
-              <td>{foto.local}</td>
+              <td>{index}</td>
+              <td>
+                <img 
+                  src={foto.uploadfoto} 
+                  alt="Foto do local" 
+                  style={{ width: "100px", height: "auto" }} 
+                />
+              </td>
               <td>{foto.descricao}</td>
-              <td>{foto.localizacao}</td>
-              <td>{foto.adicionadopor}</td>
-              <td>{foto.criadoem}</td>
               <td>
                 <Button variant="danger" onClick={() => handleDelete(foto._id)}>Deletar</Button>
+              </td>
+              <td>
                 <Button onClick={() => navigate(`/Cadastrofotolocais/${foto._id}`)}>Editar</Button>
               </td>
             </tr>

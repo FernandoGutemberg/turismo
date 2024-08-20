@@ -10,11 +10,8 @@ const Cadastrolocais = () => {
   const [paisLocal, setPaisLocal] = useState("");
   const [estado, setEstado] = useState("");
   const [cidade, setCidade] = useState("");
-  const [bairro, setBairro] = useState("");
   // State to hold the image as a base64 string
   const [fotoBase64, setFotoBase64] = useState("");
-  const [avaliacao, setAvaliacao] = useState("");
-  const [descricao, setDescricao] = useState("");
 
   const { id } = useParams();
 
@@ -28,13 +25,10 @@ const Cadastrolocais = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          setPaisLocal(data.paislocal);
+          setPaisLocal(data.paisLocal);
           setEstado(data.estado);
           setCidade(data.cidade);
-          setBairro(data.bairro);
           setFotoBase64(data.foto); // Assuming 'foto' is already stored as base64 in MongoDB
-          setAvaliacao(data.avaliacao);
-          setDescricao(data.descricao);
 
         })
         .catch((error) => {
@@ -55,9 +49,6 @@ const Cadastrolocais = () => {
     setCidade(event.target.value);
   };
 
-  const handleChangeBairro = (event) => {
-    setBairro(event.target.value);
-  };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -70,24 +61,13 @@ const Cadastrolocais = () => {
   };
 
 
-  const handleChangeAvaliacao = (event) => {
-    setAvaliacao(event.target.value);
-  };
-
-  const handleChangeDescricao = (event) => {
-    setDescricao(event.target.value);
-  };
-
 
   const handleOnClickSalvar = () => {
     const dados = {
       paisLocal,
       estado,
       cidade,
-      bairro,
       foto: fotoBase64, // Send the base64 string to the backend
-      avaliacao,
-      descricao,
     };
 
     const configuracaoEnvio = {
@@ -149,14 +129,6 @@ const Cadastrolocais = () => {
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-          <Form.Label column sm="2">
-            Bairro:
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control type="text" placeholder="Nome do bairro visitado" name="nome" value={bairro} onChange={handleChangeBairro} />
-          </Col>
-        </Form.Group>
 
         <Form.Group as={Row} className="mb-3" controlId="formFile">
           <Form.Label column sm="2">
@@ -168,24 +140,6 @@ const Cadastrolocais = () => {
               name="foto"
               onChange={handleFileChange}
             />
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-          <Form.Label column sm="2">
-            Avaliação:
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control type="text" placeholder="Avaliação de 1 a 5" name="nome" value={avaliacao} onChange={handleChangeAvaliacao} />
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-          <Form.Label column sm="2">
-            Descrição:
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control type="text" placeholder="Descrição ou experiência do local visitado" name="nome" value={descricao} onChange={handleChangeDescricao} />
           </Col>
         </Form.Group>
 

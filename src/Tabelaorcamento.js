@@ -89,14 +89,8 @@ const Tabelaorcamento = () => {
           <tr>
             <th>#</th>
             <th>Título do Orçamento</th>
-            <th>Data da Viagem</th>
-            <th>Moeda</th>
-            <th>Custo Transporte</th>
-            <th>Custo Hospedagem</th>
             <th>Custo Alimentação</th>
             <th>Custo Atividades</th>
-            <th>Outros Custos</th>
-            <th>Observação</th>
             <th>Ação Deletar</th>
             <th>Ação Editar</th>
           </tr>
@@ -106,14 +100,8 @@ const Tabelaorcamento = () => {
             <tr key={index}>
               <td>{index}</td>
               <td>{orcamento.tituloOrcamento}</td>
-              <td>{orcamento.dataViagem}</td>
-              <td>{orcamento.moeda}</td>
-              <td>{orcamento.custoTransporte}</td>
-              <td>{orcamento.custoHospedagem}</td>
-              <td>{orcamento.custoAlimentacao}</td>
-              <td>{orcamento.custoAtividades}</td>
-              <td>{orcamento.outrosCustos}</td>
-              <td>{orcamento.observacao}</td>
+              <td>{orcamento.custoAlimentacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
+              <td>{orcamento.custoAtividades.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
               <td>
                 <Button
                   variant="danger"

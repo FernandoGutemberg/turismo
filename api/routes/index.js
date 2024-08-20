@@ -128,6 +128,9 @@ router.patch('/Cadastrousuarios/:id?', async (req, res) => {
   }
 });
 
+
+//____________AQUIIIIIIIIIIIIIIIIIIIIIII PRA FRENTE
+
 //--------------------------------------------------------------------------------------------------------------------------------------------
 
 //parte dos LOCAIS
@@ -140,10 +143,7 @@ router.post('/Cadastrolocais', async (req, res) => {
       paisLocal: req.body.paisLocal,
       estado: req.body.estado,
       cidade: req.body.cidade,
-      bairro: req.body.bairro,
       foto: req.body.foto, 
-      avaliacao: req.body.avaliacao,
-      descricao: req.body.descricao,
     });
 
     await local.save();
@@ -212,13 +212,10 @@ router.patch('/Cadastrolocais/:id?', async (req, res) => {
 
     local = await LocalModel.findById(localId);
 
-    local.paislocal = req.body.paislocal;
+    local.paisLocal = req.body.paisLocal;
     local.estado = req.body.estado;
     local.cidade = req.body.cidade;
-    local.bairro = req.body.bairro;
     local.foto = req.body.foto;
-    local.avaliacao = req.body.avaliacao;
-    local.descricao = req.body.descricao;
 
     await local.save();
 
@@ -227,6 +224,9 @@ router.patch('/Cadastrolocais/:id?', async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 });
+
+
+//____________AQUIIIIIIIIIIIIIIIIIIIIIII PRA TRÁS
 
 //---------------------------------------------------------------------------------------
 
@@ -237,11 +237,7 @@ router.post('/Cadastrofotolocais', async (req, res) => {
 
     let fotolocais = new FotolocaisModel({
       uploadfoto: req.body.uploadfoto,
-      local: req.body.local,
       descricao: req.body.descricao,
-      localizacao: req.body.localizacao,
-      adicionadopor: req.body.adicionadopor,
-      criadoem: req.body.criadoem,
 
     });
 
@@ -313,10 +309,8 @@ router.patch('/Cadastrofotolocais/:id?', async (req, res) => {
 
     fotolocais = await FotolocaisModel.findById(fotolocaisId);
 
-    fotolocais.nomedolocal = req.body.nomedolocal;
+    fotolocais.uploadfoto = req.body.uploadfoto;
     fotolocais.descricao = req.body.descricao;
-    fotolocais.fotodolocal = req.body.fotodolocal;
-    fotolocais.avaliacao = req.body.avaliacao;
 
     await fotolocais.save();
 
@@ -335,14 +329,8 @@ router.post('/Cadastroorcamento', async (req, res) => {
 
     let orcamento = new OrcamentoModel({
       tituloOrcamento: req.body.tituloOrcamento,
-      dataViagem: req.body.dataViagem,
-      moeda: req.body.moeda,
-      custoTransporte: req.body.custoTransporte,
-      custoHospedagem: req.body.custoHospedagem,
       custoAlimentacao: req.body.custoAlimentacao,
       custoAtividades: req.body.custoAtividades,
-      outrosCustos: req.body.outrosCustos,
-      observacao: req.body.observacao,
     });
 
     await orcamento.save();
@@ -411,14 +399,8 @@ router.patch('/Cadastroorcamento/:id?', async (req, res) => {
     }
 
     orcamento.tituloOrcamento = req.body.tituloOrcamento;
-    orcamento.dataViagem = req.body.dataViagem;
-    orcamento.moeda = req.body.moeda;
-    orcamento.custoTransporte = req.body.custoTransporte;
-    orcamento.custoHospedagem = req.body.custoHospedagem;
     orcamento.custoAlimentacao = req.body.custoAlimentacao;
     orcamento.custoAtividades = req.body.custoAtividades;
-    orcamento.outrosCustos = req.body.outrosCustos;
-    orcamento.observacao = req.body.observacao; sporte = req.body.custoTransporte;
 
     await orcamento.save();
 
@@ -440,10 +422,7 @@ router.post('/Cadastromensagens', async (req, res) => {
       tituloMensagem: req.body.tituloMensagem,
       conteudoMensagem: req.body.conteudoMensagem,
       tipoMensagem: req.body.tipoMensagem,
-      anexos: req.body.anexos,
-      dataHora: req.body.dataHora,
       avaliacao: req.body.avaliacao,
-      respostaComentarios: req.body.respostaComentarios,
     });
 
     await mensagem.save();
@@ -517,10 +496,7 @@ router.patch('/Cadastromensagens/:id?', async (req, res) => {
     mensagem.tituloMensagem = req.body.tituloMensagem;
     mensagem.conteudoMensagem = req.body.conteudoMensagem;
     mensagem.tipoMensagem = req.body.tipoMensagem;
-    mensagem.anexos = req.body.anexos;
-    mensagem.dataHora = req.body.dataHora;
     mensagem.avaliacao = req.body.avaliacao;
-    mensagem.respostaComentarios = req.body.respostaComentarios;
 
     await mensagem.save();
     

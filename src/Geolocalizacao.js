@@ -52,7 +52,7 @@ const Geolocalizacao = () => {
                         Longitude: {location.longitude}
                     </p>
                 ) : (
-                    <p>{error || "Click the button to get your coordinates."}</p>
+                    <p>{error || "Clique no botão para que possamos utilizar suas coordenada para uma melhor experiência."}</p>
                 )}
             </div>
         </div>

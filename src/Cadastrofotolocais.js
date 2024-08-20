@@ -3,16 +3,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from "react-toastify";
 import { Col, Form, Row, Button } from 'react-bootstrap';
+import Select from 'react-select';
 
 const Cadastrofotolocais = () => {
   const navigate = useNavigate();
-
   const [uploadfoto, setUploadFoto] = useState("");
-  const [local, setLocal] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [localizacao, setLocalizacao] = useState("");
-  const [adicionadopor, setAdicionadoPor] = useState("");
-  const [criadoem, setCriadoEm] = useState("");
 
   const { id } = useParams();
 
@@ -27,12 +23,7 @@ const Cadastrofotolocais = () => {
         .then((response) => response.json())
         .then((data) => {
           setUploadFoto(data.uploadfoto);
-          setLocal(data.local);
           setDescricao(data.descricao);
-          setLocalizacao(data.localizacao);
-          setAdicionadoPor(data.adicionadopor);
-          setCriadoEm(data.criadoem);
-
         })
         .catch((error) => {
           console.error("Erro ao carregar dados do usuário:", error);
@@ -41,38 +32,23 @@ const Cadastrofotolocais = () => {
   }, [id]);
 
   const handleChangeUploadFoto = (event) => {
-    setUploadFoto(event.target.value);
-  };
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
 
-  const handleChangeLocal = (event) => {
-    setLocal(event.target.value);
+    reader.onloadend = () => {
+      setUploadFoto(reader.result); // Converte a imagem para base64
+    };
   };
 
   const handleChangeDescricao = (event) => {
     setDescricao(event.target.value);
   };
 
-  const handleChangeLocalizacao = (event) => {
-    setLocalizacao(event.target.value);
-  };
-
-  const handleChangeAdicionadoPor = (event) => {
-    setAdicionadoPor(event.target.value);
-  };
-
-  const handleChangeCriadoEm = (event) => {
-    setCriadoEm(event.target.value);
-  };
-
   const handleOnClickSalvar = () => {
     const dados = {
-      uploadfoto,
-      local,
+      uploadfoto: uploadfoto, // A imagem em base64
       descricao,
-      localizacao,
-      adicionadopor,
-      criadoem     
-
     };
 
     const configuracaoEnvio = {
@@ -100,61 +76,47 @@ const Cadastrofotolocais = () => {
 
   return (
     <div>
-      
-      <h1>Foto dos locais</h1>
-      
+      <h1>Cadastrar foto dos locais</h1>
+
       <Form>
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+        <Form.Group as={Row} className="mb-3" controlId="formLocationSelect">
+          <Form.Label column sm="2">
+            Selecionar Local:
+          </Form.Label>
+          <Col sm="10">
+            <Select
+              // Se houver uma lógica específica para o select, deve ser implementada aqui
+              placeholder="Selecione um Local" 
+              className="react-select-container"
+            />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-3" controlId="formFile">
           <Form.Label column sm="2">
             Inserir Foto(s):
           </Form.Label>
           <Col sm="10">
-            <Form.Control type="text" placeholder="Foto do local" name="nome" value={uploadfoto} onChange={handleChangeUploadFoto} />
+            <Form.Control
+              type="file"
+              name="foto"
+              onChange={handleChangeUploadFoto} // Não há valor controlado aqui
+            />
           </Col>
         </Form.Group>
 
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
           <Form.Label column sm="2">
-            Local:
+            Descrição da foto:
           </Form.Label>
           <Col sm="10">
-            <Form.Control type="text" placeholder="Foto do local" name="nome" value={local} onChange={handleChangeLocal} />
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-          <Form.Label column sm="2">
-            Foto do local:
-          </Form.Label>
-          <Col sm="10">
-          <Form.Control type="text" placeholder="Foto do local" name="nome" value={descricao} onChange={handleChangeDescricao} />
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-          <Form.Label column sm="2">
-            Localizacao:
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control type="text" placeholder="Localização" name="nome" value={localizacao} onChange={handleChangeLocalizacao} />
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-          <Form.Label column sm="2">
-            Adicionado Por:
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control type="text" placeholder="Adicionado Por" name="nome" value={adicionadopor} onChange={handleChangeAdicionadoPor} />
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-          <Form.Label column sm="2">
-            Criado em:
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control type="text" placeholder="Adicione o dia que foi criado" name="nome" value={criadoem} onChange={handleChangeCriadoEm} />
+            <Form.Control 
+              type="text" 
+              placeholder="Foto do local" 
+              name="nome" 
+              value={descricao} 
+              onChange={handleChangeDescricao} 
+            />
           </Col>
         </Form.Group>
 
