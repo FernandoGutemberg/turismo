@@ -9,8 +9,23 @@ const Cadastrofotolocais = () => {
   const navigate = useNavigate();
   const [uploadfoto, setUploadFoto] = useState("");
   const [descricao, setDescricao] = useState("");
+  const [locais, setLocais] = useState([]);
+  const [selectedLocal, setSelectedLocal] = useState(null);
 
   const { id } = useParams();
+
+  useEffect(() => {
+    fetch('http://localhost:9000/Tabelalocais')
+      .then(response => response.json())
+      .then(data => {
+        const options = data.map(local => ({
+          value: local._id,
+          label: `${local.paisLocal} - ${local.estado} - ${local.cidade}`
+        }));
+        setLocais(options);
+      })
+      .catch(error => console.error('Erro ao buscar locais:', error));
+  }, []);
 
   useEffect(() => {
     if (id) {
@@ -47,7 +62,8 @@ const Cadastrofotolocais = () => {
 
   const handleOnClickSalvar = () => {
     const dados = {
-      uploadfoto: uploadfoto, // A imagem em base64
+      localId: selectedLocal?.value, // ID do local selecionado
+      uploadfoto: uploadfoto,
       descricao,
     };
 
@@ -56,20 +72,16 @@ const Cadastrofotolocais = () => {
       body: JSON.stringify(dados),
     };
 
-    if (!id) {
-      configuracaoEnvio.method = "POST";
-    } else {
-      configuracaoEnvio.method = "PATCH";
-    }
+    configuracaoEnvio.method = id ? "PATCH" : "POST";
 
     fetch(`http://localhost:9000/Cadastrofotolocais${id ? `/${id}` : ""}`, configuracaoEnvio)
-      .then((response) => response.json())
-      .then((data) => {
+      .then(response => response.json())
+      .then(data => {
         console.log("Dados salvos:", data);
         localStorage.setItem("notificacao", "true");
         navigate('/Tabelafotos');
       })
-      .catch((error) => {
+      .catch(error => {
         console.error("Erro ao salvar dados:", error);
       });
   };
@@ -85,8 +97,9 @@ const Cadastrofotolocais = () => {
           </Form.Label>
           <Col sm="10">
             <Select
-              // Se houver uma lógica específica para o select, deve ser implementada aqui
-              placeholder="Selecione um Local" 
+              options={locais}
+              onChange={(option) => setSelectedLocal(option)}
+              placeholder="Selecione um Local"
               className="react-select-container"
             />
           </Col>
@@ -100,7 +113,7 @@ const Cadastrofotolocais = () => {
             <Form.Control
               type="file"
               name="foto"
-              onChange={handleChangeUploadFoto} // Não há valor controlado aqui
+              onChange={handleChangeUploadFoto}
             />
           </Col>
         </Form.Group>

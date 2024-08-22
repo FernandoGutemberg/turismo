@@ -92,7 +92,6 @@ const Cadastrolocais = () => {
         console.error("Erro ao salvar dados:", error);
       });
   };
-
  
 
   return (

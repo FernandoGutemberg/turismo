@@ -236,6 +236,7 @@ router.post('/Cadastrofotolocais', async (req, res) => {
     let FotolocaisModel = mongoose.model('Fotolocais', fotolocaisSchema);
 
     let fotolocais = new FotolocaisModel({
+      localId: req.body.localId,
       uploadfoto: req.body.uploadfoto,
       descricao: req.body.descricao,
 
