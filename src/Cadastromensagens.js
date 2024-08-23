@@ -13,8 +13,25 @@ const Cadastromensagens = () => {
   const [conteudoMensagem, setConteudoMensagem] = useState("");
   const [tipoMensagem, setTipoMensagem] = useState("");
   const [avaliacao, setAvaliacao] = useState("");
+  const [locais, setLocais] = useState([]);
+  const [selectedLocal, setSelectedLocal] = useState(null);
+
 
   const { id } = useParams();
+
+  useEffect(() => {
+    fetch('http://localhost:9000/Tabelalocais')
+      .then(response => response.json())
+      .then(data => {
+        const options = data.map(local => ({
+          value: local._id,
+          label: `${local.paisLocal} - ${local.estado} - ${local.cidade}`
+        }));
+        setLocais(options);
+      })
+      .catch(error => console.error('Erro ao buscar locais:', error));
+  }, []);
+
 
   useEffect(() => {
     if (id) {
@@ -39,6 +56,7 @@ const Cadastromensagens = () => {
 
   const handleOnClickSalvar = () => {
     const dados = {
+      localId: selectedLocal?.value, // ID do local selecionado
       tituloMensagem,
       conteudoMensagem,
       tipoMensagem,
@@ -96,7 +114,8 @@ const Cadastromensagens = () => {
           </Form.Label>
           <Col sm="10">
             <Select
-              // Se houver uma lógica específica para o select, deve ser implementada aqui
+              options={locais}
+              onChange={(option) => setSelectedLocal(option)}
               placeholder="Selecione um Local"
               className="react-select-container"
             />

@@ -143,7 +143,7 @@ router.post('/Cadastrolocais', async (req, res) => {
       paisLocal: req.body.paisLocal,
       estado: req.body.estado,
       cidade: req.body.cidade,
-      foto: req.body.foto, 
+      foto: req.body.foto,
     });
 
     await local.save();
@@ -329,6 +329,7 @@ router.post('/Cadastroorcamento', async (req, res) => {
     let OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
 
     let orcamento = new OrcamentoModel({
+      localId: req.body.localId,
       tituloOrcamento: req.body.tituloOrcamento,
       custoAlimentacao: req.body.custoAlimentacao,
       custoAtividades: req.body.custoAtividades,
@@ -420,6 +421,7 @@ router.post('/Cadastromensagens', async (req, res) => {
     let MensagensModel = mongoose.model('Mensagens', mensagensSchema);
 
     let mensagem = new MensagensModel({
+      localId: req.body.localId,
       tituloMensagem: req.body.tituloMensagem,
       conteudoMensagem: req.body.conteudoMensagem,
       tipoMensagem: req.body.tipoMensagem,
@@ -500,7 +502,7 @@ router.patch('/Cadastromensagens/:id?', async (req, res) => {
     mensagem.avaliacao = req.body.avaliacao;
 
     await mensagem.save();
-    
+
     res.json(mensagem);
   } catch (error) {
     res.status(500).json({ erro: error.message });
