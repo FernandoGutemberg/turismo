@@ -279,6 +279,9 @@ router.get('/Tabelafotos', async (req, res) => {
 
     let fotolocais = await FotolocaisModel.find();
 
+    // let fotolocais = await FotolocaisModel.find().populate('localId');
+
+
     res.json(fotolocais);
 
   } catch (error) {
