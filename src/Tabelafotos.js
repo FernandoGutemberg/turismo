@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 
 const Tabelafotos = () => {
   const navigate = useNavigate();
-
-  const notifyDelete = () => toast("Foto deletada com sucesso!");
-  const notifyCadastro = () => toast("Foto salva com sucesso!");
-
   const [fotos, setFotos] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [fotoIdToDelete, setFotoIdToDelete] = useState('');
@@ -79,6 +75,7 @@ const Tabelafotos = () => {
         <thead>
           <tr>
             <th>#</th>
+            <th>Local</th>
             <th>Foto do Local</th>
             <th>Descrição</th>
             <th>Ação Deletar</th>
@@ -88,7 +85,8 @@ const Tabelafotos = () => {
         <tbody>
           {fotos.map((foto, index) => (
             <tr key={index}>
-              <td>{index}</td>
+              <td>{index + 1}</td>
+              <td>{foto.localInfo || 'Nome não disponível'}</td>
               <td>
                 <img 
                   src={foto.uploadfoto} 

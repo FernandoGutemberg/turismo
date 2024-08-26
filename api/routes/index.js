@@ -276,18 +276,26 @@ router.get('/getCadastrofotolocaisFromId/:id', async (req, res) => {
 router.get('/Tabelafotos', async (req, res) => {
   try {
     let FotolocaisModel = mongoose.model('Fotolocais', fotolocaisSchema);
+    let LocalModel = mongoose.model('Locais', locaisSchema);
 
     let fotolocais = await FotolocaisModel.find();
 
-    // let fotolocais = await FotolocaisModel.find().populate('localId');
+    // Para cada foto, buscar os dados do local correspondente
+    let fotosComLocal = await Promise.all(fotolocais.map(async (foto) => {
+      let local = await LocalModel.findById(foto.localId).exec();
+      return {
+        ...foto._doc,  // Retorna todos os dados do documento original
+        localInfo: local ? `${local.paisLocal} - ${local.estado} - ${local.cidade}` : 'Local não encontrado'
+      };
+    }));
 
-
-    res.json(fotolocais);
+    res.json(fotosComLocal);
 
   } catch (error) {
     res.status(500).json({ erro: error.message });
   }
 });
+
 
 // Esta rota lida com requisições HTTP DELETE e é usada para excluir um usuário específico do banco de dados, baseado em seu ID.
 router.delete('/Tabelafotos/:id', async (req, res) => {
