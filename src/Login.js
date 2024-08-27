@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import backgroundImage from './images/Esto.png';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -17,7 +19,7 @@ const Login = () => {
       .then(data => {
         if (data.sucesso) {
           sessionStorage.setItem('token', data.token);
-          navigate('/Home'); 
+          navigate('/Home');
         } else {
           alert('Usuário ou senha incorreto!');
         }
@@ -28,28 +30,35 @@ const Login = () => {
   };
 
   return (
-    <div className="container-center">
-      <div className="login">
-        <div className="login-area">
-        </div>
+    <div
+      className="App"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
 
-        <form className="login-senha" onSubmit={handleSubmit}>
-          <h1>Sistema Turismo</h1>
-          <input
-            type="email"
-            name="email"
-            placeholder="email@email.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="********"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-          />
-          <button type="submit">Entrar</button>
-        </form>
+    >
+
+      <div className="container-center">
+        <div className="login">
+          <div className="login-area">
+          </div>
+
+          <form className="login-senha" onSubmit={handleSubmit}>
+            <h1>Sistema Turismo</h1>
+            <input
+              type="email"
+              name="email"
+              placeholder="email@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="********"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+            />
+            <button type="submit">Entrar</button>
+          </form>
+        </div>
       </div>
     </div>
   );
