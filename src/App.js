@@ -32,12 +32,12 @@ function App() {
           <Nav.Link as={Link} to="/Login">Login</Nav.Link>
 
 
-          <Nav.Link as={Link} to="/Tabelausuarios">Tabela Usuarios</Nav.Link>
+          <Nav.Link as={Link} to="/Tabelausuarios">Tabela de Usuários</Nav.Link>
           <Nav.Link as={Link} to="/Tabelalocais">Tabela Locais</Nav.Link>
           <Nav.Link as={Link} to="/Tabelafotos">Tabela Fotos</Nav.Link>
           <Nav.Link as={Link} to="/Tabelaorcamento">Tabela Orçamento</Nav.Link>
           <Nav.Link as={Link} to="/Tabelamensagens">Tabela Mensagens</Nav.Link>
-          <Nav.Link as={Link} to="/Geolocalizacao">Geolocalizacao</Nav.Link>
+          <Nav.Link as={Link} to="/Geolocalizacao">Geolocalização</Nav.Link>
 
         </Nav>
       </Navbar>

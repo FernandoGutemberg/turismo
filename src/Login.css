@@ -17,7 +17,7 @@
 }
 
 .login {
-    background-color: #0101303e;
+    background-color: #0000003e;
     width: 600px;
     display: flex;
     align-items: center;
@@ -59,7 +59,7 @@
 form h1 {
     text-align: center;
     margin-bottom: 1rem;
-    color: #181c2e;
+    color: #000000;
 }
 
 .login input {
@@ -76,7 +76,7 @@ form button {
     height: 35px;
     border: 0;
     border-radius: 4px;
-    background-color: #181c2e;
+    background-color: #000000;
     color: #FFF;
     font-size: 1.3rem;
 }

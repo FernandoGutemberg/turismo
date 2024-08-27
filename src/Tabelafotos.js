@@ -4,6 +4,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
+import "./App.css";
 
 const Tabelafotos = () => {
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ const Tabelafotos = () => {
 
   return (
     <div>
-      <h2>Tabela de Fotos</h2>
+      <h2 className='titulo-principal'>Tabela de Fotos</h2>
       <Button onClick={redirecionarParaCadastroFotos}>Cadastrar Foto</Button>
       <Table striped bordered hover>
         <thead>

@@ -42,7 +42,7 @@ const Login = () => {
           </div>
 
           <form className="login-senha" onSubmit={handleSubmit}>
-            <h1>Sistema Turismo</h1>
+            <h1>Turismo</h1>
             <input
               type="email"
               name="email"
