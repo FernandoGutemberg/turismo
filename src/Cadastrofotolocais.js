@@ -88,7 +88,7 @@ const Cadastrofotolocais = () => {
 
   return (
     <div>
-      <h1>Cadastrar foto dos locais</h1>
+      <h1 className='titulo-principal'>Cadastrar foto dos locais</h1>
 
       <Form>
         <Form.Group as={Row} className="mb-3" controlId="formLocationSelect">

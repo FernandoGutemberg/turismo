@@ -5,6 +5,8 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
+import "./App.css";
+
 
 
 const Tabelausuarios = () => {
@@ -102,7 +104,7 @@ const Tabelausuarios = () => {
 
   return (
     <div>
-      <h2>Tabela de Usuários</h2>
+      <h2 className='titulo-principal'>Tabela de Usuários</h2>
       <Button onClick={redirecionarParaCadastroUsuarios}>Cadastrar Usuário</Button>
 
       <Table striped bordered hover >

@@ -79,7 +79,7 @@ const Tabelalocais = () => {
 
   return (
     <div>
-      <h2>Tabela de Locais</h2>
+      <h2 className='titulo-principal'>Tabela de Locais</h2>
       <Button onClick={redirecionarParaCadastroLocais}>Cadastrar Local</Button>
 
       <Table striped bordered hover>

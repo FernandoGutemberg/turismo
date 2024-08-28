@@ -43,7 +43,7 @@ const Geolocalizacao = () => {
 
     return (
         <div>
-            <h1>Geolocalizacao</h1>
+            <h1 className='titulo-principal'>Geolocalização</h1>
             <Button type="button" onClick={getLocation}>AQUI</Button>
             <div className="mt-3">
                 {location ? (

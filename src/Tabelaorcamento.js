@@ -4,6 +4,8 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
+import "./App.css";
+
 
 const Tabelaorcamento = () => {
   const navigate = useNavigate();
@@ -82,7 +84,7 @@ const Tabelaorcamento = () => {
 
   return (
     <div>
-      <h2>Tabela de Orçamento</h2>
+      <h2 className='titulo-principal'>Tabela de Orçamento</h2>
       <Button onClick={redirecionarParaCadastroOrcamento}>Cadastrar Orçamento</Button>
       <Table striped bordered hover>
         <thead>

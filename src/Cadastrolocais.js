@@ -96,7 +96,7 @@ const Cadastrolocais = () => {
 
   return (
     <div>
-      <h1>Cadastro dos Locais de Turismo</h1>
+      <h1 className='titulo-principal'>Cadastro dos Locais de Turistado</h1>
 
       <Form>
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">

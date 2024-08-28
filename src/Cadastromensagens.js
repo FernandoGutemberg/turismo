@@ -106,7 +106,7 @@ const Cadastromensagens = () => {
 
   return (
     <div>
-      <h1>Cadastrar Experiência da Viagem</h1>
+      <h1 className='titulo-principal'>Cadastrar Experiência da Viagem</h1>
       <Form>
         <Form.Group as={Row} className="mb-3" controlId="formLocationSelect">
           <Form.Label column sm="2">

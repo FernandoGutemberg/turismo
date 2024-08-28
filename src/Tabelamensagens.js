@@ -91,7 +91,7 @@ const Tabelamensagens = () => {
 
   return (
     <div>
-      <h2>Tabela de Mensagens</h2>
+      <h2 className='titulo-principal'>Tabela de Mensagens</h2>
       <Button onClick={redirecionarParaCadastroMensagens}>Cadastrar Mensagem</Button>
 
       <Table striped bordered hover>
