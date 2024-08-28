@@ -31,7 +31,7 @@ function AppContent() {
   return (
     <>
       {!isLoginPage && (
-        <Navbar bg="light" expand="lg">
+        <Navbar  bg="dark" data-bs-theme="dark"variant="dark" expand="lg">
           <Navbar.Brand>Turismo</Navbar.Brand>
           <Nav className="mr-auto">
             {/* <Nav.Link as={Link} to="/Cadastrousuarios">Cadastrar Usuário</Nav.Link>
@@ -49,6 +49,7 @@ function AppContent() {
         </Navbar>
       )}
       <Routes>
+        
         <Route path="/" element={<Login />} />
         <Route path="/Cadastrousuarios/:id?" element={<Cadastrousuarios />} />
         <Route path="/Cadastrolocais/:id?" element={<Cadastrolocais />} />

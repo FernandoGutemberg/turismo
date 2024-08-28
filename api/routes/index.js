@@ -332,7 +332,7 @@ router.patch('/Cadastrofotolocais/:id?', async (req, res) => {
   }
 });
 
-
+// ----------------------------------------------------------------------------
 //parte do Orçamento 
 
 router.post('/Cadastroorcamento', async (req, res) => {
@@ -377,9 +377,21 @@ router.get('/getCadastroorcamentoFromId/:id', async (req, res) => {
 router.get('/Tabelaorcamento', async (req, res) => {
   try {
     let OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
+    let LocalModel = mongoose.model('Locais', locaisSchema);
+
 
     let orcamentos = await OrcamentoModel.find();
-    res.json(orcamentos);
+
+    let orcamentosComLocal = await Promise.all(orcamentos.map(async (orcamento) => {
+      let local = await LocalModel.findById(orcamento.localId).exec();
+      return {
+        ...orcamento._doc,  // Retorna todos os dados do documento original
+        localInfo: local ? `${local.paisLocal} - ${local.estado} - ${local.cidade}` : 'Local não encontrado'
+      };
+    }));
+
+
+    res.json(orcamentosComLocal);
   } catch (error) {
     res.status(500).json({ erro: error.message });
   }

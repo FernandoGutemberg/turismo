@@ -90,6 +90,8 @@ const Tabelaorcamento = () => {
         <thead>
           <tr>
             <th>#</th>
+            <th>Local</th>
+
             <th>Título do Orçamento</th>
             <th>Custo Alimentação</th>
             <th>Custo Atividades</th>
@@ -101,6 +103,8 @@ const Tabelaorcamento = () => {
           {orcamentos.map((orcamento, index) => (
             <tr key={index}>
               <td>{index}</td>
+              <td>{orcamento.localInfo || 'Nome não disponível'}</td>
+
               <td>{orcamento.tituloOrcamento}</td>
               <td>{orcamento.custoAlimentacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
               <td>{orcamento.custoAtividades.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
