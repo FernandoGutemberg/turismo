@@ -98,6 +98,7 @@ const Tabelamensagens = () => {
         <thead>
           <tr>
             <th>#</th>
+            <th>Local</th>
             <th>Título da Mensagem</th>
             <th>Conteúdo da Mensagem</th>
             <th>Tipo de Mensagem</th>
@@ -110,6 +111,7 @@ const Tabelamensagens = () => {
           {mensagens.map((mensagem, index) => (
             <tr key={index}>
               <td>{index}</td>
+              <td>{mensagem.localInfo || 'Nome não disponível'}</td>
               <td>{mensagem.tituloMensagem}</td>
               <td>{mensagem.conteudoMensagem}</td>
               <td>{mensagem.tipoMensagem}</td>

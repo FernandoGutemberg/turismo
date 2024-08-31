@@ -483,11 +483,20 @@ router.get('/getCadastromensagensFromId/:id', async (req, res) => {
 router.get('/Tabelamensagens', async (req, res) => {
   try {
     let MensagensModel = mongoose.model('Mensagens', mensagensSchema);
+    let LocalModel = mongoose.model('Locais', locaisSchema);
 
     let mensagens = await MensagensModel.find();
 
-    res.json(mensagens);
+    let mensagensComLocal = await Promise.all(mensagens.map(async (mensagem) => {
+      let local = await LocalModel.findById(mensagem.localId).exec();
+      return {
+        ...mensagem._doc,  // Retorna todos os dados do documento original
+        localInfo: local ? `${local.paisLocal} - ${local.estado} - ${local.cidade}` : 'Local não encontrado'
+      };
+    }));
 
+
+    res.json(mensagensComLocal);
   } catch (error) {
     res.status(500).json({ erro: error.message });
   }
