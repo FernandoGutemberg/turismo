@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
-import { Modal, Button} from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +14,40 @@ const Tabelalocais = () => {
   const notifyCadastro = () => toast("Local salvo com sucesso!");
 
   const [locais, setLocais] = useState([]);
+
+  const [tokenValido, setTokenValido] = useState(false);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      fetch('http://localhost:9000/verificarToken', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.validado) {
+            setTokenValido(true);
+          } else {
+            setTokenValido(false);
+            alert('Token inválido. Redirecionando para a tela de login.');
+            navigate('/');
+          }
+        })
+        .catch(error => {
+          console.error('Erro:', error);
+        });
+
+    } else {
+      alert('Token não encontrado. Redirecionando para a tela de login.');
+      navigate('/');
+    }
+  }, [navigate]);
+
+
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
 

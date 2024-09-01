@@ -14,6 +14,39 @@ const Cadastrofotolocais = () => {
   const [locais, setLocais] = useState([]);
   const [selectedLocal, setSelectedLocal] = useState(null);
 
+  const [tokenValido, setTokenValido] = useState(false);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      fetch('http://localhost:9000/verificarToken', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.validado) {
+            setTokenValido(true);
+          } else {
+            setTokenValido(false);
+            alert('Token inválido. Redirecionando para a tela de login.');
+            navigate('/');
+          }
+        })
+        .catch(error => {
+          console.error('Erro:', error);
+        });
+
+    } else {
+      alert('Token não encontrado. Redirecionando para a tela de login.');
+      navigate('/');
+    }
+  }, [navigate]);
+
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -125,12 +158,12 @@ const Cadastrofotolocais = () => {
             Descrição da foto:
           </Form.Label>
           <Col sm="10">
-            <Form.Control 
-              type="text" 
-              placeholder="Foto do local" 
-              name="nome" 
-              value={descricao} 
-              onChange={handleChangeDescricao} 
+            <Form.Control
+              type="text"
+              placeholder="Foto do local"
+              name="nome"
+              value={descricao}
+              onChange={handleChangeDescricao}
             />
           </Col>
         </Form.Group>

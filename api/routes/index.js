@@ -541,5 +541,123 @@ router.patch('/Cadastromensagens/:id?', async (req, res) => {
   }
 });
 
+// Array para armazenar tokens gerados
+let tokens = [];
+
+
+// Rota para login
+router.get('/login', async (req, res) => {
+  const { email, senha } = req.query;
+
+  // Loga os dados recebidos para fins de depuração
+  console.log('Dados recebidos:', email, senha);
+
+  try {
+    // Define o modelo de usuário do MongoDB
+    const User = mongoose.model('User', userSchema);
+
+    // Procura um usuário no banco de dados com o email e senha fornecidos
+    const usuario = await User.findOne({ email, senha });
+
+    // Se o usuário não for encontrado, retorna um erro 403 (Proibido)
+    if (!usuario) {
+      console.log('Usuário não encontrado ou senha incorreta.');
+      return res.status(403).json({ erro: 'Email ou senha incorretos' });
+    }
+
+    // Função para gerar uma string aleatória de um tamanho especificado
+    function gerarStringAleatoria(tamanho) {
+      const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'; // Define os caracteres que podem ser usados no token
+      let resultado = ''; // String resultante que será retornada
+      const comprimentoCaracteres = caracteres.length; // Comprimento da string de caracteres
+
+      // Loop para gerar a string aleatória
+      for (let i = 0; i < tamanho; i++) {
+        // Gera um índice aleatório e adiciona o caractere correspondente à string resultante
+        const indiceAleatorio = Math.floor(Math.random() * comprimentoCaracteres);
+        resultado += caracteres.charAt(indiceAleatorio);
+      }
+
+      return resultado; // Retorna a string aleatória gerada
+    }
+
+    // Função para gerar um token único
+    function gerarTokenUnico() {
+      // Gera uma string aleatória inicial
+      //(Ação 1)
+      let token = gerarStringAleatoria(6);
+      // Verifica se o token já existe na lista de tokens
+      // Ação 2: Verifica se o token já existe na lista de tokens
+      while (tokens.includes(token)) {
+        // Se o token já existir, gera um novo token (Ação 2)
+        token = gerarStringAleatoria(6);
+      }
+      // Ação 1: Retorna o token único gerado (implicando que ele será inserido na lista depois)
+
+      return token; // Retorna o token único gerado
+    }
+
+    // Se o usuário for encontrado, gera um token único
+    const token = gerarTokenUnico();
+    tokens.push(token); // Armazena o token gerado na lista
+
+    // Mostrar lista de tokens
+    console.log('Tokens gerados:', tokens);
+
+    // Retorna um status de sucesso com o token gerado
+    return res.status(200).json({ sucesso: true, mensagem: 'Login bem-sucedido', token });
+  } catch (error) {
+    // Loga o erro para fins de depuração
+    console.error('Erro ao tentar fazer login:', error);
+    // Em caso de erro, retorna um status 500 (Erro Interno do Servidor) com uma mensagem de erro
+    res.status(500).json({ erro: 'Ocorreu um erro ao tentar fazer login. Por favor, tente novamente.' });
+  }
+});
+
+// Rota para verificar se um token é válido
+router.post('/verificarToken', (req, res) => {
+  console.log('Rota /verificarToken foi acessada.');
+  const { token } = req.body;
+
+  // Verifica se o token está presente na lista de tokens
+  if (tokens.includes(token)) {
+    // Se o token estiver presente, retorna um JSON com validado: true
+    res.json({ validado: true });
+    console.log("Mensagem retornando", true);
+  } else {
+    // Se o token não estiver presente, retorna um JSON com validado: false
+    res.json({ validado: false });
+    console.log("Mensagem retornando", false);
+  }
+});
+
+
+// Rota para logout e remoção do token
+router.get('/logoutToken', (req, res) => {
+  console.log('Rota /logoutToken foi acessada.');
+  const token = req.query.token; // Obtém o token dos parâmetros da query string
+  console.log('Token recebido:', token);
+
+  // Verifica o estado da lista de tokens antes da verificação
+  console.log('Lista de tokens antes da verificação:', tokens);
+
+  // Verifica se o token está presente na lista de tokens
+  if (tokens.includes(token)) {
+    // Remove o token da lista de tokens
+    tokens = tokens.filter(t => t !== token);
+    res.json({ mensagem: 'Logout realizado com sucesso.' });
+    console.log("Token removido:", token);
+  } else {
+    res.status(404).json({ mensagem: 'Token não encontrado.' });
+    console.log("Token não encontrado:", token);
+  }
+
+  // Verifica o estado da lista de tokens após a remoção
+  console.log('Lista de tokens após a remoção:', tokens);
+});
+
+
+
+
 
 module.exports = router;

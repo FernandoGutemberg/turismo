@@ -19,7 +19,7 @@ const Login = () => {
       .then(data => {
         if (data.sucesso) {
           sessionStorage.setItem('token', data.token);
-          navigate('/Home');
+          navigate('/Tabelafotos');
         } else {
           alert('Usuário ou senha incorreto!');
         }

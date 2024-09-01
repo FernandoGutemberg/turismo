@@ -12,8 +12,42 @@ const Cadastrolocais = () => {
   const [paisLocal, setPaisLocal] = useState("");
   const [estado, setEstado] = useState("");
   const [cidade, setCidade] = useState("");
+
   // State to hold the image as a base64 string
   const [fotoBase64, setFotoBase64] = useState("");
+
+  const [tokenValido, setTokenValido] = useState(false);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      fetch('http://localhost:9000/verificarToken', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.validado) {
+            setTokenValido(true);
+          } else {
+            setTokenValido(false);
+            alert('Token inválido. Redirecionando para a tela de login.');
+            navigate('/');
+          }
+        })
+        .catch(error => {
+          console.error('Erro:', error);
+        });
+
+    } else {
+      alert('Token não encontrado. Redirecionando para a tela de login.');
+      navigate('/');
+    }
+  }, [navigate]);
+
 
   const { id } = useParams();
 
@@ -55,7 +89,7 @@ const Cadastrolocais = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
-    reader.readAsDataURL(file);   
+    reader.readAsDataURL(file);
 
     reader.onloadend = () => {
       setFotoBase64(reader.result);
@@ -94,7 +128,7 @@ const Cadastrolocais = () => {
         console.error("Erro ao salvar dados:", error);
       });
   };
- 
+
 
   return (
     <div className="form-geral">
