@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from "react-toastify";
 import { Col, Form, Row, Button } from 'react-bootstrap';
 import InputMask from "react-input-mask";
+import './Cadastros.css';
+
 
 const Cadastrousuarios = () => {
   const navigate = useNavigate();
@@ -98,9 +100,9 @@ const Cadastrousuarios = () => {
   };
 
   return (
-    <div>
+    <div className="form-geral">
       <h1 className='titulo-principal'>Cadastro de Usuários</h1>
-      <Form>
+      <Form className="form-container">
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
           <Form.Label column sm="2">
             Nome Completo:

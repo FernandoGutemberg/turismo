@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from "react-toastify";
 import { Col, Form, Row, Button } from 'react-bootstrap';
 import Select from 'react-select';
+import './Cadastros.css';
+
 
 
 const Cadastromensagens = () => {
@@ -105,9 +107,9 @@ const Cadastromensagens = () => {
 
 
   return (
-    <div>
+    <div className="form-geral">
       <h1 className='titulo-principal'>Cadastrar Experiência da Viagem</h1>
-      <Form>
+      <Form className="form-container">
         <Form.Group as={Row} className="mb-3" controlId="formLocationSelect">
           <Form.Label column sm="2">
             Selecionar Local:

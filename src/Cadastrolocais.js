@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from "react-toastify";
 import { Col, Form, Row, Button } from 'react-bootstrap';
+import './Cadastros.css';
+
 
 const Cadastrolocais = () => {
   const navigate = useNavigate();
@@ -95,10 +97,10 @@ const Cadastrolocais = () => {
  
 
   return (
-    <div>
+    <div className="form-geral">
       <h1 className='titulo-principal'>Cadastro dos Locais de Turistado</h1>
 
-      <Form>
+      <Form className="form-container">
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
           <Form.Label column sm="2">
             País:

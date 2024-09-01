@@ -4,6 +4,8 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
+import "./Tabela.css";
+
 
 const Tabelamensagens = () => {
   const navigate = useNavigate();
@@ -12,6 +14,10 @@ const Tabelamensagens = () => {
   const notifyCadastro = () => toast("Mensagem salva com sucesso!");
 
   const [mensagens, setMensagens] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 10;
+
 
   const fetchMensagens = async () => {
     try {
@@ -65,8 +71,27 @@ const Tabelamensagens = () => {
   };
 
   const redirecionarParaCadastroMensagens = () => {
-    window.location.href = '/Cadastromensagens'; // Redireciona para a página de cadastro de mensagens
+    window.location.href = '/Cadastromensagens'; // Redireciona para a página de cadastro de mensagens    
   };
+
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = mensagens.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(mensagens.length / usersPerPage);
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+
 
   const DeleteModal = ({ show, handleClose }) => {
     return (
@@ -90,13 +115,13 @@ const Tabelamensagens = () => {
   };
 
   return (
-    <div>
+    <div className="table-container">
       <h2 className='titulo-principal'>Tabela de Mensagens</h2>
-      <Button onClick={redirecionarParaCadastroMensagens}>Cadastrar Mensagem</Button>
+      <Button onClick={redirecionarParaCadastroMensagens} className="botao-cadastrar">Cadastrar Mensagem</Button>
 
-      <Table striped bordered hover>
-        <thead>
-          <tr>
+      <Table striped bordered hover className="usuario-table">
+        <thead className="usuario-table-header">
+          <tr className="tr-color">
             <th>#</th>
             <th>Local</th>
             <th>Título da Mensagem</th>
@@ -110,7 +135,7 @@ const Tabelamensagens = () => {
         <tbody>
           {mensagens.map((mensagem, index) => (
             <tr key={index}>
-              <td>{index}</td>
+              <td>{index + indexOfFirstUser + 1}</td>
               <td>{mensagem.localInfo || 'Nome não disponível'}</td>
               <td>{mensagem.tituloMensagem}</td>
               <td>{mensagem.conteudoMensagem}</td>
@@ -139,6 +164,24 @@ const Tabelamensagens = () => {
           ))}
         </tbody>
       </Table>
+      <div className="pagination-info">
+        Página {currentPage} de {totalPages}
+      </div>
+
+      <div className="table-navigation">
+        <Button variant="secondary" onClick={prevPage} disabled={currentPage === 1}>
+          Tabela Anterior
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={nextPage}
+          disabled={currentPage === totalPages}
+        >
+          Próxima Tabela
+        </Button>
+      </div>
+
+
       <ToastContainer />
 
       <DeleteModal show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} />

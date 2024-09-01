@@ -5,6 +5,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import "./App.css";
+import "./Tabela.css";
+
 
 
 const Tabelaorcamento = () => {
@@ -13,6 +15,10 @@ const Tabelaorcamento = () => {
   const notifyCadastro = () => toast("Orçamento salvo com sucesso!");
 
   const [orcamentos, setOrcamentos] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 10;
+
 
   const fetchOrcamentos = async () => {
     try {
@@ -63,6 +69,25 @@ const Tabelaorcamento = () => {
     window.location.href = '/Cadastroorcamento';
   };
 
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = orcamentos.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(orcamentos.length / usersPerPage);
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+
+
   const DeleteModal = ({ show, handleClose }) => (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -83,12 +108,12 @@ const Tabelaorcamento = () => {
   );
 
   return (
-    <div>
+    <div className="table-container">
       <h2 className='titulo-principal'>Tabela de Orçamento</h2>
-      <Button onClick={redirecionarParaCadastroOrcamento}>Cadastrar Orçamento</Button>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
+      <Button onClick={redirecionarParaCadastroOrcamento} className="botao-cadastrar">Cadastrar Orçamento</Button>
+      <Table striped bordered hover className="usuario-table">
+        <thead className="usuario-table-header">
+          <tr className="tr-color">
             <th>#</th>
             <th>Local</th>
             <th>Título do Orçamento</th>
@@ -101,7 +126,7 @@ const Tabelaorcamento = () => {
         <tbody>
           {orcamentos.map((orcamento, index) => (
             <tr key={index}>
-              <td>{index}</td>
+              <td>{index + indexOfFirstUser + 1}</td>
               <td>{orcamento.localInfo || 'Nome não disponível'}</td>
               <td>{orcamento.tituloOrcamento}</td>
               <td>{orcamento.custoAlimentacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
@@ -129,6 +154,26 @@ const Tabelaorcamento = () => {
           ))}
         </tbody>
       </Table>
+
+      <div className="pagination-info">
+        Página {currentPage} de {totalPages}
+      </div>
+
+      <div className="table-navigation">
+        <Button variant="secondary" onClick={prevPage} disabled={currentPage === 1}>
+          Tabela Anterior
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={nextPage}
+          disabled={currentPage === totalPages}
+        >
+          Próxima Tabela
+        </Button>
+      </div>
+
+
+
       <ToastContainer />
       <DeleteModal show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} />
     </div>
