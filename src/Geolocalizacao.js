@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { GoogleMap, LoadScript, MarkerF } from "@react-google-maps/api";
 
 const Geolocalizacao = () => {
     const [location, setLocation] = useState(null);
@@ -66,13 +66,13 @@ const Geolocalizacao = () => {
                             Latitude: {location.latitude} <br />
                             Longitude: {location.longitude}
                         </p>
-                        <LoadScript googleMapsApiKey="AIzaSyBQt4VtdKVpG5R1Ernbwe9eTxHnYSWvHjc">
+                        <LoadScript googleMapsApiKey="123">
                             <GoogleMap
                                 mapContainerStyle={containerStyle}
                                 center={center}
                                 zoom={15}
                             >
-                                <Marker position={center} />
+                                <MarkerF position={center} />
                             </GoogleMap>
                         </LoadScript>
                     </div>
