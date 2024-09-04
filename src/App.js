@@ -42,11 +42,11 @@ function AppContent() {
         <Navbar bg="dark" data-bs-theme="dark" variant="dark" expand="lg">
           <Navbar.Brand>Turismo</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link as={Link} to="/Tabelausuarios">Tabela de Usuários</Nav.Link>
-            <Nav.Link as={Link} to="/Tabelalocais">Tabela Locais</Nav.Link>
-            <Nav.Link as={Link} to="/Tabelafotos">Tabela Fotos</Nav.Link>
-            <Nav.Link as={Link} to="/Tabelaorcamento">Tabela Orçamento</Nav.Link>
-            <Nav.Link as={Link} to="/Tabelamensagens">Tabela Mensagens</Nav.Link>
+            <Nav.Link as={Link} to="/Tabelausuarios">Usuários</Nav.Link>
+            <Nav.Link as={Link} to="/Tabelalocais">Locais</Nav.Link>
+            <Nav.Link as={Link} to="/Tabelafotos">Fotos</Nav.Link>
+            <Nav.Link as={Link} to="/Tabelaorcamento">Orçamento</Nav.Link>
+            <Nav.Link as={Link} to="/Tabelamensagens">Mensagens</Nav.Link>
             <Nav.Link as={Link} to="/Geolocalizacao">Geolocalização</Nav.Link>
           </Nav>
           <Button variant="warning" onClick={handleLogout} className="ms-auto">Sair</Button>
