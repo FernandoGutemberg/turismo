@@ -2,18 +2,19 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import backgroundImage from './images/Esto.png';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const navigate = useNavigate();
 
-  //funcao que lida com o envio do formulario
+  // Função que lida com o envio do formulário
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    //fetch faz um requisicao para o servidor de login com os parametros email e senha
+    // Faz uma requisição para o servidor de login com os parâmetros email e senha
     fetch(`http://localhost:9000/login?email=${email}&senha=${senha}`)
       .then(response => response.json())
       .then(data => {
@@ -21,11 +22,12 @@ const Login = () => {
           sessionStorage.setItem('token', data.token);
           navigate('/Tabelafotos');
         } else {
-          alert('Usuário ou senha incorreto!');
+          toast.error('Usuário ou senha incorreto!');
         }
       })
       .catch(error => {
         console.error('Erro:', error);
+        toast.error('Erro ao conectar com o servidor.');
       });
   };
 
@@ -33,9 +35,7 @@ const Login = () => {
     <div
       className="App"
       style={{ backgroundImage: `url(${backgroundImage})` }}
-
     >
-
       <div className="container-center">
         <div className="login">
           <div className="login-area">
@@ -60,6 +60,7 @@ const Login = () => {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
