@@ -1,6 +1,6 @@
 Tarefas: 
 
-- Não usar ferramenta de alert para notificação e sim um toastify para alertar a mensagem "Usuário ou Senha incorretos": 
+- Não usar ferramenta de alert para notificação e sim um toastify para alertar a mensagem "Usuário ou Senha incorretos":  OK
 
 - Tirar nome "Tabela de": OK
 
