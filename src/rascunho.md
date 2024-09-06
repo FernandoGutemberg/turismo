@@ -6,4 +6,6 @@ Tarefas:
 
  ------ Na Geolocalização: --------
 
-Capturar a longitude e longitude pelo marcador do Google Maps, até sexta-feira. 
+Capturar a longitude e longitude pelo marcador do Google Maps, até sexta-feira: OK
+
+FUncionalidade inserida!!!! :)

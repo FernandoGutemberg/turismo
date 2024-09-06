@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 import { GoogleMap, LoadScript, MarkerF } from "@react-google-maps/api";
+import "./Geolocalizacao.css";
+
 
 const Geolocalizacao = () => {
     const [location, setLocation] = useState(null);
@@ -55,6 +57,15 @@ const Geolocalizacao = () => {
         lng: -38.523
     };
 
+    const onMarkerDragEnd = (e) => {
+        const newLat = e.latLng.lat();
+        const newLng = e.latLng.lng();
+        setLocation({
+            latitude: newLat,
+            longitude: newLng
+        });
+    };
+
     return (
         <div className="form-geral">
             <h1 className='titulo-principal'>Geolocalização</h1>
@@ -66,13 +77,17 @@ const Geolocalizacao = () => {
                             Latitude: {location.latitude} <br />
                             Longitude: {location.longitude}
                         </p>
-                        <LoadScript googleMapsApiKey="321">
+                        <LoadScript googleMapsApiKey="159">
                             <GoogleMap
                                 mapContainerStyle={containerStyle}
                                 center={center}
                                 zoom={15}
                             >
-                                <MarkerF position={center} />
+                                <MarkerF
+                                    position={center}
+                                    draggable={true}
+                                    onDragEnd={onMarkerDragEnd} // Função chamada ao soltar o marcador
+                                />
                             </GoogleMap>
                         </LoadScript>
                     </div>
