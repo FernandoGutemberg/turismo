@@ -47,7 +47,6 @@ function AppContent() {
             <Nav.Link as={Link} to="/Tabelafotos">Fotos</Nav.Link>
             <Nav.Link as={Link} to="/Tabelaorcamento">Orçamento</Nav.Link>
             <Nav.Link as={Link} to="/Tabelamensagens">Mensagens</Nav.Link>
-            <Nav.Link as={Link} to="/Geolocalizacao">Geolocalização</Nav.Link>
           </Nav>
           <Button variant="warning" onClick={handleLogout} className="ms-auto">Sair</Button>
         </Navbar>

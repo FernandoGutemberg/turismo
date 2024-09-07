@@ -68,8 +68,8 @@ const Geolocalizacao = () => {
 
     return (
         <div className="form-geral">
-            <h1 className='titulo-principal'>Geolocalização</h1>
-            <Button type="button" onClick={getLocation}>BUSCAR MEU LOCAL</Button>
+
+            <Button type="button" onClick={getLocation}>BUSCAR LOCAL</Button>
             <div className="mt-3">
                 {location ? (
                     <div>
@@ -77,7 +77,7 @@ const Geolocalizacao = () => {
                             Latitude: {location.latitude} <br />
                             Longitude: {location.longitude}
                         </p>
-                        <LoadScript googleMapsApiKey="777">
+                        <LoadScript googleMapsApiKey="59999">
                             <GoogleMap
                                 mapContainerStyle={containerStyle}
                                 center={center}

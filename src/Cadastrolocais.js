@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from "react-toastify";
 import { Col, Form, Row, Button } from 'react-bootstrap';
+import Geolocalizacao from "./Geolocalizacao";
 import './Cadastros.css';
 
 
@@ -132,7 +133,7 @@ const Cadastrolocais = () => {
 
   return (
     <div className="form-geral">
-      <h1 className='titulo-principal'>Cadastro dos Locais de Turistado</h1>
+      <h1 className='titulo-principal'>Cadastro dos Locais Turistado</h1>
 
       <Form className="form-container">
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
@@ -193,6 +194,9 @@ const Cadastrolocais = () => {
         </Button>
         <ToastContainer />
       </Form>
+
+      <Geolocalizacao />
+
     </div>
   );
 };
