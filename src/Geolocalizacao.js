@@ -77,7 +77,7 @@ const Geolocalizacao = () => {
                             Latitude: {location.latitude} <br />
                             Longitude: {location.longitude}
                         </p>
-                        <LoadScript googleMapsApiKey="159">
+                        <LoadScript googleMapsApiKey="777">
                             <GoogleMap
                                 mapContainerStyle={containerStyle}
                                 center={center}
