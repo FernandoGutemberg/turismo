@@ -161,8 +161,7 @@ const Tabelausuarios = () => {
             <th>Telefone</th>
             <th>Senha</th>
             <th>Email</th>
-            <th>Ação Deletar</th>
-            <th>Ação Editar</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -175,6 +174,7 @@ const Tabelausuarios = () => {
               <td>{usuario.senha}</td>
               <td>{usuario.email}</td>
               <td>
+                {/* Inserir os botões abaixo como icon */}
                 <Button
                   variant="danger"
                   className="delete"
@@ -183,8 +183,6 @@ const Tabelausuarios = () => {
                 >
                   DELETAR
                 </Button>
-              </td>
-              <td>
                 <Button
                   className="update"
                   type="button"

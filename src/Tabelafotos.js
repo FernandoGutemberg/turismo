@@ -137,8 +137,7 @@ const Tabelafotos = () => {
             <th>Local</th>
             <th>Foto do Local</th>
             <th>Descrição</th>
-            <th>Ação Deletar</th>
-            <th>Ação Editar</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -155,9 +154,8 @@ const Tabelafotos = () => {
               </td>
               <td>{foto.descricao}</td>
               <td>
+                {/* Inserir os botões abaixo como icon */}
                 <Button variant="danger" onClick={() => handleDelete(foto._id)}>Deletar</Button>
-              </td>
-              <td>
                 <Button onClick={() => navigate(`/Cadastrofotolocais/${foto._id}`)}>Editar</Button>
               </td>
             </tr>

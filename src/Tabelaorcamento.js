@@ -151,8 +151,7 @@ const Tabelaorcamento = () => {
             <th>Título do Orçamento</th>
             <th>Custo Alimentação</th>
             <th>Custo Atividades</th>
-            <th>Ação Deletar</th>
-            <th>Ação Editar</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -172,8 +171,6 @@ const Tabelaorcamento = () => {
                 >
                   DELETAR
                 </Button>
-              </td>
-              <td>
                 <Button
                   className='update'
                   type='button'

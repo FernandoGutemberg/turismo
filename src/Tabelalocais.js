@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import "./Tabela.css";
+import Tabelafotos from "./Tabelafotos";
 
 
 const Tabelalocais = () => {
@@ -148,8 +149,7 @@ const Tabelalocais = () => {
             <th>Estado</th>
             <th>Cidade</th>
             <th>Foto</th>
-            <th>Ação Deletar</th>
-            <th>Ação Editar</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -170,8 +170,6 @@ const Tabelalocais = () => {
                   onClick={() => handleDelete(local._id)}
                 >DELETAR
                 </Button>
-              </td>
-              <td>
                 <Button
                   className='update'
                   type='button'
@@ -201,9 +199,12 @@ const Tabelalocais = () => {
         </Button>
       </div>
 
+      <Tabelafotos />
 
       <ToastContainer />
       <DeleteModal show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} />
+
+
     </div>
   );
 };

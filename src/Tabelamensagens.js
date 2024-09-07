@@ -161,8 +161,7 @@ const Tabelamensagens = () => {
             <th>Conteúdo da Mensagem</th>
             <th>Tipo de Mensagem</th>
             <th>Avaliação</th>
-            <th>Ação Deletar</th>
-            <th>Ação Editar</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -183,8 +182,6 @@ const Tabelamensagens = () => {
                 >
                   DELETAR
                 </Button>
-              </td>
-              <td>
                 <Button
                   className='update'
                   type='button'
