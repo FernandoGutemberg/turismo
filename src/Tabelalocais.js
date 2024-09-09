@@ -6,6 +6,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import "./Tabela.css";
 import Tabelafotos from "./Tabelafotos";
+import Tabelaorcamento from "./Tabelaorcamento";
+import Tabelamensagens from "./Tabelamensagens";
+
+
 
 
 const Tabelalocais = () => {
@@ -200,6 +204,10 @@ const Tabelalocais = () => {
       </div>
 
       <Tabelafotos />
+      <Tabelaorcamento />      
+      <Tabelamensagens />
+
+
 
       <ToastContainer />
       <DeleteModal show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} />
