@@ -6,6 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import "./App.css";
 import "./Tabela.css";
+import { Trash, Pencil } from 'react-bootstrap-icons';
+
 
 
 const Tabelafotos = () => {
@@ -155,8 +157,15 @@ const Tabelafotos = () => {
               <td>{foto.descricao}</td>
               <td>
                 {/* Inserir os botões abaixo como icon */}
-                <Button variant="danger" onClick={() => handleDelete(foto._id)}>Deletar</Button>
-                <Button onClick={() => navigate(`/Cadastrofotolocais/${foto._id}`)}>Editar</Button>
+                <Button variant="danger" onClick={() => handleDelete(foto._id)}>
+                  <Trash />
+
+
+                </Button>
+                <Button onClick={() => navigate(`/Cadastrofotolocais/${foto._id}`)}>
+                  <Pencil />
+
+                </Button>
               </td>
             </tr>
           ))}

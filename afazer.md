@@ -12,4 +12,4 @@ Também salvar o lat e long no banco de dados. - OK
 PENDENTE:
 Em locais ao salvar o usuário já insere o local pelo Google Maps pegando o lat e long... 
 
-Coluna "Ações", apenas um ícone para inserir outras funcionalidades do Locais... Fotos e etc.
+Coluna "Ações", apenas um ícone para inserir outras funcionalidades do Locais... Fotos e etc. - OK

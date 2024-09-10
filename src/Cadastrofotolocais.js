@@ -177,7 +177,7 @@ const Cadastrofotolocais = () => {
           variant="dark"
           className='voltar'
           type='button'
-          onClick={() => window.location.href = '/Tabelafotos/'}
+          onClick={() => window.location.href = '/Tabelalocais/'}
         >
           Voltar
         </Button>

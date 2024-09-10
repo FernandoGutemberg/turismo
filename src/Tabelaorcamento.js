@@ -6,6 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import "./App.css";
 import "./Tabela.css";
+import { Trash, Pencil } from 'react-bootstrap-icons';
+
 
 
 
@@ -169,15 +171,15 @@ const Tabelaorcamento = () => {
                   type='button'
                   onClick={() => handleDelete(orcamento._id)}
                 >
-                  DELETAR
-                </Button>
+                  <Trash />
+                  </Button>
                 <Button
                   className='update'
                   type='button'
                   onClick={() => window.location.href = '/Cadastroorcamento/' + orcamento._id}
                 >
-                  EDITAR
-                </Button>
+                  <Pencil />
+                  </Button>
               </td>
             </tr>
           ))}

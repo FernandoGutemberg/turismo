@@ -5,6 +5,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import "./Tabela.css";
+import { Trash, Pencil } from 'react-bootstrap-icons';
+
 
 
 const Tabelamensagens = () => {
@@ -180,15 +182,15 @@ const Tabelamensagens = () => {
                   type='button'
                   onClick={() => handleDelete(mensagem._id)}
                 >
-                  DELETAR
-                </Button>
+                  <Trash />
+                  </Button>
                 <Button
                   className='update'
                   type='button'
                   onClick={() => window.location.href = '/Cadastromensagens/' + mensagem._id}
                 >
-                  EDITAR
-                </Button>
+                  <Pencil />
+                  </Button>
               </td>
             </tr>
           ))}
