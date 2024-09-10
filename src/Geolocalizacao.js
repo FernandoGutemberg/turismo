@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
-import { GoogleMap, LoadScript, MarkerF } from "@react-google-maps/api";
+import { GoogleMap, LoadScript, MarkerF, Autocomplete } from "@react-google-maps/api";
 import "./Geolocalizacao.css";
 
 
 const Geolocalizacao = () => {
     const [location, setLocation] = useState(null);
     const [error, setError] = useState(null);
+    const [autocomplete, setAutocomplete] = useState(null);
 
     const getLocation = () => {
         if (navigator.geolocation) {
@@ -66,18 +67,45 @@ const Geolocalizacao = () => {
         });
     };
 
+    const onLoad = (autocompleteInstance) => {
+        setAutocomplete(autocompleteInstance);
+    };
+
+    const onPlaceChanged = () => {
+        if (autocomplete !== null) {
+            const place = autocomplete.getPlace();
+            if (place.geometry) {
+                const newLat = place.geometry.location.lat();
+                const newLng = place.geometry.location.lng();
+                setLocation({
+                    latitude: newLat,
+                    longitude: newLng
+                });
+            }
+        } else {
+            console.log("Autocomplete is not loaded yet!");
+        }
+    };
+
     return (
         <div className="form-geral">
-
             <Button type="button" onClick={getLocation}>BUSCAR LOCAL</Button>
             <div className="mt-3">
-                {location ? (
-                    <div>
-                        <p>
-                            Latitude: {location.latitude} <br />
-                            Longitude: {location.longitude}
-                        </p>
-                        <LoadScript googleMapsApiKey="59999">
+                <LoadScript googleMapsApiKey="51656166" libraries={['places']}>
+                    <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+                        <input
+                            type="text"
+                            placeholder="Pesquise no Google Maps"
+                            className="form-control"
+                            style={{ marginBottom: '10px' }}
+                        />
+                    </Autocomplete>
+                    {location ? (
+                        <div>
+                            <p>
+                                Latitude: {location.latitude} <br />
+                                Longitude: {location.longitude}
+                            </p>
                             <GoogleMap
                                 mapContainerStyle={containerStyle}
                                 center={center}
@@ -89,11 +117,11 @@ const Geolocalizacao = () => {
                                     onDragEnd={onMarkerDragEnd} // Função chamada ao soltar o marcador
                                 />
                             </GoogleMap>
-                        </LoadScript>
-                    </div>
-                ) : (
-                    <p>{error || "Clique no botão para que possamos utilizar suas coordenada para uma melhor experiência."}</p>
-                )}
+                        </div>
+                    ) : (
+                        <p>{error || "Clique no botão para que possamos utilizar suas coordenada para uma melhor experiência."}</p>
+                    )}
+                </LoadScript>
             </div>
         </div>
     );

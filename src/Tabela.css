@@ -83,4 +83,7 @@
     opacity: 0.5;
     cursor: not-allowed;
   }
+  button {
+    margin-right: 10px; /* Adiciona espaço à direita de cada botão */
+  }
   
