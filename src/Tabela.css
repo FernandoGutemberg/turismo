@@ -1,89 +1,110 @@
 /* Estilo geral da tabela */
 .table-container {
-    padding: 20px;
-    margin: 0 auto;
-    max-width: auto;
-  }
-  
-  /* Título principal */
-  .titulo-principal {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  /* Estilo para a tabela */
-  .usuario-table {
-    width: 100%;
-    margin-bottom: 20px;
-    border-spacing: 0;
-    border-collapse: collapse;
-    border-radius: 10px; /* Bordas arredondadas para a tabela */
-    overflow: hidden; /* Para que as bordas arredondadas funcionem corretamente */
-  }
-  
-  /* Estilo para o cabeçalho da tabela */
-  .usuario-table-header {
-    background-color: #393939; /* Cor de fundo cinza escuro para a linha do cabeçalho */
-    color: white;
-  }
-  
-  .usuario-table th {
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #444; /* Borda em volta dos cabeçalhos */
-  }
-  
-  /* Estilo para as células da tabela */
-  .usuario-table td {
-    text-align: center;
-    padding: 8px;
-    border: 1px solid #ddd; /* Borda em volta das células */
-  }
-  
-  /* Estilo para as linhas da tabela */
-  .usuario-table tbody tr {
-    background-color: #f9f9f9; /* Cor de fundo para as linhas */
-  }
-  
-  .usuario-table tbody tr:nth-child(even) {
-    background-color: #eee; /* Cor alternada para as linhas pares */
-  }
-  
-  /* Botão Cadastrar Usuário */
-  .botao-cadastrar {
-    display: block;
-    width: 200px;
-    margin: 0 auto 20px auto;
-  }
-  
-  /* Estilo da navegação de páginas */
-  .pagination-info {
-    text-align: center;
-    margin-bottom: 15px;
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  .table-navigation {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  /* Estilo dos botões */
-  button.delete,
-  button.update {
-    width: auto;
-    padding: 5px 10px;
-    font-size: 14px;
-  }
-  
-  button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-  button {
-    margin-right: 10px; /* Adiciona espaço à direita de cada botão */
-  }
-  
+  padding: 20px;
+  margin: 0 auto;
+  max-width: auto;
+  text-align: center;
+}
+
+/* Título principal */
+.titulo-principal {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Estilo para a tabela */
+.usuario-table {
+  width: 100%;
+  margin-bottom: 20px;
+  border-spacing: 0;
+  border-collapse: collapse;
+  border-radius: 10px;
+  /* Bordas arredondadas para a tabela */
+  overflow: hidden;
+  /* Para que as bordas arredondadas funcionem corretamente */
+}
+
+/* Estilo para o cabeçalho da tabela */
+.usuario-table-header {
+  background-color: #393939;
+  /* Cor de fundo cinza escuro para a linha do cabeçalho */
+  color: white;
+}
+
+.usuario-table th {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #444;
+  /* Borda em volta dos cabeçalhos */
+}
+
+/* Estilo para as células da tabela */
+.usuario-table td {
+  text-align: center;
+  padding: 8px;
+  border: 1px solid #ddd;
+  /* Borda em volta das células */
+}
+
+/* Estilo para as linhas da tabela */
+.usuario-table tbody tr {
+  background-color: #f9f9f9;
+  /* Cor de fundo para as linhas */
+}
+
+.usuario-table tbody tr:nth-child(even) {
+  background-color: #eee;
+  /* Cor alternada para as linhas pares */
+}
+
+/* Botão Cadastrar Usuário */
+.botao-cadastrar {
+  display: block;
+  width: 200px;
+  margin: 0 auto 20px auto;
+}
+
+.botao-tabela {
+  width: 200px;
+  margin: 0 10px 20px auto;
+  /* Adiciona margem entre os botões */
+
+}
+
+.botao-tabela-voltar {
+  width: 200px;
+  margin: 0 10px 20px auto;
+}
+
+/* Estilo da navegação de páginas */
+.pagination-info {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.table-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Estilo dos botões */
+button.delete,
+button.update {
+  width: auto;
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button {
+  margin-right: 10px;
+  /* Adiciona espaço à direita de cada botão */
+}

@@ -136,10 +136,27 @@ const Tabelalocais = () => {
     navigate('/Cadastrolocais');
   };
 
+  const redirecionarParaTabelafotos = () => {
+    navigate('/Tabelafotos');
+  };
+
+  const redirecionarParaTabelaorcamento = () => {
+    navigate('/Tabelaorcamento');
+  };
+
+  const redirecionarParaTabelamensagens = () => {
+    navigate('/Tabelamensagens');
+  };
+
   return (
     <div className="table-container">
-      <h2 className='titulo-principal'>Tabela de Locais</h2>
+      <Button onClick={redirecionarParaTabelafotos} className="botao-tabela">Fotos</Button>
+      <Button onClick={redirecionarParaTabelaorcamento} className="botao-tabela">Orçamentos</Button>
+      <Button onClick={redirecionarParaTabelamensagens}  className="botao-tabela">Mensagens</Button>
+      <h2 className='titulo-principal'>Locais</h2>
       <Button onClick={redirecionarParaCadastroLocais} className="botao-cadastrar">Cadastrar Local</Button>
+
+
 
       <Table striped bordered hover className="usuario-table">
         <thead className="usuario-table-header">

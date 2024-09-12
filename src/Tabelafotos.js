@@ -96,6 +96,10 @@ const Tabelafotos = () => {
     navigate('/Cadastrofotolocais');
   };
 
+  const redirecionarParaTabelalocais = () => {
+    navigate('/Tabelalocais');
+  };
+
 
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
@@ -130,7 +134,9 @@ const Tabelafotos = () => {
 
   return (
     <div className="table-container">
-      <h2 className='titulo-principal'>Tabela de Fotos</h2>
+      <Button onClick={redirecionarParaTabelalocais}  className="botao-tabela-voltar">Voltar para Locais</Button>
+
+      <h2 className='titulo-principal'>Fotos</h2>
       <Button onClick={redirecionarParaCadastroFotos} className="botao-cadastrar">Cadastrar Foto</Button>
       <Table striped bordered hover className="usuario-table">
         <thead className="usuario-table-header">

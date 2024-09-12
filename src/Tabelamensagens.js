@@ -109,6 +109,11 @@ const Tabelamensagens = () => {
     window.location.href = '/Cadastromensagens'; // Redireciona para a página de cadastro de mensagens    
   };
 
+  const redirecionarParaTabelalocais = () => {
+    navigate('/Tabelalocais');
+  };
+
+
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = mensagens.slice(indexOfFirstUser, indexOfLastUser);
@@ -151,7 +156,9 @@ const Tabelamensagens = () => {
 
   return (
     <div className="table-container">
-      <h2 className='titulo-principal'>Tabela de Mensagens</h2>
+      <Button onClick={redirecionarParaTabelalocais} className="botao-tabela-voltar">Voltar para Locais</Button>
+
+      <h2 className='titulo-principal'>Mensagens</h2>
       <Button onClick={redirecionarParaCadastroMensagens} className="botao-cadastrar">Cadastrar Mensagem</Button>
 
       <Table striped bordered hover className="usuario-table">
@@ -183,14 +190,14 @@ const Tabelamensagens = () => {
                   onClick={() => handleDelete(mensagem._id)}
                 >
                   <Trash />
-                  </Button>
+                </Button>
                 <Button
                   className='update'
                   type='button'
                   onClick={() => window.location.href = '/Cadastromensagens/' + mensagem._id}
                 >
                   <Pencil />
-                  </Button>
+                </Button>
               </td>
             </tr>
           ))}

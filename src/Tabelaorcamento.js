@@ -103,6 +103,11 @@ const Tabelaorcamento = () => {
     window.location.href = '/Cadastroorcamento';
   };
 
+  const redirecionarParaTabelalocais = () => {
+    navigate('/Tabelalocais');
+  };
+
+
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = orcamentos.slice(indexOfFirstUser, indexOfLastUser);
@@ -143,7 +148,9 @@ const Tabelaorcamento = () => {
 
   return (
     <div className="table-container">
-      <h2 className='titulo-principal'>Tabela de Orçamento</h2>
+      <Button onClick={redirecionarParaTabelalocais} className="botao-tabela-voltar">Voltar para Locais</Button>
+
+      <h2 className='titulo-principal'>Orçamentos</h2>
       <Button onClick={redirecionarParaCadastroOrcamento} className="botao-cadastrar">Cadastrar Orçamento</Button>
       <Table striped bordered hover className="usuario-table">
         <thead className="usuario-table-header">
@@ -172,14 +179,14 @@ const Tabelaorcamento = () => {
                   onClick={() => handleDelete(orcamento._id)}
                 >
                   <Trash />
-                  </Button>
+                </Button>
                 <Button
                   className='update'
                   type='button'
                   onClick={() => window.location.href = '/Cadastroorcamento/' + orcamento._id}
                 >
                   <Pencil />
-                  </Button>
+                </Button>
               </td>
             </tr>
           ))}
