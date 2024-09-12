@@ -91,7 +91,7 @@ const Geolocalizacao = () => {
         <div className="form-geral">
             <Button type="button" onClick={getLocation}>BUSCAR LOCAL</Button>
             <div className="mt-3">
-                <LoadScript googleMapsApiKey="546464" libraries={['places']}>
+                <LoadScript googleMapsApiKey="77777777" libraries={['places']}>
                     <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
                         <input
                             type="text"
