@@ -50,7 +50,7 @@ const Cadastrofotolocais = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch('http://localhost:9000/Tabelalocais')
+    fetch('http://localhost:9000/Tabelafotos')
       .then(response => response.json())
       .then(data => {
         const options = data.map(local => ({
@@ -177,7 +177,7 @@ const Cadastrofotolocais = () => {
           variant="dark"
           className='voltar'
           type='button'
-          onClick={() => window.location.href = '/Tabelalocais/'}
+          onClick={() => window.location.href = '/Tabelafotos/'}
         >
           Voltar
         </Button>

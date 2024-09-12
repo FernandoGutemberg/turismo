@@ -5,13 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import "./Tabela.css";
-import Tabelafotos from "./Tabelafotos";
-import Tabelaorcamento from "./Tabelaorcamento";
-import Tabelamensagens from "./Tabelamensagens";
 import { Trash, Pencil } from 'react-bootstrap-icons';
-
-
-
 
 
 const Tabelalocais = () => {
@@ -211,9 +205,6 @@ const Tabelalocais = () => {
         </Button>
       </div>
 
-      <Tabelafotos />
-      <Tabelaorcamento />
-      <Tabelamensagens />
 
 
 
