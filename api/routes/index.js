@@ -490,10 +490,13 @@ router.get('/getCadastromensagensFromId/:id', async (req, res) => {
 // Rota para pegar todas as mensagens do MongoDB
 router.get('/Tabelamensagens', async (req, res) => {
   try {
+    const localId = req.query.localId;  // Pegando o localId da query string
+
     let MensagensModel = mongoose.model('Mensagens', mensagensSchema);
     let LocalModel = mongoose.model('Locais', locaisSchema);
 
-    let mensagens = await MensagensModel.find();
+
+    let mensagens = await MensagensModel.find({ localId });
 
     let mensagensComLocal = await Promise.all(mensagens.map(async (mensagem) => {
       let local = await LocalModel.findById(mensagem.localId).exec();

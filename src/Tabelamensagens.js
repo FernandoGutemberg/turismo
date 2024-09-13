@@ -7,10 +7,19 @@ import { useNavigate } from 'react-router-dom';
 import "./Tabela.css";
 import { Trash, Pencil } from 'react-bootstrap-icons';
 
+// ESSA ALTER 
+import { useParams } from 'react-router-dom';
+
+
 
 
 const Tabelamensagens = () => {
   const navigate = useNavigate();
+
+  // ESSA ALTER 
+
+  const { localId } = useParams();
+
 
   const notifyDelete = () => toast("Mensagem deletada com sucesso!");
   const notifyCadastro = () => toast("Mensagem salva com sucesso!");
@@ -130,6 +139,25 @@ const Tabelamensagens = () => {
       setCurrentPage(currentPage - 1);
     }
   };
+
+    // ESSA ALTER 
+
+    useEffect(() => {
+      fetchMensagensPorLocal(localId);  // Chama a função de buscar fotos com o localId
+    }, [localId]);
+  
+    const fetchMensagensPorLocal = async (localId) => {
+      try {
+        const response = await fetch(`http://localhost:9000/Tabelamensagens?localId=${localId}`);  // Passa o localId na query string
+        const data = await response.json();
+        setMensagens(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+      // ESSA ALTER 
+  
 
 
 

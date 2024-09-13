@@ -146,6 +146,10 @@ const Tabelalocais = () => {
     navigate(`/Tabelaorcamento/${localId}`);
   };
 
+  const handleNavigateParaMensagens = (localId) => {
+    navigate(`/Tabelamensagens/${localId}`);
+  };
+
   return (
     <div className="table-container">
       <h2 className='titulo-principal'>Locais</h2>
@@ -209,7 +213,6 @@ const Tabelalocais = () => {
                   variant="warning"
                   className='delete'
                   type='button'
-                  
                   onClick={() => handleNavigateParaOrcamento(local._id)}
 
                 >
@@ -220,6 +223,8 @@ const Tabelalocais = () => {
                   variant="warning"
                   className='delete'
                   type='button'
+                  onClick={() => handleNavigateParaMensagens(local._id)}
+
                 >
                   <Envelope />
                 </Button>
