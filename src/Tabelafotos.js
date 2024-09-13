@@ -7,12 +7,16 @@ import { useNavigate } from 'react-router-dom';
 import "./App.css";
 import "./Tabela.css";
 import { Trash, Pencil } from 'react-bootstrap-icons';
+
+  // ESSA ALTER 
 import { useParams } from 'react-router-dom';
 
 
 
 const Tabelafotos = () => {
   const navigate = useNavigate();
+    // ESSA ALTER 
+
   const { localId } = useParams();
   const [fotos, setFotos] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -120,19 +124,24 @@ const Tabelafotos = () => {
     }
   };
 
+  // ESSA ALTER 
+
   useEffect(() => {
     fetchFotosPorLocal(localId);  // Chama a função de buscar fotos com o localId
   }, [localId]);
 
   const fetchFotosPorLocal = async (localId) => {
     try {
-      const response = await fetch(`http://localhost:9000/Tabelafotos?localId=${localId}`);  // Passa o localId na query string
+      const response = await fetch(`http://localhost:9000/tabelafotos?localId=${localId}`);  // Passa o localId na query string
       const data = await response.json();
       setFotos(data);
     } catch (error) {
       console.error(error);
     }
   };
+
+    // ESSA ALTER 
+
 
 
   const DeleteModal = ({ show, handleClose }) => (

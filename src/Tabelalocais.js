@@ -137,7 +137,10 @@ const Tabelalocais = () => {
     navigate('/Cadastrolocais');
   };
 
-  const handleNavigateToFotos = (localId) => {
+    // ESSA ALTER 
+
+
+  const handleNavigateParaFotos = (localId) => {
     navigate(`/Tabelafotos/${localId}`);
   };
 
@@ -192,7 +195,10 @@ const Tabelalocais = () => {
                   variant="warning"
                   className='delete'
                   type='button'
-                  onClick={() => handleNavigateToFotos(local._id)}
+
+                    // ESSA ALTER 
+
+                  onClick={() => handleNavigateParaFotos(local._id)}
                 >
                   <Camera />
                 </Button>
