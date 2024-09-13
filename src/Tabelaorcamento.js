@@ -8,11 +8,17 @@ import "./App.css";
 import "./Tabela.css";
 import { Trash, Pencil } from 'react-bootstrap-icons';
 
+import { useParams } from 'react-router-dom';
+
+
 
 
 
 const Tabelaorcamento = () => {
   const navigate = useNavigate();
+
+  const { localId } = useParams();
+
   const notifyDelete = () => toast("Orçamento deletado com sucesso!");
   const notifyCadastro = () => toast("Orçamento salvo com sucesso!");
 
@@ -124,6 +130,21 @@ const Tabelaorcamento = () => {
       setCurrentPage(currentPage - 1);
     }
   };
+
+  useEffect(() => {
+    fetchOrcamentoPorLocal(localId);  // Chama a função de buscar fotos com o localId
+  }, [localId]);
+
+  const fetchOrcamentoPorLocal = async (localId) => {
+    try {
+      const response = await fetch(`http://localhost:9000/tabelaorcamento?localId=${localId}`);  // Passa o localId na query string
+      const data = await response.json();
+      setOrcamentos(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
 
 

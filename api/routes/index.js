@@ -381,11 +381,14 @@ router.get('/getCadastroorcamentoFromId/:id', async (req, res) => {
 // Pega todos os orçamentos do MongoDB
 router.get('/Tabelaorcamento', async (req, res) => {
   try {
+    const localId = req.query.localId;  // Pegando o localId da query string
+
     let OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
     let LocalModel = mongoose.model('Locais', locaisSchema);
 
 
-    let orcamentos = await OrcamentoModel.find();
+
+    let orcamentos = await OrcamentoModel.find({ localId });
 
     let orcamentosComLocal = await Promise.all(orcamentos.map(async (orcamento) => {
       let local = await LocalModel.findById(orcamento.localId).exec();

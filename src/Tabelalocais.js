@@ -138,10 +138,12 @@ const Tabelalocais = () => {
   };
 
     // ESSA ALTER 
-
-
   const handleNavigateParaFotos = (localId) => {
     navigate(`/Tabelafotos/${localId}`);
+  };
+
+  const handleNavigateParaOrcamento = (localId) => {
+    navigate(`/Tabelaorcamento/${localId}`);
   };
 
   return (
@@ -207,6 +209,9 @@ const Tabelalocais = () => {
                   variant="warning"
                   className='delete'
                   type='button'
+                  
+                  onClick={() => handleNavigateParaOrcamento(local._id)}
+
                 >
                   <Calculator />
                 </Button>
