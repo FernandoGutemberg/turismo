@@ -43,9 +43,9 @@ function AppContent() {
           <Nav className="mr-auto">
             <Nav.Link as={Link} to="/Tabelausuarios">Usuários</Nav.Link>
             <Nav.Link as={Link} to="/Tabelalocais">Locais</Nav.Link>
-            {/* <Nav.Link as={Link} to="/Tabelafotos">Fotos</Nav.Link>
+            {/* <Nav.Link as={Link} to="/Tabelafotos">Fotos</Nav.Link> */}
             <Nav.Link as={Link} to="/Tabelaorcamento">Orçamento</Nav.Link>
-            <Nav.Link as={Link} to="/Tabelamensagens">Mensagens</Nav.Link> */}
+            <Nav.Link as={Link} to="/Tabelamensagens">Mensagens</Nav.Link>
           </Nav>
           <Button variant="warning" onClick={handleLogout} className="ms-auto">Sair</Button>
         </Navbar>
@@ -59,7 +59,7 @@ function AppContent() {
         <Route path="/Cadastromensagens/:id?" element={<ProtectedRoute element={Cadastromensagens} />} />
         <Route path="/Tabelausuarios" element={<ProtectedRoute element={Tabelausuarios} />} />
         <Route path="/Tabelalocais" element={<ProtectedRoute element={Tabelalocais} />} />
-        <Route path="/Tabelafotos" element={<ProtectedRoute element={Tabelafotos} />} />
+        <Route path="/Tabelafotos/:localId"element={<ProtectedRoute element={Tabelafotos} />} />
         <Route path="/Tabelaorcamento" element={<ProtectedRoute element={Tabelaorcamento} />} />
         <Route path="/Tabelamensagens" element={<ProtectedRoute element={Tabelamensagens} />} />
       </Routes>

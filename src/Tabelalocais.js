@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import "./Tabela.css";
-import { Trash, Pencil } from 'react-bootstrap-icons';
+import { Trash, Pencil, Camera, Calculator, Envelope } from 'react-bootstrap-icons';
 
 
 const Tabelalocais = () => {
@@ -15,6 +15,7 @@ const Tabelalocais = () => {
   const notifyCadastro = () => toast("Local salvo com sucesso!");
 
   const [locais, setLocais] = useState([]);
+  
 
   const [tokenValido, setTokenValido] = useState(false);
 
@@ -136,27 +137,14 @@ const Tabelalocais = () => {
     navigate('/Cadastrolocais');
   };
 
-  const redirecionarParaTabelafotos = () => {
-    navigate('/Tabelafotos');
-  };
-
-  const redirecionarParaTabelaorcamento = () => {
-    navigate('/Tabelaorcamento');
-  };
-
-  const redirecionarParaTabelamensagens = () => {
-    navigate('/Tabelamensagens');
+  const handleNavigateToFotos = (localId) => {
+    navigate(`/Tabelafotos/${localId}`);
   };
 
   return (
     <div className="table-container">
-      <Button onClick={redirecionarParaTabelafotos} className="botao-tabela">Fotos</Button>
-      <Button onClick={redirecionarParaTabelaorcamento} className="botao-tabela">Orçamentos</Button>
-      <Button onClick={redirecionarParaTabelamensagens}  className="botao-tabela">Mensagens</Button>
       <h2 className='titulo-principal'>Locais</h2>
       <Button onClick={redirecionarParaCadastroLocais} className="botao-cadastrar">Cadastrar Local</Button>
-
-
 
       <Table striped bordered hover className="usuario-table">
         <thead className="usuario-table-header">
@@ -199,6 +187,33 @@ const Tabelalocais = () => {
 
 
                 </Button>
+
+                <Button
+                  variant="warning"
+                  className='delete'
+                  type='button'
+                  onClick={() => handleNavigateToFotos(local._id)}
+                >
+                  <Camera />
+                </Button>
+
+                <Button
+                  variant="warning"
+                  className='delete'
+                  type='button'
+                >
+                  <Calculator />
+                </Button>
+
+                <Button
+                  variant="warning"
+                  className='delete'
+                  type='button'
+                >
+                  <Envelope />
+                </Button>
+
+
               </td>
             </tr>
           ))}

@@ -7,11 +7,13 @@ import { useNavigate } from 'react-router-dom';
 import "./App.css";
 import "./Tabela.css";
 import { Trash, Pencil } from 'react-bootstrap-icons';
+import { useParams } from 'react-router-dom';
 
 
 
 const Tabelafotos = () => {
   const navigate = useNavigate();
+  const { localId } = useParams();
   const [fotos, setFotos] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [fotoIdToDelete, setFotoIdToDelete] = useState('');
@@ -118,6 +120,20 @@ const Tabelafotos = () => {
     }
   };
 
+  useEffect(() => {
+    fetchFotosPorLocal(localId);  // Chama a função de buscar fotos com o localId
+  }, [localId]);
+
+  const fetchFotosPorLocal = async (localId) => {
+    try {
+      const response = await fetch(`http://localhost:9000/Tabelafotos?localId=${localId}`);  // Passa o localId na query string
+      const data = await response.json();
+      setFotos(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   const DeleteModal = ({ show, handleClose }) => (
     <Modal show={show} onHide={handleClose}>
@@ -134,7 +150,7 @@ const Tabelafotos = () => {
 
   return (
     <div className="table-container">
-      <Button onClick={redirecionarParaTabelalocais}  className="botao-tabela-voltar">Voltar para Locais</Button>
+      <Button onClick={redirecionarParaTabelalocais} className="botao-tabela-voltar">Voltar para Locais</Button>
 
       <h2 className='titulo-principal'>Fotos</h2>
       <Button onClick={redirecionarParaCadastroFotos} className="botao-cadastrar">Cadastrar Foto</Button>
