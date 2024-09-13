@@ -7,7 +7,6 @@ import Cadastrolocais from './Cadastrolocais';
 import Cadastrofotolocais from './Cadastrofotolocais';
 import Cadastroorcamento from './Cadastroorcamento';
 import Cadastromensagens from './Cadastromensagens';
-import Geolocalizacao from './Geolocalizacao';
 import Login from './Login';
 import Tabelausuarios from "./Tabelausuarios";
 import Tabelalocais from "./Tabelalocais";
@@ -58,7 +57,6 @@ function AppContent() {
         <Route path="/Cadastrofotolocais/:id?" element={<ProtectedRoute element={Cadastrofotolocais} />} />
         <Route path="/Cadastroorcamento/:id?" element={<ProtectedRoute element={Cadastroorcamento} />} />
         <Route path="/Cadastromensagens/:id?" element={<ProtectedRoute element={Cadastromensagens} />} />
-        <Route path="/Geolocalizacao" element={<ProtectedRoute element={Geolocalizacao} />} />
         <Route path="/Tabelausuarios" element={<ProtectedRoute element={Tabelausuarios} />} />
         <Route path="/Tabelalocais" element={<ProtectedRoute element={Tabelalocais} />} />
         <Route path="/Tabelafotos" element={<ProtectedRoute element={Tabelafotos} />} />

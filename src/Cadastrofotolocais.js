@@ -6,7 +6,6 @@ import { Col, Form, Row, Button } from 'react-bootstrap';
 import Select from 'react-select';
 import './Cadastros.css';
 
-
 const Cadastrofotolocais = () => {
   const navigate = useNavigate();
   const [uploadfoto, setUploadFoto] = useState("");
@@ -50,7 +49,7 @@ const Cadastrofotolocais = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch('http://localhost:9000/Tabelafotos')
+    fetch('http://localhost:9000/Tabelalocais')
       .then(response => response.json())
       .then(data => {
         const options = data.map(local => ({

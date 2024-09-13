@@ -8,8 +8,6 @@ import "./App.css";
 import "./Tabela.css";
 import { Trash, Pencil } from 'react-bootstrap-icons';
 
-
-
 const Tabelausuarios = () => {
   const navigate = useNavigate();
 
