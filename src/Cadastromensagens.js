@@ -114,103 +114,108 @@ const Cadastromensagens = () => {
       .then((data) => {
         console.log("Dados salvos:", data);
         localStorage.setItem("notificacao", "true");
-        navigate('/Tabelamensagens');
+
+        // Redireciona para a página com os dados salvos usando o ID retornado
+        const localId = data.localId || selectedLocal?.value;
+        navigate(`/Tabelamensagens/${localId}`);
       })
-      .catch((error) => {
+      .catch(error => {
         console.error("Erro ao salvar dados:", error);
       });
   };
 
-  const handleChangeTituloMensagem = (event) => {
-    setTituloMensagem(event.target.value);
-  };
-
-  const handleChangeConteudoMensagem = (event) => {
-    setConteudoMensagem(event.target.value);
-  };
-
-  const handleChangeTipoMensagem = (event) => {
-    setTipoMensagem(event.target.value);
-  };
 
 
-  const handleChangeAvaliacao = (event) => {
-    setAvaliacao(event.target.value);
-  };
+const handleChangeTituloMensagem = (event) => {
+  setTituloMensagem(event.target.value);
+};
+
+const handleChangeConteudoMensagem = (event) => {
+  setConteudoMensagem(event.target.value);
+};
+
+const handleChangeTipoMensagem = (event) => {
+  setTipoMensagem(event.target.value);
+};
 
 
-  return (
-    <div className="form-geral">
-      <h1 className='titulo-principal'>Cadastrar Experiência da Viagem</h1>
-      <Form className="form-container">
-        <Form.Group as={Row} className="mb-3" controlId="formLocationSelect">
-          <Form.Label column sm="2">
-            Selecionar Local:
-          </Form.Label>
-          <Col sm="10">
-            <Select
-              options={locais}
-              onChange={(option) => setSelectedLocal(option)}
-              placeholder="Selecione um Local"
-              className="react-select-container"
-            />
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mb-3">
-          <Form.Label column sm="2">
-            Título da Mensagem:
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control type="text" placeholder="Título da mensagem" value={tituloMensagem} onChange={handleChangeTituloMensagem} />
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mb-3">
-          <Form.Label column sm="2">
-            Conteúdo da Mensagem:
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control as="textarea" rows={3} placeholder="Feedback sobre um hotel, dica de restaurante" value={conteudoMensagem} onChange={handleChangeConteudoMensagem} />
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mb-3">
-          <Form.Label column sm="2">
-            Tipo de Mensagem:
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control type="text" placeholder="Pergunta - Dica - Comentário - Crítica" value={tipoMensagem} onChange={handleChangeTipoMensagem} />
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mb-3">
-          <Form.Label column sm="2">
-            Avaliação:
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control type="number" placeholder="Avaliação de 1 a 5" value={avaliacao} onChange={handleChangeAvaliacao} />
-          </Col>
-        </Form.Group>
+const handleChangeAvaliacao = (event) => {
+  setAvaliacao(event.target.value);
+};
 
 
-        <Button type="button" onClick={handleOnClickSalvar}>
-          Salvar
-        </Button>
-        &nbsp;
+return (
+  <div className="form-geral">
+    <h1 className='titulo-principal'>Cadastrar Experiência da Viagem</h1>
+    <Form className="form-container">
+      <Form.Group as={Row} className="mb-3" controlId="formLocationSelect">
+        <Form.Label column sm="2">
+          Selecionar Local:
+        </Form.Label>
+        <Col sm="10">
+          <Select
+            options={locais}
+            onChange={(option) => setSelectedLocal(option)}
+            placeholder="Selecione um Local"
+            className="react-select-container"
+          />
+        </Col>
+      </Form.Group>
 
-        <Button
-          variant="dark"
-          className='voltar'
-          type='button'
-          onClick={() => window.location.href = '/Tabelamensagens/'}
-        >
-          Voltar
-        </Button>
-        <ToastContainer />
-      </Form>
-    </div>
-  );
+      <Form.Group as={Row} className="mb-3">
+        <Form.Label column sm="2">
+          Título da Mensagem:
+        </Form.Label>
+        <Col sm="10">
+          <Form.Control type="text" placeholder="Título da mensagem" value={tituloMensagem} onChange={handleChangeTituloMensagem} />
+        </Col>
+      </Form.Group>
+
+      <Form.Group as={Row} className="mb-3">
+        <Form.Label column sm="2">
+          Conteúdo da Mensagem:
+        </Form.Label>
+        <Col sm="10">
+          <Form.Control as="textarea" rows={3} placeholder="Feedback sobre um hotel, dica de restaurante" value={conteudoMensagem} onChange={handleChangeConteudoMensagem} />
+        </Col>
+      </Form.Group>
+
+      <Form.Group as={Row} className="mb-3">
+        <Form.Label column sm="2">
+          Tipo de Mensagem:
+        </Form.Label>
+        <Col sm="10">
+          <Form.Control type="text" placeholder="Pergunta - Dica - Comentário - Crítica" value={tipoMensagem} onChange={handleChangeTipoMensagem} />
+        </Col>
+      </Form.Group>
+
+      <Form.Group as={Row} className="mb-3">
+        <Form.Label column sm="2">
+          Avaliação:
+        </Form.Label>
+        <Col sm="10">
+          <Form.Control type="number" placeholder="Avaliação de 1 a 5" value={avaliacao} onChange={handleChangeAvaliacao} />
+        </Col>
+      </Form.Group>
+
+
+      <Button type="button" onClick={handleOnClickSalvar}>
+        Salvar
+      </Button>
+      &nbsp;
+
+      <Button
+        variant="dark"
+        className='voltar'
+        type='button'
+        onClick={() => window.location.href = '/Tabelamensagens/'}
+      >
+        Voltar
+      </Button>
+      <ToastContainer />
+    </Form>
+  </div>
+);
 };
 
 export default Cadastromensagens;
