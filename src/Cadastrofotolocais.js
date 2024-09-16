@@ -113,7 +113,11 @@ const Cadastrofotolocais = () => {
       .then(data => {
         console.log("Dados salvos:", data);
         localStorage.setItem("notificacao", "true");
-        navigate('/Tabelafotos');
+
+
+        // Redireciona para a página com os dados salvos usando o ID retornado
+        const localId = data.localId || selectedLocal?.value;
+        navigate(`/Tabelafotos/${localId}`);
       })
       .catch(error => {
         console.error("Erro ao salvar dados:", error);
