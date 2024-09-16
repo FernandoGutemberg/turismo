@@ -143,6 +143,7 @@ router.post('/Cadastrolocais', async (req, res) => {
       paisLocal: req.body.paisLocal,
       estado: req.body.estado,
       cidade: req.body.cidade,
+      local: req.body.local,
       foto: req.body.foto,
       latitude: req.body.latitude,
       longitude: req.body.longitude,
@@ -217,6 +218,7 @@ router.patch('/Cadastrolocais/:id?', async (req, res) => {
     local.paisLocal = req.body.paisLocal;
     local.estado = req.body.estado;
     local.cidade = req.body.cidade;
+    local: req.body.local;
     local.foto = req.body.foto;
 
     await local.save();

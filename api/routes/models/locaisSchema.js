@@ -4,6 +4,7 @@ const locaisSchema = new mongoose.Schema({
     paisLocal: String,
     estado: String,
     cidade: String,
+    local: String,
     foto: String,
     latitude: Number,
     longitude: Number,

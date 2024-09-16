@@ -13,6 +13,8 @@ const Cadastrolocais = () => {
   const [paisLocal, setPaisLocal] = useState("");
   const [estado, setEstado] = useState("");
   const [cidade, setCidade] = useState("");
+  const [local, setLocal] = useState("");
+
 
   // State to hold the image as a base64 string
   const [fotoBase64, setFotoBase64] = useState("");
@@ -71,6 +73,7 @@ const Cadastrolocais = () => {
           setEstado(data.estado);
           setCidade(data.cidade);
           setFotoBase64(data.foto); // Assuming 'foto' is already stored as base64 in MongoDB
+          setLocal(data.local);
 
         })
         .catch((error) => {
@@ -89,6 +92,9 @@ const Cadastrolocais = () => {
 
   const handleChangeCidade = (event) => {
     setCidade(event.target.value);
+  };
+  const handleChangeLocal = (event) => {
+    setLocal(event.target.value);
   };
 
 
@@ -109,6 +115,7 @@ const Cadastrolocais = () => {
       paisLocal,
       estado,
       cidade,
+      local,
       foto: fotoBase64, // Send the base64 string to the backend
       latitude: location ? location.latitude : null,
       longitude: location ? location.longitude : null,
@@ -248,6 +255,16 @@ const Cadastrolocais = () => {
             <Form.Control type="text" placeholder="Nome da cidade visitada" name="nome" value={cidade} onChange={handleChangeCidade} />
           </Col>
         </Form.Group>
+
+        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+          <Form.Label column sm="2">
+            Local:
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control type="text" placeholder="Nome do Lugar visitada" name="nome" value={local} onChange={handleChangeLocal} />
+          </Col>
+        </Form.Group>
+
 
         {/* Nome do lugar */}
 

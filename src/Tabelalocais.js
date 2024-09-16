@@ -162,6 +162,7 @@ const Tabelalocais = () => {
             <th>País</th>
             <th>Estado</th>
             <th>Cidade</th>
+            <th>Local</th>
             <th>Foto</th>
             <th>Ações</th>
           </tr>
@@ -173,6 +174,8 @@ const Tabelalocais = () => {
               <td>{local.paisLocal}</td>
               <td>{local.estado}</td>
               <td>{local.cidade}</td>
+              <td>{local.local}</td>
+
               <td>
                 <img src={local.foto} alt={`Foto de ${local.cidade}`} width="200" />
               </td>
