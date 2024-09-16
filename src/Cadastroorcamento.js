@@ -109,106 +109,111 @@ const Cadastroorcamento = () => {
       .then((data) => {
         console.log("Dados salvos:", data);
         localStorage.setItem("notificacao", "true");
-        navigate('/Tabelaorcamento');
+
+
+        // Redireciona para a página com os dados salvos usando o ID retornado
+        const localId = data.localId || selectedLocal?.value;
+        navigate(`/Tabelaorcamento/${localId}`);
       })
-      .catch((error) => {
+      .catch(error => {
         console.error("Erro ao salvar dados:", error);
       });
   };
 
-  const handleChangeTituloOrcamento = (event) => {
-    setTituloOrcamento(event.target.value);
-  };
+ 
+const handleChangeTituloOrcamento = (event) => {
+  setTituloOrcamento(event.target.value);
+};
 
-  const handleChangeCustoAlimentacao = (event) => {
-    setCustoAlimentacao(event.target.value);
-  };
+const handleChangeCustoAlimentacao = (event) => {
+  setCustoAlimentacao(event.target.value);
+};
 
-  const handleChangeCustoAtividades = (event) => {
-    setCustoAtividades(event.target.value);
-  };
+const handleChangeCustoAtividades = (event) => {
+  setCustoAtividades(event.target.value);
+};
 
-  return (
-    <div className="form-geral">
-      <h1 className='titulo-principal'>Orçamento da Experiência de Viagem</h1>
-      <Form className="form-container">
-        <Form.Group as={Row} className="mb-3" controlId="formLocationSelect">
-          <Form.Label column sm="2">
-            Selecionar Local:
-          </Form.Label>
-          <Col sm="10">
-            <Select
-              options={locais}
-              onChange={(option) => setSelectedLocal(option)}
-              placeholder="Selecione um Local"
-              className="react-select-container"
-            />
-          </Col>
-        </Form.Group>
+return (
+  <div className="form-geral">
+    <h1 className='titulo-principal'>Orçamento da Experiência de Viagem</h1>
+    <Form className="form-container">
+      <Form.Group as={Row} className="mb-3" controlId="formLocationSelect">
+        <Form.Label column sm="2">
+          Selecionar Local:
+        </Form.Label>
+        <Col sm="10">
+          <Select
+            options={locais}
+            onChange={(option) => setSelectedLocal(option)}
+            placeholder="Selecione um Local"
+            className="react-select-container"
+          />
+        </Col>
+      </Form.Group>
 
-        <Form.Group as={Row} className="mb-3" controlId="formTituloOrcamento">
-          <Form.Label column sm="2">
-            Título do Orçamento:
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control
-              type="text"
-              placeholder="Ex: Viagem para Paris - Novembro de 2024"
-              value={tituloOrcamento}
-              onChange={handleChangeTituloOrcamento}
-            />
-          </Col>
-        </Form.Group>
+      <Form.Group as={Row} className="mb-3" controlId="formTituloOrcamento">
+        <Form.Label column sm="2">
+          Título do Orçamento:
+        </Form.Label>
+        <Col sm="10">
+          <Form.Control
+            type="text"
+            placeholder="Ex: Viagem para Paris - Novembro de 2024"
+            value={tituloOrcamento}
+            onChange={handleChangeTituloOrcamento}
+          />
+        </Col>
+      </Form.Group>
 
-        <Form.Group as={Row} className="mb-3" controlId="formCustoAlimentacao">
-          <Form.Label column sm="2">
-            Custo Total Estimado de Alimentação:
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control
-              type="number"
-              placeholder="Valor estimado para alimentação"
-              value={custoAlimentacao}
-              onChange={handleChangeCustoAlimentacao}
-              step="0.01"
-              min="0"
-            />
-          </Col>
-        </Form.Group>
+      <Form.Group as={Row} className="mb-3" controlId="formCustoAlimentacao">
+        <Form.Label column sm="2">
+          Custo Total Estimado de Alimentação:
+        </Form.Label>
+        <Col sm="10">
+          <Form.Control
+            type="number"
+            placeholder="Valor estimado para alimentação"
+            value={custoAlimentacao}
+            onChange={handleChangeCustoAlimentacao}
+            step="0.01"
+            min="0"
+          />
+        </Col>
+      </Form.Group>
 
-        <Form.Group as={Row} className="mb-3" controlId="formCustoAtividades">
-          <Form.Label column sm="2">
-            Custo Total Estimado de Atividades/Turismo:
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control
-              type="number"
-              placeholder="Valor estimado para atividades e turismo"
-              value={custoAtividades}
-              onChange={handleChangeCustoAtividades}
-              step="0.01"
-              min="0"
-            />
-          </Col>
-        </Form.Group>
+      <Form.Group as={Row} className="mb-3" controlId="formCustoAtividades">
+        <Form.Label column sm="2">
+          Custo Total Estimado de Atividades/Turismo:
+        </Form.Label>
+        <Col sm="10">
+          <Form.Control
+            type="number"
+            placeholder="Valor estimado para atividades e turismo"
+            value={custoAtividades}
+            onChange={handleChangeCustoAtividades}
+            step="0.01"
+            min="0"
+          />
+        </Col>
+      </Form.Group>
 
-        <Button type="button" onClick={handleOnClickSalvar}>
-          Salvar
-        </Button>
-        &nbsp;
+      <Button type="button" onClick={handleOnClickSalvar}>
+        Salvar
+      </Button>
+      &nbsp;
 
-        <Button
-          variant="dark"
-          className='voltar'
-          type='button'
-          onClick={() => window.location.href = '/Tabelaorcamento/'}
-        >
-          Voltar
-        </Button>
-        <ToastContainer />
-      </Form>
-    </div>
-  );
+      <Button
+        variant="dark"
+        className='voltar'
+        type='button'
+        onClick={() => window.location.href = '/Tabelaorcamento/'}
+      >
+        Voltar
+      </Button>
+      <ToastContainer />
+    </Form>
+  </div>
+);
 };
 
 export default Cadastroorcamento;
