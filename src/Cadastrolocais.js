@@ -110,6 +110,8 @@ const Cadastrolocais = () => {
       estado,
       cidade,
       foto: fotoBase64, // Send the base64 string to the backend
+      latitude: location ? location.latitude : null,
+      longitude: location ? location.longitude : null,
     };
 
     const configuracaoEnvio = {
@@ -134,6 +136,7 @@ const Cadastrolocais = () => {
         console.error("Erro ao salvar dados:", error);
       });
   };
+
 
   // Função para buscar localização
   const getLocation = () => {
@@ -246,6 +249,8 @@ const Cadastrolocais = () => {
           </Col>
         </Form.Group>
 
+        {/* Nome do lugar */}
+
 
         <Form.Group as={Row} className="mb-3" controlId="formFile">
           <Form.Label column sm="2">
@@ -258,6 +263,11 @@ const Cadastrolocais = () => {
               onChange={handleFileChange}
             />
           </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-3">
+          <input type="hidden" name="latitude" value={location ? location.latitude : ''} />
+          <input type="hidden" name="longitude" value={location ? location.longitude : ''} />
         </Form.Group>
 
         <Button type="button" onClick={handleOnClickSalvar}>
@@ -275,40 +285,40 @@ const Cadastrolocais = () => {
         </Button>
 
         <div className="form-geral">
-            <Button type="button" onClick={getLocation}>BUSCAR LOCAL</Button>
-            <div className="mt-3">
-                <LoadScript googleMapsApiKey="7987897" libraries={['places']}>
-                    <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-                        <input
-                            type="text"
-                            placeholder="Pesquise no Google Maps"
-                            className="form-control"
-                            style={{ marginBottom: '10px' }}
-                        />
-                    </Autocomplete>
-                    {location ? (
-                        <div>
-                            <p>
-                                Latitude: {location.latitude} <br />
-                                Longitude: {location.longitude}
-                            </p>
-                            <GoogleMap
-                                mapContainerStyle={containerStyle}
-                                center={center}
-                                zoom={15}
-                            >
-                                <MarkerF
-                                    position={center}
-                                    draggable={true}
-                                    onDragEnd={onMarkerDragEnd} // Função chamada ao soltar o marcador
-                                />
-                            </GoogleMap>
-                        </div>
-                    ) : (
-                        <p>{error || "Clique no botão para que possamos utilizar suas coordenada para uma melhor experiência."}</p>
-                    )}
-                </LoadScript>
-            </div>
+          <Button type="button" onClick={getLocation}>BUSCAR LOCAL</Button>
+          <div className="mt-3">
+            <LoadScript googleMapsApiKey="777777" libraries={['places']}>
+              <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+                <input
+                  type="text"
+                  placeholder="Pesquise no Google Maps"
+                  className="form-control"
+                  style={{ marginBottom: '10px' }}
+                />
+              </Autocomplete>
+              {location ? (
+                <div>
+                  <p>
+                    Latitude: {location.latitude} <br />
+                    Longitude: {location.longitude}
+                  </p>
+                  <GoogleMap
+                    mapContainerStyle={containerStyle}
+                    center={center}
+                    zoom={15}
+                  >
+                    <MarkerF
+                      position={center}
+                      draggable={true}
+                      onDragEnd={onMarkerDragEnd} // Função chamada ao soltar o marcador
+                    />
+                  </GoogleMap>
+                </div>
+              ) : (
+                <p>{error || "Clique no botão para que possamos utilizar suas coordenada para uma melhor experiência."}</p>
+              )}
+            </LoadScript>
+          </div>
         </div>
 
 

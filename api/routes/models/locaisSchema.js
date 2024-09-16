@@ -5,6 +5,8 @@ const locaisSchema = new mongoose.Schema({
     estado: String,
     cidade: String,
     foto: String,
+    latitude: Number,
+    longitude: Number,
 
 });
 const LocalModel = mongoose.model('Locais', locaisSchema);

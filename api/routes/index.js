@@ -144,6 +144,8 @@ router.post('/Cadastrolocais', async (req, res) => {
       estado: req.body.estado,
       cidade: req.body.cidade,
       foto: req.body.foto,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
     });
 
     await local.save();
