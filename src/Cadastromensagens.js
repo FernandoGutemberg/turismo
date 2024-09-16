@@ -60,7 +60,7 @@ const Cadastromensagens = () => {
       .then(data => {
         const options = data.map(local => ({
           value: local._id,
-          label: `${local.paisLocal} - ${local.estado} - ${local.cidade}`
+          label: `${local.paisLocal} - ${local.local}`
         }));
         setLocais(options);
       })
