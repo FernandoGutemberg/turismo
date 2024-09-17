@@ -128,6 +128,8 @@ const Cadastrofotolocais = () => {
     <div className="form-geral">
       <h1 className='titulo-principal'>Cadastrar foto dos locais</h1>
 
+      {/* Será retirado esse Select para quando Cadastrar uma foto associada a uma entidade Local ele já pegue o local_id.  */}
+
       <Form className="form-container">
         <Form.Group as={Row} className="mb-3" controlId="formLocationSelect">
           <Form.Label column sm="2">
@@ -144,6 +146,13 @@ const Cadastrofotolocais = () => {
         </Form.Group>
 
         <Form.Group as={Row} className="mb-3" controlId="formFile">
+
+
+          Aqui vai passar o localId 
+          {/* Campo hidden com o localId
+          <input type="hidden" value={localId} /> */}
+
+
           <Form.Label column sm="2">
             Inserir Foto(s):
           </Form.Label>

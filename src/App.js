@@ -54,7 +54,10 @@ function AppContent() {
         <Route path="/" element={<Login />} />
         <Route path="/Cadastrousuarios/:id?" element={<ProtectedRoute element={Cadastrousuarios} />} />
         <Route path="/Cadastrolocais/:id?" element={<ProtectedRoute element={Cadastrolocais} />} />
-        <Route path="/Cadastrofotolocais/:id?" element={<ProtectedRoute element={Cadastrofotolocais} />} />
+        
+        {/* preparando para pegar o localId para atualizar a entidade Fotos assiaciado a um local.  */}
+        <Route path="/Cadastrofotolocais/:localId/:id?" element={<ProtectedRoute element={Cadastrofotolocais} />} />
+
         <Route path="/Cadastroorcamento/:id?" element={<ProtectedRoute element={Cadastroorcamento} />} />
         <Route path="/Cadastromensagens/:id?" element={<ProtectedRoute element={Cadastromensagens} />} />
         <Route path="/Tabelausuarios" element={<ProtectedRoute element={Tabelausuarios} />} />
