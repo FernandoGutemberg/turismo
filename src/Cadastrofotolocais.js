@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from "react-toastify";
 import { Col, Form, Row, Button } from 'react-bootstrap';
-import Select from 'react-select';
 import './Cadastros.css';
 
 const Cadastrofotolocais = () => {
@@ -14,6 +13,10 @@ const Cadastrofotolocais = () => {
   const [selectedLocal, setSelectedLocal] = useState(null);
 
   const [tokenValido, setTokenValido] = useState(false);
+
+  // MUDANDO AQUI:
+  // Captura de localId e id da URL
+  const { localId, id } = useParams();  // Captura ambos os parâmetros
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
@@ -45,9 +48,6 @@ const Cadastrofotolocais = () => {
     }
   }, [navigate]);
 
-
-  const { id } = useParams();
-
   useEffect(() => {
     fetch('http://localhost:9000/Tabelalocais')
       .then(response => response.json())
@@ -75,7 +75,7 @@ const Cadastrofotolocais = () => {
           setDescricao(data.descricao);
         })
         .catch((error) => {
-          console.error("Erro ao carregar dados do usuário:", error);
+          console.error("Erro ao carregar dados da foto:", error);
         });
     }
   }, [id]);
@@ -94,9 +94,11 @@ const Cadastrofotolocais = () => {
     setDescricao(event.target.value);
   };
 
+  // MUDANDO AQUI:
+
   const handleOnClickSalvar = () => {
     const dados = {
-      localId: selectedLocal?.value, // ID do local selecionado
+      localId: localId || selectedLocal?.value,  // Usa localId da URL ou selecionado
       uploadfoto: uploadfoto,
       descricao,
     };
@@ -104,9 +106,8 @@ const Cadastrofotolocais = () => {
     const configuracaoEnvio = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(dados),
+      method: id ? "PATCH" : "POST", // Define o método HTTP
     };
-
-    configuracaoEnvio.method = id ? "PATCH" : "POST";
 
     fetch(`http://localhost:9000/Cadastrofotolocais${id ? `/${id}` : ""}`, configuracaoEnvio)
       .then(response => response.json())
@@ -114,10 +115,9 @@ const Cadastrofotolocais = () => {
         console.log("Dados salvos:", data);
         localStorage.setItem("notificacao", "true");
 
-
-        // Redireciona para a página com os dados salvos usando o ID retornado
-        const localId = data.localId || selectedLocal?.value;
-        navigate(`/Tabelafotos/${localId}`);
+        // Redireciona para a página com os dados salvos usando o localId
+        const redirecionarId = data.localId || localId || selectedLocal?.value;
+        navigate(`/Tabelafotos/${redirecionarId}`);
       })
       .catch(error => {
         console.error("Erro ao salvar dados:", error);
@@ -128,40 +128,15 @@ const Cadastrofotolocais = () => {
     <div className="form-geral">
       <h1 className='titulo-principal'>Cadastrar foto dos locais</h1>
 
-      {/* Será retirado esse Select para quando Cadastrar uma foto associada a uma entidade Local ele já pegue o local_id.  */}
+      {/* // MUDANDO AQUI: */}
 
       <Form className="form-container">
-        <Form.Group as={Row} className="mb-3" controlId="formLocationSelect">
-          <Form.Label column sm="2">
-            Selecionar Local:
-          </Form.Label>
-          <Col sm="10">
-            <Select
-              options={locais}
-              onChange={(option) => setSelectedLocal(option)}
-              placeholder="Selecione um Local"
-              className="react-select-container"
-            />
-          </Col>
-        </Form.Group>
-
         <Form.Group as={Row} className="mb-3" controlId="formFile">
-
-
-          Aqui vai passar o localId 
-          {/* Campo hidden com o localId
-          <input type="hidden" value={localId} /> */}
-
-
-          <Form.Label column sm="2">
-            Inserir Foto(s):
-          </Form.Label>
+          {/* Campo hidden com o localId */}
+          <input type="hidden" name="localId" value={localId} />
+          <Form.Label column sm="2">Inserir Foto(s):</Form.Label>
           <Col sm="10">
-            <Form.Control
-              type="file"
-              name="foto"
-              onChange={handleChangeUploadFoto}
-            />
+            <Form.Control type="file" name="foto" onChange={handleChangeUploadFoto} />
           </Col>
         </Form.Group>
 
@@ -172,8 +147,8 @@ const Cadastrofotolocais = () => {
           <Col sm="10">
             <Form.Control
               type="text"
-              placeholder="Foto do local"
-              name="nome"
+              placeholder="Descrição da foto"
+              name="descricao"
               value={descricao}
               onChange={handleChangeDescricao}
             />
@@ -189,7 +164,7 @@ const Cadastrofotolocais = () => {
           variant="dark"
           className='voltar'
           type='button'
-          onClick={() => window.location.href = '/Tabelafotos/'}
+          onClick={() => navigate(`/Tabelafotos/${localId}`)} // Redireciona corretamente
         >
           Voltar
         </Button>

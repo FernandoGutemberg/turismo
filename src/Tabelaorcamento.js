@@ -10,10 +10,6 @@ import { Trash, Pencil } from 'react-bootstrap-icons';
 
 import { useParams } from 'react-router-dom';
 
-
-
-
-
 const Tabelaorcamento = () => {
   const navigate = useNavigate();
 
@@ -106,7 +102,8 @@ const Tabelaorcamento = () => {
   };
 
   const redirecionarParaCadastroOrcamento = () => {
-    window.location.href = '/Cadastroorcamento';
+    navigate(`/Cadastroorcamento/${localId}`); // Usando crases para interpolar a variável
+
   };
 
   const redirecionarParaTabelalocais = () => {
@@ -204,7 +201,7 @@ const Tabelaorcamento = () => {
                 <Button
                   className='update'
                   type='button'
-                  onClick={() => window.location.href = '/Cadastroorcamento/' + orcamento._id}
+                  onClick={() => navigate(`/Cadastroorcamento/${localId}/${orcamento._id}`)}
                 >
                   <Pencil />
                 </Button>

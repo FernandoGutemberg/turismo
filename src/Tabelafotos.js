@@ -8,14 +8,10 @@ import "./App.css";
 import "./Tabela.css";
 import { Trash, Pencil } from 'react-bootstrap-icons';
 
-  // ESSA ALTER 
 import { useParams } from 'react-router-dom';
-
-
 
 const Tabelafotos = () => {
   const navigate = useNavigate();
-    // ESSA ALTER 
 
   const { localId } = useParams();
   const [fotos, setFotos] = useState([]);
@@ -98,8 +94,11 @@ const Tabelafotos = () => {
     }
   };
 
+
+    // MUDANDO AQUI:
+
   const redirecionarParaCadastroFotos = () => {
-    navigate('/Cadastrofotolocais');
+    navigate(`/Cadastrofotolocais/${localId}`); // Usando crases para interpolar a variável
   };
 
   const redirecionarParaTabelalocais = () => {
@@ -140,7 +139,7 @@ const Tabelafotos = () => {
     }
   };
 
-    // ESSA ALTER 
+  // ESSA ALTER 
 
 
 
@@ -191,12 +190,13 @@ const Tabelafotos = () => {
                 <Button variant="danger" onClick={() => handleDelete(foto._id)}>
                   <Trash />
 
+                  {/*  MUDANDO AQUI: */}
 
                 </Button>
-                <Button onClick={() => navigate(`/Cadastrofotolocais/${foto._id}`)}>
+                <Button onClick={() => navigate(`/Cadastrofotolocais/${localId}/${foto._id}`)}>
                   <Pencil />
-
                 </Button>
+
               </td>
             </tr>
           ))}
