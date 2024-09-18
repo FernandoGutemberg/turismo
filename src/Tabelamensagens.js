@@ -10,16 +10,12 @@ import { Trash, Pencil } from 'react-bootstrap-icons';
 // ESSA ALTER 
 import { useParams } from 'react-router-dom';
 
-
-
-
 const Tabelamensagens = () => {
   const navigate = useNavigate();
 
   // ESSA ALTER 
 
   const { localId } = useParams();
-
 
   const notifyDelete = () => toast("Mensagem deletada com sucesso!");
   const notifyCadastro = () => toast("Mensagem salva com sucesso!");
@@ -115,7 +111,8 @@ const Tabelamensagens = () => {
   };
 
   const redirecionarParaCadastroMensagens = () => {
-    window.location.href = '/Cadastromensagens'; // Redireciona para a página de cadastro de mensagens    
+    navigate(`/Cadastromensagens/${localId}`); // Usando crases para interpolar a variável
+
   };
 
   const redirecionarParaTabelalocais = () => {
@@ -155,11 +152,7 @@ const Tabelamensagens = () => {
         console.error(error);
       }
     };
-  
-      // ESSA ALTER 
-  
-
-
+    
 
   const DeleteModal = ({ show, handleClose }) => {
     return (
@@ -222,7 +215,7 @@ const Tabelamensagens = () => {
                 <Button
                   className='update'
                   type='button'
-                  onClick={() => window.location.href = '/Cadastromensagens/' + mensagem._id}
+                  onClick={() => navigate(`/Cadastromensagens/${localId}/${mensagem._id}`)}
                 >
                   <Pencil />
                 </Button>

@@ -14,6 +14,7 @@ const Tabelafotos = () => {
   const navigate = useNavigate();
 
   const { localId } = useParams();
+
   const [fotos, setFotos] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [fotoIdToDelete, setFotoIdToDelete] = useState('');
@@ -138,9 +139,6 @@ const Tabelafotos = () => {
       console.error(error);
     }
   };
-
-  // ESSA ALTER 
-
 
 
   const DeleteModal = ({ show, handleClose }) => (

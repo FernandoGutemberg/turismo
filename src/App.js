@@ -59,12 +59,12 @@ function AppContent() {
         <Route path="/Cadastrofotolocais/:localId/:id?" element={<ProtectedRoute element={Cadastrofotolocais} />} />
 
         <Route path="/Cadastroorcamento/:localId/:id?" element={<ProtectedRoute element={Cadastroorcamento} />} />
-        <Route path="/Cadastromensagens/:id?" element={<ProtectedRoute element={Cadastromensagens} />} />
+        <Route path="/Cadastromensagens/:localId/:id?" element={<ProtectedRoute element={Cadastromensagens} />} />
         <Route path="/Tabelausuarios" element={<ProtectedRoute element={Tabelausuarios} />} />
         <Route path="/Tabelalocais" element={<ProtectedRoute element={Tabelalocais} />} />
-        <Route path="/Tabelafotos/:localId"element={<ProtectedRoute element={Tabelafotos} />} />
-        <Route path="/Tabelaorcamento/:localId" element={<ProtectedRoute element={Tabelaorcamento} />} />
-        <Route path="/Tabelamensagens/:localId" element={<ProtectedRoute element={Tabelamensagens} />} />
+        <Route path="/Tabelafotos/:localId/:id?"element={<ProtectedRoute element={Tabelafotos} />} />
+        <Route path="/Tabelaorcamento/:localId/:id?" element={<ProtectedRoute element={Tabelaorcamento} />} />
+        <Route path="/Tabelamensagens/:localId/:id?" element={<ProtectedRoute element={Tabelamensagens} />} />
       </Routes>
     </>
   );

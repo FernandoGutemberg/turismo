@@ -7,6 +7,7 @@ import './Cadastros.css';
 
 const Cadastrofotolocais = () => {
   const navigate = useNavigate();
+  
   const [uploadfoto, setUploadFoto] = useState("");
   const [descricao, setDescricao] = useState("");
   const [locais, setLocais] = useState([]);
