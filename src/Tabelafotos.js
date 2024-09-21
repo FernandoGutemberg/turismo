@@ -87,7 +87,8 @@ const Tabelafotos = () => {
           'Content-Type': 'application/json',
         },
       });
-      fetchFotos();
+      // Atualiza o estado removendo a foto excluída
+      setFotos(fotos.filter(foto => foto._id !== fotoIdToDelete));
       setShowDeleteModal(false);
       toast("Foto deletada com sucesso!");
     } catch (error) {
