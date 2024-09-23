@@ -62,7 +62,10 @@ const Cadastrofotolocais = () => {
       .catch(error => console.error('Erro ao buscar locais:', error));
   }, []);
 
+
   useEffect(() => {
+    console.log("Parâmetros da URL:", { localId, id });
+
     if (id) {
       fetch(`http://localhost:9000/getCadastrofotolocaisFromId/${id}`, {
         method: 'GET',
@@ -72,6 +75,8 @@ const Cadastrofotolocais = () => {
       })
         .then((response) => response.json())
         .then((data) => {
+          console.log("Dados recebidos da foto:", data); // Adicionado
+
           setUploadFoto(data.uploadfoto);
           setDescricao(data.descricao);
         })
@@ -80,6 +85,8 @@ const Cadastrofotolocais = () => {
         });
     }
   }, [id]);
+
+
 
   const handleChangeUploadFoto = (event) => {
     const file = event.target.files[0];

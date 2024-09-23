@@ -1,5 +1,17 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const cors = require('cors'); // Importa o middleware CORS
+
+// Configuração personalizada do CORS
+const corsOptions = {
+  origin: 'http://localhost:3000', // Origem permitida
+  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'], // Métodos permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos permitidos
+  credentials: true, // Se precisar enviar cookies ou autenticação
+};
+
+// Aplicar o middleware CORS apenas neste router
+router.use(cors(corsOptions));
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
