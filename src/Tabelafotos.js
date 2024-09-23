@@ -6,7 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import "./App.css";
 import "./Tabela.css";
-import { Trash, Pencil } from 'react-bootstrap-icons';
+import { Trash, Pencil, ArrowRight, ArrowLeft } from 'react-bootstrap-icons';
+
 
 import { useParams } from 'react-router-dom';
 
@@ -97,7 +98,7 @@ const Tabelafotos = () => {
   };
 
 
-    // MUDANDO AQUI:
+  // MUDANDO AQUI:
 
   const redirecionarParaCadastroFotos = () => {
     navigate(`/Cadastrofotolocais/${localId}`); // Usando crases para interpolar a variável
@@ -172,7 +173,7 @@ const Tabelafotos = () => {
           </tr>
         </thead>
         <tbody>
-          {fotos.map((foto, index) => (
+          {currentUsers.map((foto, index) => (
             <tr key={index}>
               <td>{index + indexOfFirstUser + 1}</td>
               <td>{foto.localInfo || 'Nome não disponível'}</td>
@@ -209,14 +210,14 @@ const Tabelafotos = () => {
 
       <div className="table-navigation">
         <Button variant="secondary" onClick={prevPage} disabled={currentPage === 1}>
-          Tabela Anterior
+          <ArrowLeft />
         </Button>
         <Button
           variant="secondary"
           onClick={nextPage}
           disabled={currentPage === totalPages}
         >
-          Próxima Tabela
+          <ArrowRight />
         </Button>
       </div>
 

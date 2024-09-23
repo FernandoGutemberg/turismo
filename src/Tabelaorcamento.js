@@ -182,7 +182,7 @@ const Tabelaorcamento = () => {
           </tr>
         </thead>
         <tbody>
-          {orcamentos.map((orcamento, index) => (
+          {currentUsers.map((orcamento, index) => (
             <tr key={index}>
               <td>{index + indexOfFirstUser + 1}</td>
               <td>{orcamento.localInfo || 'Nome não disponível'}</td>

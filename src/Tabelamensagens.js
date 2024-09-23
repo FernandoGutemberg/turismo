@@ -195,7 +195,7 @@ const Tabelamensagens = () => {
           </tr>
         </thead>
         <tbody>
-          {mensagens.map((mensagem, index) => (
+          {currentUsers.map((mensagem, index) => (
             <tr key={index}>
               <td>{index + indexOfFirstUser + 1}</td>
               <td>{mensagem.localInfo || 'Nome não disponível'}</td>
