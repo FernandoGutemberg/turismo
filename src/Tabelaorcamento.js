@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import "./App.css";
 import "./Tabela.css";
-import { Trash, Pencil, ArrowRight, ArrowLeft } from 'react-bootstrap-icons';
+import { Trash, Pencil, ArrowRight, ArrowLeft, ArrowCounterclockwise } from 'react-bootstrap-icons';
 
 import { useParams } from 'react-router-dom';
 
@@ -165,7 +165,9 @@ const Tabelaorcamento = () => {
 
   return (
     <div className="table-container">
-      <Button onClick={redirecionarParaTabelalocais} className="botao-tabela-voltar">Voltar para Locais</Button>
+      <Button onClick={redirecionarParaTabelalocais} className="botao-tabela-voltar">
+      <ArrowCounterclockwise /> Locais
+      </Button>
 
       <h2 className='titulo-principal'>Orçamentos</h2>
       <Button onClick={redirecionarParaCadastroOrcamento} className="botao-cadastrar">Cadastrar Orçamento</Button>

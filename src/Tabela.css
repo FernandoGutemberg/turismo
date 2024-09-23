@@ -61,12 +61,19 @@
 .botao-cadastrar {
   display: block;
   width: 200px;
-  margin: 0 auto 20px auto;
+  margin: 0 0 20px auto; 
 }
 
 .botao-tabela-voltar {
+  display: block;
+
   width: 200px;
-  margin: 0 10px 20px auto;
+  margin: auto 0 20px 0; 
+  
+}
+
+.botao-tabela-voltar {
+  padding-left: 10px; /* Ajuste o valor conforme necessário */
 }
 
 /* Estilo da navegação de páginas */

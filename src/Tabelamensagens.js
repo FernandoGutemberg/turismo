@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import "./Tabela.css";
-import { Trash, Pencil, ArrowRight, ArrowLeft } from 'react-bootstrap-icons';
+import { Trash, Pencil, ArrowRight, ArrowLeft, ArrowCounterclockwise } from 'react-bootstrap-icons';
 
 // ESSA ALTER 
 import { useParams } from 'react-router-dom';
@@ -172,7 +172,10 @@ const Tabelamensagens = () => {
 
   return (
     <div className="table-container">
-      <Button onClick={redirecionarParaTabelalocais} className="botao-tabela-voltar">Voltar para Locais</Button>
+      <Button onClick={redirecionarParaTabelalocais} className="botao-tabela-voltar">
+        <ArrowCounterclockwise /> Locais
+      </Button>
+
 
       <h2 className='titulo-principal'>Mensagens</h2>
       <Button onClick={redirecionarParaCadastroMensagens} className="botao-cadastrar">Cadastrar Mensagem</Button>
