@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import "./Tabela.css";
-import { Trash, Pencil, Camera, Calculator, Envelope } from 'react-bootstrap-icons';
+import { Trash, Pencil, Camera, Calculator, Envelope, ArrowRight, ArrowLeft } from 'react-bootstrap-icons';
 
 
 const Tabelalocais = () => {
@@ -15,7 +15,7 @@ const Tabelalocais = () => {
   const notifyCadastro = () => toast("Local salvo com sucesso!");
 
   const [locais, setLocais] = useState([]);
-  
+
 
   const [tokenValido, setTokenValido] = useState(false);
 
@@ -51,7 +51,7 @@ const Tabelalocais = () => {
 
 
   const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 10;
+  const usersPerPage = 3;
 
 
   const fetchLocais = async () => {
@@ -137,7 +137,7 @@ const Tabelalocais = () => {
     navigate('/Cadastrolocais');
   };
 
-    // ESSA ALTER 
+  // ESSA ALTER 
   const handleNavigateParaFotos = (localId) => {
     navigate(`/Tabelafotos/${localId}`);
   };
@@ -168,7 +168,7 @@ const Tabelalocais = () => {
           </tr>
         </thead>
         <tbody>
-          {locais.map((local, index) => (
+          {currentUsers.map((local, index) => (
             <tr key={index}>
               <td>{index + indexOfFirstUser + 1}</td>
               <td>{local.paisLocal}</td>
@@ -205,7 +205,7 @@ const Tabelalocais = () => {
                   className='delete'
                   type='button'
 
-                    // ESSA ALTER 
+                  // ESSA ALTER 
 
                   onClick={() => handleNavigateParaFotos(local._id)}
                 >
@@ -245,14 +245,14 @@ const Tabelalocais = () => {
 
       <div className="table-navigation">
         <Button variant="secondary" onClick={prevPage} disabled={currentPage === 1}>
-          Tabela Anterior
+        <ArrowLeft/>
         </Button>
         <Button
           variant="secondary"
           onClick={nextPage}
           disabled={currentPage === totalPages}
         >
-          Próxima Tabela
+          <ArrowRight/>
         </Button>
       </div>
 
