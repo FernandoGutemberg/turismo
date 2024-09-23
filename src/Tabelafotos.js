@@ -98,7 +98,6 @@ const Tabelafotos = () => {
   };
 
 
-  // MUDANDO AQUI:
 
   const redirecionarParaCadastroFotos = () => {
     navigate(`/Cadastrofotolocais/${localId}`); // Usando crases para interpolar a variável
@@ -126,7 +125,6 @@ const Tabelafotos = () => {
     }
   };
 
-  // ESSA ALTER 
 
   useEffect(() => {
     fetchFotosPorLocal(localId);  // Chama a função de buscar fotos com o localId

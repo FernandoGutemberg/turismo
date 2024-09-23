@@ -17,7 +17,6 @@ const Tabelamensagens = () => {
 
   const { localId } = useParams();
 
-  const notifyDelete = () => toast("Mensagem deletada com sucesso!");
   const notifyCadastro = () => toast("Mensagem salva com sucesso!");
 
   const [mensagens, setMensagens] = useState([]);
@@ -95,16 +94,12 @@ const Tabelamensagens = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({}),
-      })
-        .then(() => {
-          fetchMensagens();
-          setShowDeleteModal(false);
-          notifyDelete();
-        })
-        .catch(error => {
-          console.error('Erro durante a exclusão', error);
-        });
+      });
+
+      setMensagens(mensagens.filter(mensagem => mensagem._id !== mensagemIdToDelete));
+      setShowDeleteModal(false);
+      toast("Mensagem deletada com sucesso!");
+
     } catch (error) {
       console.error('Erro ao tentar deletar a mensagem', error);
     }
