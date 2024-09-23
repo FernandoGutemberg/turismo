@@ -15,7 +15,6 @@ const Tabelaorcamento = () => {
 
   const { localId } = useParams();
 
-  const notifyDelete = () => toast("Orçamento deletado com sucesso!");
   const notifyCadastro = () => toast("Orçamento salvo com sucesso!");
 
   const [orcamentos, setOrcamentos] = useState([]);
@@ -91,11 +90,11 @@ const Tabelaorcamento = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({}),
       });
-      fetchOrcamentos();
+
+      setOrcamentos(orcamentos.filter(orcamentos => orcamentos._id !== orcamentoIdToDelete));
       setShowDeleteModal(false);
-      notifyDelete();
+      toast("Orçamento deletado com sucesso!");
     } catch (error) {
       console.error('Erro durante a exclusão', error);
     }
