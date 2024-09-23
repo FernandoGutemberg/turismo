@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import "./Tabela.css";
-import { Trash, Pencil } from 'react-bootstrap-icons';
+import { Trash, Pencil, ArrowRight, ArrowLeft } from 'react-bootstrap-icons';
 
 // ESSA ALTER 
 import { useParams } from 'react-router-dom';
@@ -137,22 +137,22 @@ const Tabelamensagens = () => {
     }
   };
 
-    // ESSA ALTER 
+  // ESSA ALTER 
 
-    useEffect(() => {
-      fetchMensagensPorLocal(localId);  // Chama a função de buscar fotos com o localId
-    }, [localId]);
-  
-    const fetchMensagensPorLocal = async (localId) => {
-      try {
-        const response = await fetch(`http://localhost:9000/Tabelamensagens?localId=${localId}`);  // Passa o localId na query string
-        const data = await response.json();
-        setMensagens(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    
+  useEffect(() => {
+    fetchMensagensPorLocal(localId);  // Chama a função de buscar fotos com o localId
+  }, [localId]);
+
+  const fetchMensagensPorLocal = async (localId) => {
+    try {
+      const response = await fetch(`http://localhost:9000/Tabelamensagens?localId=${localId}`);  // Passa o localId na query string
+      const data = await response.json();
+      setMensagens(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   const DeleteModal = ({ show, handleClose }) => {
     return (
@@ -230,14 +230,14 @@ const Tabelamensagens = () => {
 
       <div className="table-navigation">
         <Button variant="secondary" onClick={prevPage} disabled={currentPage === 1}>
-          Tabela Anterior
+          <ArrowLeft />
         </Button>
         <Button
           variant="secondary"
           onClick={nextPage}
           disabled={currentPage === totalPages}
         >
-          Próxima Tabela
+          <ArrowRight />
         </Button>
       </div>
 

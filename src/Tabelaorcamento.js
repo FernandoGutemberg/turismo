@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import "./App.css";
 import "./Tabela.css";
-import { Trash, Pencil } from 'react-bootstrap-icons';
+import { Trash, Pencil, ArrowRight, ArrowLeft } from 'react-bootstrap-icons';
 
 import { useParams } from 'react-router-dom';
 
@@ -217,14 +217,14 @@ const Tabelaorcamento = () => {
 
       <div className="table-navigation">
         <Button variant="secondary" onClick={prevPage} disabled={currentPage === 1}>
-          Tabela Anterior
+          <ArrowLeft />
         </Button>
         <Button
           variant="secondary"
           onClick={nextPage}
           disabled={currentPage === totalPages}
         >
-          Próxima Tabela
+          <ArrowRight />
         </Button>
       </div>
 
