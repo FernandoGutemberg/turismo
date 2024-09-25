@@ -148,7 +148,7 @@ const Tabelausuarios = () => {
   return (
     <div className="table-container">
       <h2 className="titulo-principal">Tabela de Usuários</h2>
-      <Button onClick={redirecionarParaCadastroUsuarios} className="botao-cadastrar">
+      <Button onClick={redirecionarParaCadastroUsuarios}  className="botao-cadastrar">
         Cadastrar Usuário
       </Button>
 

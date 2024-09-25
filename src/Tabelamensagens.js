@@ -172,7 +172,7 @@ const Tabelamensagens = () => {
 
   return (
     <div className="table-container">
-      <Button onClick={redirecionarParaTabelalocais} className="botao-tabela-voltar">
+      <Button onClick={redirecionarParaTabelalocais} variant="secondary" className="botao-tabela-voltar">
         <ArrowCounterclockwise /> Locais
       </Button>
 

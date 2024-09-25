@@ -153,7 +153,7 @@ const Tabelalocais = () => {
   return (
     <div className="table-container">
       <h2 className='titulo-principal'>Locais</h2>
-      <Button onClick={redirecionarParaCadastroLocais} className="botao-cadastrar">
+      <Button onClick={redirecionarParaCadastroLocais}  className="botao-cadastrar">
 
         Cadastrar Local
         </Button>

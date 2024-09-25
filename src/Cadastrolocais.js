@@ -287,13 +287,16 @@ const Cadastrolocais = () => {
           <input type="hidden" name="longitude" value={location ? location.longitude : ''} />
         </Form.Group>
 
-        <Button type="button" onClick={handleOnClickSalvar}>
+        <Button
+          variant="success"
+          type="button"
+          onClick={handleOnClickSalvar}>
           Salvar
         </Button>
         &nbsp;
 
         <Button
-          variant="dark"
+          variant="secondary"
           className='voltar'
           type='button'
           onClick={() => window.location.href = '/Tabelalocais/'}

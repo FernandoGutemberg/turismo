@@ -185,16 +185,19 @@ const Cadastroorcamento = () => {
           </Col>
         </Form.Group>
 
-        <Button type="button" onClick={handleOnClickSalvar}>
+        <Button
+          variant="success"
+          type="button"
+          onClick={handleOnClickSalvar}>
           Salvar
         </Button>
         &nbsp;
 
         <Button
-          variant="dark"
+          variant="secondary"
           className='voltar'
           type='button'
-          onClick={() => window.location.href = '/Tabelaorcamento/'}
+          onClick={() => navigate(`/Tabelaorcamento/${localId}`)} // Redireciona corretamente
         >
           Voltar
         </Button>
