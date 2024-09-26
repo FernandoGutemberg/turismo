@@ -153,10 +153,10 @@ const Tabelalocais = () => {
   return (
     <div className="table-container">
       <h2 className='titulo-principal'>Locais</h2>
-      <Button onClick={redirecionarParaCadastroLocais}  className="botao-cadastrar">
+      <Button onClick={redirecionarParaCadastroLocais} className="botao-cadastrar">
 
         Cadastrar Local
-        </Button>
+      </Button>
 
       <Table striped bordered hover className="usuario-table">
         <thead className="usuario-table-header">
@@ -165,6 +165,9 @@ const Tabelalocais = () => {
             <th>País</th>
             <th>Estado</th>
             <th>Cidade</th>
+            <th>Bairro</th>
+            <th>Rua</th>
+            <th>CEP</th>
             <th>Local</th>
             <th>Foto</th>
             <th>Ações</th>
@@ -177,6 +180,9 @@ const Tabelalocais = () => {
               <td>{local.paisLocal}</td>
               <td>{local.estado}</td>
               <td>{local.cidade}</td>
+              <td>{local.bairro}</td>
+              <td>{local.rua}</td>
+              <td>{local.cep}</td>
               <td>{local.local}</td>
 
               <td>
@@ -248,14 +254,14 @@ const Tabelalocais = () => {
 
       <div className="table-navigation">
         <Button variant="secondary" onClick={prevPage} disabled={currentPage === 1}>
-        <ArrowLeft/>
+          <ArrowLeft />
         </Button>
         <Button
           variant="secondary"
           onClick={nextPage}
           disabled={currentPage === totalPages}
         >
-          <ArrowRight/>
+          <ArrowRight />
         </Button>
       </div>
 
