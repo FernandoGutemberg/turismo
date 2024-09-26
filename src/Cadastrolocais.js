@@ -13,6 +13,9 @@ const Cadastrolocais = () => {
   const [paisLocal, setPaisLocal] = useState("");
   const [estado, setEstado] = useState("");
   const [cidade, setCidade] = useState("");
+  const [bairro, setBairro] = useState("");
+  const [rua, setRua] = useState("");
+  const [cep, setCep] = useState("");
   const [local, setLocal] = useState("");
 
 
@@ -72,6 +75,9 @@ const Cadastrolocais = () => {
           setPaisLocal(data.paisLocal);
           setEstado(data.estado);
           setCidade(data.cidade);
+          setBairro(data.bairro);
+          setRua(data.rua);
+          setCep(data.cep);
           setFotoBase64(data.foto); // Assuming 'foto' is already stored as base64 in MongoDB
           setLocal(data.local);
 
@@ -92,6 +98,15 @@ const Cadastrolocais = () => {
 
   const handleChangeCidade = (event) => {
     setCidade(event.target.value);
+  };
+  const handleChangeBairro = (event) => {
+    setBairro(event.target.value);
+  };
+  const handleChangeRua = (event) => {
+    setRua(event.target.value);
+  };
+  const handleChangeCep = (event) => {
+    setCep(event.target.value);
   };
   const handleChangeLocal = (event) => {
     setLocal(event.target.value);
@@ -115,6 +130,9 @@ const Cadastrolocais = () => {
       paisLocal,
       estado,
       cidade,
+      bairro,
+      rua,
+      cep,
       local,
       foto: fotoBase64, // Send the base64 string to the backend
       latitude: location ? location.latitude : null,
@@ -221,10 +239,55 @@ const Cadastrolocais = () => {
     }
   };
 
+  // Função para limpar os campos relacionados ao CEP
+  const limpaFormularioCep = () => {
+    setRua("");
+    setBairro("");
+    setCidade("");
+    setEstado("");
+  };
+
+  // Função para buscar o CEP na API ViaCEP
+  const pesquisacep = (valor) => {
+    const cepNumeros = valor.replace(/\D/g, ''); // Remove caracteres não numéricos
+    if (cepNumeros.length === 8) {
+      fetch(`https://viacep.com.br/ws/${cepNumeros}/json/`)
+        .then(response => response.json())
+        .then(data => {
+          if (!data.erro) {
+            setRua(data.logradouro);
+            setBairro(data.bairro);
+            setCidade(data.localidade);
+            setEstado(data.uf);
+          } else {
+            limpaFormularioCep();
+            alert("CEP não encontrado.");
+          }
+        })
+        .catch(() => {
+          limpaFormularioCep();
+          alert("Erro ao buscar o CEP.");
+        });
+    } else {
+      limpaFormularioCep();
+      alert("Formato de CEP inválido.");
+    }
+  };
+
+  const handleCepChange = (e) => {
+    const valor = e.target.value;
+    setCep(valor);
+    if (valor.length >= 8) {
+      pesquisacep(valor);
+    }
+  };
+
 
   return (
     <div className="form-geral">
       <h1 className='titulo-principal'>Cadastro dos Locais Turistado</h1>
+
+
 
       <Form className="form-container">
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
@@ -237,24 +300,41 @@ const Cadastrolocais = () => {
         </Form.Group>
 
 
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-          <Form.Label column sm="2">
-            Estado:
-          </Form.Label>
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column sm="2">CEP:</Form.Label>
           <Col sm="10">
-            <Form.Control type="text" placeholder="Nome do Estado visitado" name="nome" value={estado} onChange={handleChangeEstado} />
+            <Form.Control type="text" value={cep} onChange={handleCepChange} maxLength={9} placeholder="Digite o CEP" />
           </Col>
         </Form.Group>
 
-
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-          <Form.Label column sm="2">
-            Cidade:
-          </Form.Label>
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column sm="2">Rua:</Form.Label>
           <Col sm="10">
-            <Form.Control type="text" placeholder="Nome da cidade visitada" name="nome" value={cidade} onChange={handleChangeCidade} />
+            <Form.Control type="text" value={rua} onChange={handleChangeRua} placeholder="Rua" />
           </Col>
         </Form.Group>
+
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column sm="2">Bairro:</Form.Label>
+          <Col sm="10">
+            <Form.Control type="text" value={bairro} onChange={handleChangeBairro} placeholder="Bairro" />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column sm="2">Cidade:</Form.Label>
+          <Col sm="10">
+            <Form.Control type="text" value={cidade} onChange={handleChangeCidade} placeholder="Cidade" />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column sm="2">Estado:</Form.Label>
+          <Col sm="10">
+            <Form.Control type="text" value={estado} onChange={handleChangeEstado} placeholder="Estado" />
+          </Col>
+        </Form.Group>
+
 
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
           <Form.Label column sm="2">
