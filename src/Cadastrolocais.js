@@ -367,27 +367,12 @@ const Cadastrolocais = () => {
           <input type="hidden" name="longitude" value={location ? location.longitude : ''} />
         </Form.Group>
 
-        <Button
-          variant="success"
-          type="button"
-          onClick={handleOnClickSalvar}>
-          Salvar
-        </Button>
-        &nbsp;
 
-        <Button
-          variant="secondary"
-          className='voltar'
-          type='button'
-          onClick={() => window.location.href = '/Tabelalocais/'}
-        >
-          Voltar
-        </Button>
 
         <div className="form-geral">
           <Button type="button" onClick={getLocation}>BUSCAR LOCAL</Button>
           <div className="mt-3">
-            <LoadScript googleMapsApiKey="77777777777" libraries={['places']}>
+            <LoadScript googleMapsApiKey="5191989189198919" libraries={['places']}>
               <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
                 <input
                   type="text"
@@ -412,13 +397,34 @@ const Cadastrolocais = () => {
                       draggable={true}
                       onDragEnd={onMarkerDragEnd} // Função chamada ao soltar o marcador
                     />
+
                   </GoogleMap>
+
+
+
+
                 </div>
               ) : (
                 <p>{error || "Clique no botão para que possamos utilizar suas coordenada para uma melhor experiência."}</p>
               )}
             </LoadScript>
           </div>
+          <Button
+            variant="success"
+            type="button"
+            onClick={handleOnClickSalvar}>
+            Salvar
+          </Button>
+          &nbsp;
+
+          <Button
+            variant="secondary"
+            className='voltar'
+            type='button'
+            onClick={() => window.location.href = '/Tabelalocais/'}
+          >
+            Voltar
+          </Button>
         </div>
 
 
