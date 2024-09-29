@@ -81,6 +81,8 @@ const Cadastrolocais = () => {
           setFotoBase64(data.foto); // Assuming 'foto' is already stored as base64 in MongoDB
           setLocal(data.local);
 
+          getLocation();
+
         })
         .catch((error) => {
           console.error("Erro ao carregar dados dos locais:", error);
@@ -279,6 +281,7 @@ const Cadastrolocais = () => {
     setCep(valor);
     if (valor.length >= 8) {
       pesquisacep(valor);
+      getLocation();
     }
   };
 
@@ -372,7 +375,7 @@ const Cadastrolocais = () => {
         <div className="form-geral">
           <Button type="button" onClick={getLocation}>BUSCAR LOCAL</Button>
           <div className="mt-3">
-            <LoadScript googleMapsApiKey="6551515151" libraries={['places']}>
+            <LoadScript googleMapsApiKey="gdfgdfgdfgdfgdfsgd" libraries={['places']}>
               <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
                 <input
                   type="text"
