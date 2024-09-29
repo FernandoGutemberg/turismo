@@ -236,7 +236,7 @@ router.patch('/Cadastrolocais/:id?', async (req, res) => {
     local.bairro = req.body.bairro;
     local.rua = req.body.rua;
     local.cep = req.body.cep;
-    local = req.body.local;
+    local.local = req.body.local;
     local.foto = req.body.foto;
 
     await local.save();
