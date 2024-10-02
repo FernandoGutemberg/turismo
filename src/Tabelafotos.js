@@ -7,6 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import "./App.css";
 import "./Tabela.css";
 import { Trash, Pencil, ArrowRight, ArrowLeft, ArrowCounterclockwise } from 'react-bootstrap-icons';
+import Carousel from "react-multi-carousel";
+import 'react-multi-carousel/lib/styles.css';
+
 
 
 import { useParams } from 'react-router-dom';
