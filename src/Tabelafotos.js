@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
-import { Trash, Pencil, ArrowRight, ArrowLeft, ArrowCounterclockwise } from 'react-bootstrap-icons';
+import { Trash, Pencil, ArrowCounterclockwise } from 'react-bootstrap-icons';
 import Carousel from "react-multi-carousel";
 import 'react-multi-carousel/lib/styles.css';
 import { useParams } from 'react-router-dom';
@@ -17,9 +17,11 @@ const Tabelafotos = () => {
   const [fotos, setFotos] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [fotoIdToDelete, setFotoIdToDelete] = useState('');
+  const [selectedFoto, setSelectedFoto] = useState(null);
   const [tokenValido, setTokenValido] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 10;
+
+  const [showModal, setShowModal] = useState(false);
+
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
@@ -62,6 +64,16 @@ const Tabelafotos = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleFotoClick = (foto) => {
+    setSelectedFoto(foto);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedFoto(null);
   };
 
   const handleDelete = async (fotoId) => {
@@ -125,7 +137,13 @@ const Tabelafotos = () => {
       <Carousel responsive={responsive} showDots={true}>
         {fotos.map((foto, index) => (
           <div key={index} className="carousel-item-custom">
-            <img src={foto.uploadfoto} alt={`Foto ${index + 1}`} style={{ width: "100%", height: "300px", objectFit: "cover" }} />
+            <img
+              src={foto.uploadfoto}
+              alt={`Foto ${index + 1}`}
+              style={{ width: "100%", height: "300px", objectFit: "cover", cursor: 'pointer' }}
+              onClick={() => handleFotoClick(foto)} // Abre a foto em tamanho maior
+            />
+
             <div className="carousel-caption">
               <h5>{foto.localInfo || 'Nome não disponível'}</h5>
               <p>{foto.descricao}</p>
@@ -139,6 +157,19 @@ const Tabelafotos = () => {
           </div>
         ))}
       </Carousel>
+
+      {/* Modal para exibir a foto em tamanho maior */}
+      {selectedFoto && (
+        <Modal show={showModal} onHide={handleCloseModal} centered size="lg">
+          <Modal.Body>
+            <img
+              src={selectedFoto.uploadfoto}
+              alt="Foto do local"
+              style={{ width: '100%', height: 'auto' }}
+            />
+          </Modal.Body>
+        </Modal>
+      )}
 
       <ToastContainer />
       <DeleteModal show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} />
