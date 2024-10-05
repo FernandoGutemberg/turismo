@@ -15,6 +15,8 @@ const Tabelafotos = () => {
   const navigate = useNavigate();
   const { localId } = useParams();
 
+
+
   const [fotos, setFotos] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [fotoIdToDelete, setFotoIdToDelete] = useState('');
@@ -22,12 +24,12 @@ const Tabelafotos = () => {
   const [tokenValido, setTokenValido] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
-  
+
   /*FLuxo do Código 
   /1. useEffect para verificar o Token:
   /Carregando o componente, o useEffect roda para verificar se o token de autenticação é válido. Isso é feito 
   através de uma requisição ao backend. Se o token for inválido ou não existir, o usuário é redirecionado para login
-  */  
+  */
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     if (token) {
@@ -104,6 +106,24 @@ const Tabelafotos = () => {
     }
   };
 
+  useEffect(() => {
+    if (localStorage.getItem("notificacao") === "true") {
+      localStorage.setItem("notificacao", null);
+      setTimeout(() => toast("Foto cadastrada com sucesso!"), 500);
+    }
+    fetchFotos();
+  }, []);
+
+  const fetchFotos = async () => {
+    try {
+      const response = await fetch('http://localhost:9000/tabelafotos');
+      const data = await response.json();
+      setFotos(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const redirecionarParaCadastroFotos = () => {
     navigate(`/Cadastrofotolocais/${localId}`);
   };
@@ -135,7 +155,7 @@ const Tabelafotos = () => {
 
   return (
     <div className="table-container">
-      <Button onClick={redirecionarParaTabelalocais} variante="secondary" className="botao-tabela-voltar">
+      <Button onClick={redirecionarParaTabelalocais} variant="secondary" className="botao-tabela-voltar">
         <ArrowCounterclockwise /> Locais
       </Button>
 
@@ -168,7 +188,10 @@ const Tabelafotos = () => {
             </div>
           </div>
         ))}
+
       </Carousel>
+      <ToastContainer />
+
 
       {selectedFoto && (
         <Modal show={showModal} onHide={handleCloseModal} centered size="lg">
@@ -182,7 +205,6 @@ const Tabelafotos = () => {
         </Modal>
       )}
 
-      <ToastContainer />
       <DeleteModal show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} />
     </div>
   );
