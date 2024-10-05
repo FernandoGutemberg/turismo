@@ -1,4 +1,1 @@
-Rascunhos...
-
-Pendente:
-
+Documentando as ações realizadas em "Tabelafotos" para uma melhor uma melhor compreensão. 

@@ -106,26 +106,5 @@ button {
   /* Adiciona espaço à direita de cada botão */
 }
 
-.carousel-container {
-  padding: 20px;
-  text-align: center;
-}
-
-.carousel-item {
-  position: relative;
-  padding: 10px;
-}
-
-.carousel-description {
-  margin-top: 10px;
-  font-size: 14px;
-  text-align: center;
-}
-
-.carousel-actions {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-}
 
 

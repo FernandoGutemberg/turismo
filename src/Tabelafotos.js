@@ -11,6 +11,7 @@ import "./App.css";
 import "./Tabela.css";
 
 const Tabelafotos = () => {
+
   const navigate = useNavigate();
   const { localId } = useParams();
 
@@ -19,10 +20,14 @@ const Tabelafotos = () => {
   const [fotoIdToDelete, setFotoIdToDelete] = useState('');
   const [selectedFoto, setSelectedFoto] = useState(null);
   const [tokenValido, setTokenValido] = useState(false);
-
   const [showModal, setShowModal] = useState(false);
 
-
+  
+  /*FLuxo do Código 
+  /1. useEffect para verificar o Token:
+  /Carregando o componente, o useEffect roda para verificar se o token de autenticação é válido. Isso é feito 
+  através de uma requisição ao backend. Se o token for inválido ou não existir, o usuário é redirecionado para login
+  */  
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     if (token) {
@@ -52,6 +57,10 @@ const Tabelafotos = () => {
     }
   }, [navigate]);
 
+  /* 2. Busca das Fotos por Local
+  Outro useEffect é disparado para buscar as fotos associadas ao local atual (localId). Uma requisição é feita
+  para buscar essas fotos do backend, e os dados retornados são salvos no estado "fotos".
+   */
   useEffect(() => {
     fetchFotosPorLocal(localId);
   }, [localId]);
@@ -116,7 +125,7 @@ const Tabelafotos = () => {
     </Modal>
   );
 
-  // Configuração do Carousel
+  //Configuração do Carousel
   const responsive = {
     superLargeDesktop: { breakpoint: { max: 4000, min: 1024 }, items: 5 },
     desktop: { breakpoint: { max: 1024, min: 768 }, items: 3 },
@@ -126,7 +135,7 @@ const Tabelafotos = () => {
 
   return (
     <div className="table-container">
-      <Button onClick={redirecionarParaTabelalocais} variant="secondary" className="botao-tabela-voltar">
+      <Button onClick={redirecionarParaTabelalocais} variante="secondary" className="botao-tabela-voltar">
         <ArrowCounterclockwise /> Locais
       </Button>
 
@@ -134,6 +143,7 @@ const Tabelafotos = () => {
       <Button onClick={redirecionarParaCadastroFotos} className="botao-cadastrar">Cadastrar Foto</Button>
 
       {/* Implementação do Carousel */}
+      
       <Carousel responsive={responsive} showDots={true}>
         {fotos.map((foto, index) => (
           <div key={index} className="carousel-item-custom">
@@ -141,9 +151,8 @@ const Tabelafotos = () => {
               src={foto.uploadfoto}
               alt={`Foto ${index + 1}`}
               style={{ width: "100%", height: "300px", objectFit: "cover", cursor: 'pointer' }}
-              onClick={() => handleFotoClick(foto)} // Abre a foto em tamanho maior
+              onClick={() => handleFotoClick(foto)} //Aqui é para abrir a foto em tamanho maior
             />
-
             <div className="carousel-caption">
               <h5>{foto.localInfo || 'Nome não disponível'}</h5>
               <p>{foto.descricao}</p>
@@ -158,7 +167,6 @@ const Tabelafotos = () => {
         ))}
       </Carousel>
 
-      {/* Modal para exibir a foto em tamanho maior */}
       {selectedFoto && (
         <Modal show={showModal} onHide={handleCloseModal} centered size="lg">
           <Modal.Body>
