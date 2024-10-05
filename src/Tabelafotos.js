@@ -142,8 +142,11 @@ const Tabelafotos = () => {
       <h2 className='titulo-principal'>Fotos</h2>
       <Button onClick={redirecionarParaCadastroFotos} className="botao-cadastrar">Cadastrar Foto</Button>
 
-      {/* Implementação do Carousel */}
-      
+      {/* 3. Renderização do Carousel
+      Após as fotos serem buscadas e armazenadas no estado fotos, o carroussel é renderizado com essas fotos
+      O Carousel exibe as fotos como slides, com os detalhes da foto (nome e descrição) e os botões de ação.     
+      */}
+
       <Carousel responsive={responsive} showDots={true}>
         {fotos.map((foto, index) => (
           <div key={index} className="carousel-item-custom">
