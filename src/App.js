@@ -51,6 +51,10 @@ function AppContent() {
         </Navbar>
       )}
       <Routes>
+
+        {/* AQUI Uma rota para abrir direto nos gráficos */}
+
+
         <Route path="/" element={<Login />} />
         <Route path="/Cadastrousuarios/:id?" element={<ProtectedRoute element={Cadastrousuarios} />} />
         <Route path="/Cadastrolocais/:id?" element={<ProtectedRoute element={Cadastrolocais} />} />

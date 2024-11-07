@@ -352,6 +352,11 @@ const Cadastrolocais = () => {
         {/* Nome do lugar */}
 
 
+        
+
+        {/* Colocar para ficar uma imagem em branca caso não seja cadastrada nenhuma aqui */}
+
+
         <Form.Group as={Row} className="mb-3" controlId="formFile">
           <Form.Label column sm="2">
             Foto do Local:

@@ -167,6 +167,9 @@ const Tabelafotos = () => {
       O Carousel exibe as fotos como slides, com os detalhes da foto (nome e descrição) e os botões de ação.     
       */}
 
+
+      {/* Ter fotos também em branco caso não tenha foto cadastrada.  */}
+
       <Carousel responsive={responsive} showDots={true}>
         {fotos.map((foto, index) => (
           <div key={index} className="carousel-item-custom">
