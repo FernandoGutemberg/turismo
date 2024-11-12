@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import { Col, Form, Row, Button } from 'react-bootstrap';
 import './Cadastros.css';
 import { GoogleMap, LoadScript, MarkerF, Autocomplete } from "@react-google-maps/api";
+import fotoBranca from './images/foto_branco.jpg';
 
 
 const Cadastrolocais = () => {
@@ -20,7 +21,7 @@ const Cadastrolocais = () => {
 
 
   // State to hold the image as a base64 string
-  const [fotoBase64, setFotoBase64] = useState("");
+  const [fotoBase64, setFotoBase64] = useState(fotoBranca);
 
   const [tokenValido, setTokenValido] = useState(false);
 
@@ -78,7 +79,7 @@ const Cadastrolocais = () => {
           setBairro(data.bairro);
           setRua(data.rua);
           setCep(data.cep);
-          setFotoBase64(data.foto); // Assuming 'foto' is already stored as base64 in MongoDB
+          setFotoBase64(data.foto || fotoBranca);// Assuming 'foto' is already stored as base64 in MongoDB
           setLocal(data.local);
 
           getLocation();
@@ -117,12 +118,11 @@ const Cadastrolocais = () => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onloadend = () => {
-      setFotoBase64(reader.result);
-    };
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => setFotoBase64(reader.result);
+      reader.readAsDataURL(file);
+    }
   };
 
 
@@ -349,26 +349,14 @@ const Cadastrolocais = () => {
         </Form.Group>
 
 
-        {/* Nome do lugar */}
 
-
-        
-
-        {/* Colocar para ficar uma imagem em branca caso não seja cadastrada nenhuma aqui */}
-
-
-        <Form.Group as={Row} className="mb-3" controlId="formFile">
-          <Form.Label column sm="2">
-            Foto do Local:
-          </Form.Label>
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column sm="2">Foto do Local:</Form.Label>
           <Col sm="10">
-            <Form.Control
-              type="file"
-              name="foto"
-              onChange={handleFileChange}
-            />
+            <Form.Control type="file" onChange={handleFileChange} />
           </Col>
         </Form.Group>
+
 
         <Form.Group as={Row} className="mb-3">
           <input type="hidden" name="latitude" value={location ? location.latitude : ''} />
