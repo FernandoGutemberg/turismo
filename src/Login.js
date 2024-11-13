@@ -20,7 +20,7 @@ const Login = () => {
       .then(data => {
         if (data.sucesso) {
           sessionStorage.setItem('token', data.token);
-          navigate('/Tabelalocais');
+          navigate('/Graficos');
         } else {
           toast.error('Usuário ou senha incorreto!');
         }

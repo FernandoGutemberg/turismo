@@ -1,8 +1,5 @@
 Documentando as ações realizadas em "Tabelafotos" para uma melhor uma melhor compreensão. 
 
-
-TIrar a parte de upload de foto ao cadastrar uma principal
-
 COlocar uma imagem padrão se salvar sem foto!
 
 No carousel também!
@@ -24,3 +21,6 @@ Outro:
 Qtd de mensagens enviadas por mês
 
 COLOCAR UM GŔAFICO NA TELA INICIAL, ENTÃO MUDAR A TELA QUE ANTES ERA O LOCAL PARA A TELA DE GRÁFICO... AI DEPOIS ESTUDAR UM GŔAFICO
+
+Eu que preciso inserir um data junto ao dado quando for salvo, ele levar um data e hora de criação para que ai eu possa pegar
+com o gráfico e fazer a organização. 
