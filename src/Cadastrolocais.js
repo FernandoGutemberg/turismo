@@ -139,6 +139,7 @@ const Cadastrolocais = () => {
       foto: fotoBase64, // Send the base64 string to the backend
       latitude: location ? location.latitude : null,
       longitude: location ? location.longitude : null,
+      dataCadastro: new Date(),
     };
 
     const configuracaoEnvio = {
