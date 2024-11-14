@@ -11,6 +11,7 @@ const locaisSchema = new mongoose.Schema({
     foto: String,
     latitude: Number,
     longitude: Number,
+    dataCadastro: { type: Date, default: Date.now } 
 
 });
 const LocalModel = mongoose.model('Locais', locaisSchema);
