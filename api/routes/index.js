@@ -199,6 +199,24 @@ router.get('/Tabelalocais', async (req, res) => {
 
     let locais = await LocalModel.find();
 
+    // Agregação para obter a contagem de locais cadastrados por mês
+    const dadosPorMes = await LocalModel.aggregate([
+      {
+        $group: {
+          _id: { ano: { $year: "$dataCadastro" }, mes: { $month: "$dataCadastro" } },
+          total: { $sum: 1 }
+        }
+      },
+      { $sort: { "_id.ano": 1, "_id.mes": 1 } }
+    ]);
+
+    // Formatação dos dados para enviar para o frontend
+    const dadosFormatados = dadosPorMes.map(item => ({
+      ano: item._id.ano,
+      mes: item._id.mes,
+      total: item.total
+    }));
+
     res.json(locais);
 
   } catch (error) {
