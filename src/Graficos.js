@@ -10,38 +10,24 @@ const Graficos = () => {
   useEffect(() => {
     const buscarDados = async () => {
       try {
-        const resposta = await fetch("http://localhost:9000/Tabelalocais");
-        if (!resposta.ok) {
-          throw new Error("Erro ao buscar dados para o gráfico");
-        }
-        const locais = await resposta.json();
+        // Buscando os Dados de Locais
+        const respostaLocais = await fetch("http://localhost:9000/Tabelalocais");
+        if (!respostaLocais.ok) throw new Error("Erro ao buscar dados de Locais");
+        const locais = await respostaLocais.json();
 
-        // Formate os dados para o gráfico
-        const contagemMensal = {};
-
-        locais.forEach(local => {
-          const data = new Date(local.dataCadastro);
-          const anoMes = `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, '0')}`;
-
-          // Incrementa o contador para o ano e mês específicos
-          if (contagemMensal[anoMes]) {
-            contagemMensal[anoMes] += 1;
-          } else {
-            contagemMensal[anoMes] = 1;
-          }
+        // Formatando os dados de Locais
+        const contagemMensalLocais = {};
+        locais.array.forEach((local) => {
+          const data = new Data(local.dataCadastro);
+          const anoMes = `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, "0")}`;
+          contagemMensalLocais[anoMes] = (contagemMensalLocais[anoMes] || 0) + 1;          
         });
 
-        // Converte o objeto em um array para o gráfico
-        const dadosFormatados = Object.entries(contagemMensal).map(([mes, total]) => ({
-          mes,
-          total
-        }));
+        setDadosLocais(
+          Object.entries(contagemMensalLocais).map(([mes, total]) => ({ mes, total}))
+        );
 
-        setDadosLocais(dadosFormatados);
-      } catch (error) {
-        console.error("Erro ao buscar dados para o gráfico:", error);
-      }
-    };
+       
 
     buscarDados();
   }, []);
