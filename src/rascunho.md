@@ -12,10 +12,10 @@ QUE A TELA INICIAL MOSTRE UM GŔATICO
 
 Três gráfico...
 Um gŕafico que mostre:
-(Quantas) Quantidade de locais cadastrados por mês
+(Quantas) Quantidade de locais cadastrados por mês - OK
 
 Outro:
-Qtd de orçamento criados por mes
+Qtd de orçamento criados por mes 
 
 Outro:
 Qtd de mensagens enviadas por mês
