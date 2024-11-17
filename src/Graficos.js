@@ -20,15 +20,15 @@ const Graficos = () => {
         locais.array.forEach((local) => {
           const data = new Data(local.dataCadastro);
           const anoMes = `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, "0")}`;
-          contagemMensalLocais[anoMes] = (contagemMensalLocais[anoMes] || 0) + 1;          
+          contagemMensalLocais[anoMes] = (contagemMensalLocais[anoMes] || 0) + 1;
         });
 
         setDadosLocais(
-          Object.entries(contagemMensalLocais).map(([mes, total]) => ({ mes, total}))
+          Object.entries(contagemMensalLocais).map(([mes, total]) => ({ mes, total }))
         );
 
         //Buscando os Dados de Orcamento
-        const respostaOrcamento = await fetch("http://localhost:9000");
+        const respostaOrcamento = await fetch("http://localhost:9000/Tabelaorcamentos");
         if (!respostaOrcamento.ok) throw new Error("Erro ao buscar dados de Orçamento");
         const orcamentos = await respostaOrcamento.json();
 
@@ -38,16 +38,32 @@ const Graficos = () => {
           const data = new Date(orcamento.dataCadastro);
           const anoMes = `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, "0")}`;
           contagemMensalOrcamento[anoMes] = (contagemMensalOrcamento[anoMes] || 0) + 1;
-
         });
 
         setDadosOrcamento(
           Object.entries(contagemMensalOrcamento).map(([mes, total]) => ({ mes, total }))
         );
 
+        // Buscando Mensagens 
+        const respostaMensagens = await fetch("http://localhost:9000/Tabelamensagens");
+        if (!respostaMensagens.ok) throw new Error("Erro ao buscar dados de Mensagens");
+        const mensagens = await respostaMensagens.json();
 
+        //Formata os dados de Mensagens
+        const contagemMensalMensagens = {};
+        mensagens.forEach((mensagem) => {
+          const data = new Date(mensagem.dataCadastro);
+          const anoMes = `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, "0")}`;
+          contagemMensalMensagens[anoMes] = (contagemMensalMensagens[anoMes] || 0) + 1;
+        });
 
-       
+        setDadosMensagens(
+          Object.entries(contagemMensalLocais).map(([mes, total]) => ({ mes, total }))
+        );
+      } catch (error) {
+        console.log("Erro ao buscar dadods:", error);
+      }
+    };
 
     buscarDados();
   }, []);
