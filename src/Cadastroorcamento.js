@@ -90,6 +90,7 @@ const Cadastroorcamento = () => {
       tituloOrcamento,
       custoAlimentacao: parseFloat(custoAlimentacao),
       custoAtividades: parseFloat(custoAtividades),
+      dataCadastro: new Date(),
     };
 
     const configuracaoEnvio = {

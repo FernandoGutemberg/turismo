@@ -426,9 +426,27 @@ router.get('/Tabelaorcamento', async (req, res) => {
     let OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
     let LocalModel = mongoose.model('Locais', locaisSchema);
 
-
-
     let orcamentos = await OrcamentoModel.find({ localId });
+
+    // Agregação para obter a contagem de orcamentos cadastrados por mês
+    const dadosPorMes = await OrcamentoModel.aggregate([
+      {
+        $group: {
+          _id: { ano: { $year: "$dataCadastro" }, mes: { $month: "$dataCadastro" } },
+          total: { $sum: 1 }
+        }
+      },
+      { $sort: { "_id.ano": 1, "_id.mes": 1 } }
+    ]);
+
+    // Formatação dos dados para enviar para o frontend
+    const dadosFormatados = dadosPorMes.map(item => ({
+      ano: item._id.ano,
+      mes: item._id.mes,
+      total: item.total
+    }));
+
+
 
     let orcamentosComLocal = await Promise.all(orcamentos.map(async (orcamento) => {
       let local = await LocalModel.findById(orcamento.localId).exec();
