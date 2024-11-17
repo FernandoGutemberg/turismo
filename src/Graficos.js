@@ -15,13 +15,19 @@ const Graficos = () => {
         if (!respostaLocais.ok) throw new Error("Erro ao buscar dados de Locais");
         const locais = await respostaLocais.json();
 
+
+        // -------------------
+
+
         // Formatando os dados de Locais
         const contagemMensalLocais = {};
-        locais.array.forEach((local) => {
-          const data = new Data(local.dataCadastro);
+        locais.forEach((local) => {
+          const data = new Date(local.dataCadastro);
           const anoMes = `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, "0")}`;
           contagemMensalLocais[anoMes] = (contagemMensalLocais[anoMes] || 0) + 1;
         });
+
+        // -------------------
 
         setDadosLocais(
           Object.entries(contagemMensalLocais).map(([mes, total]) => ({ mes, total }))
