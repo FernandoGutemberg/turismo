@@ -3,7 +3,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 const Graficos = () => {
   const [dadosLocais, setDadosLocais] = useState([]);
-  const [dadosOrcamentos, setDadosOrcamentos] = useState([]);
+  const [dadosOrcamentos, setDadosOrcamento] = useState([]);
   const [dadosMensagens, setDadosMensagens] = useState([]);
 
 
@@ -26,6 +26,26 @@ const Graficos = () => {
         setDadosLocais(
           Object.entries(contagemMensalLocais).map(([mes, total]) => ({ mes, total}))
         );
+
+        //Buscando os Dados de Orcamento
+        const respostaOrcamento = await fetch("http://localhost:9000");
+        if (!respostaOrcamento.ok) throw new Error("Erro ao buscar dados de Orçamento");
+        const orcamentos = await respostaOrcamento.json();
+
+        // Formata os dados de Orçamento
+        const contagemMensalOrcamento = {};
+        orcamentos.fetchEach((orcamento) => {
+          const data = new Date(orcamento.dataCadastro);
+          const anoMes = `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, "0")}`;
+          contagemMensalOrcamento[anoMes] = (contagemMensalOrcamento[anoMes] || 0) + 1;
+
+        });
+
+        setDadosOrcamento(
+          Object.entries(contagemMensalOrcamento).map(([mes, total]) => ({ mes, total }))
+        );
+
+
 
        
 
