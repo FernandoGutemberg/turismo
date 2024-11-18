@@ -93,6 +93,8 @@ const Cadastromensagens = () => {
       conteudoMensagem,
       tipoMensagem,
       avaliacao,
+      dataCadastro: new Date(),
+
     };
 
     const configuracaoEnvio = {

@@ -6,6 +6,8 @@ const mensagensSchema = new mongoose.Schema({
     conteudoMensagem: String,
     tipoMensagem: String,
     avaliacao: String,
+    dataCadastro: { type: Date, default: Date.now } 
+
 
 });
 const MensagensModel = mongoose.model('Mensagens', mensagensSchema);

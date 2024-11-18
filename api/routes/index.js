@@ -553,8 +553,25 @@ router.get('/Tabelamensagens', async (req, res) => {
     let MensagensModel = mongoose.model('Mensagens', mensagensSchema);
     let LocalModel = mongoose.model('Locais', locaisSchema);
 
-
     let mensagens = await MensagensModel.find({ localId });
+
+    // Agregação para obter a contagem de locais cadastrados por mês
+    const dadosPorMes = await MensagensModel.aggregate([
+      {
+        $group: {
+          _id: { ano: { $year: "$dataCadastro" }, mes: { $month: "$dataCadastro" } },
+          total: { $sum: 1 }
+        }
+      },
+      { $sort: { "_id.ano": 1, "_id.mes": 1 } }
+    ]);
+
+    // Formatação dos dados para enviar para o frontend
+    const dadosFormatados = dadosPorMes.map(item => ({
+      ano: item._id.ano,
+      mes: item._id.mes,
+      total: item.total
+    }));
 
     let mensagensComLocal = await Promise.all(mensagens.map(async (mensagem) => {
       let local = await LocalModel.findById(mensagem.localId).exec();
