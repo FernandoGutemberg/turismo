@@ -445,6 +445,8 @@ router.get('/Tabelaorcamento', async (req, res) => {
       mes: item._id.mes,
       total: item.total
     }));
+    console.log("Orcamento encontradas dados formatados:", dadosFormatados);
+
 
 
 
@@ -455,6 +457,8 @@ router.get('/Tabelaorcamento', async (req, res) => {
         localInfo: local ? `${local.paisLocal} - ${local.estado} - ${local.cidade}` : 'Local não encontrado'
       };
     }));
+    console.log("orcamentosComLocal encontradas dados formatados:", orcamentosComLocal);
+
 
 
     res.json(orcamentosComLocal);
@@ -572,6 +576,8 @@ router.get('/Tabelamensagens', async (req, res) => {
       mes: item._id.mes,
       total: item.total
     }));
+    console.log("Mensagens encontradas dados formatados:", dadosFormatados);
+
 
     let mensagensComLocal = await Promise.all(mensagens.map(async (mensagem) => {
       let local = await LocalModel.findById(mensagem.localId).exec();
@@ -580,6 +586,9 @@ router.get('/Tabelamensagens', async (req, res) => {
         localInfo: local ? `${local.paisLocal} - ${local.estado} - ${local.cidade}` : 'Local não encontrado'
       };
     }));
+
+    console.log("Mensagens encontradas com local:", mensagensComLocal);
+
 
 
     res.json(mensagensComLocal);

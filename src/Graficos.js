@@ -30,9 +30,11 @@ const Graficos = () => {
 
         // Orçamentos
         console.log("Buscando dados de Orçamentos...");
-        const respostaOrcamento = await fetch("http://localhost:9000/Tabelaorcamento");
-        if (!respostaOrcamento.ok) throw new Error("Erro ao buscar dados de Orçamento");
-        const orcamentos = await respostaOrcamento.json();
+        const orcamentos = [
+          { mes: "2024-01", total: 5 },
+          { mes: "2024-02", total: 8 },
+        ];
+        setDadosOrcamento(orcamentos);
         console.log("Dados de Orçamentos recebidos:", orcamentos);
 
         if (Array.isArray(orcamentos)) {
