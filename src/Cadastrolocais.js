@@ -374,7 +374,7 @@ const Cadastrolocais = () => {
         <div className="form-geral">
           <Button type="button" onClick={getLocation}>BUSCAR LOCAL</Button>
           <div className="mt-3">
-            <LoadScript googleMapsApiKey="senhadfsfsfdsfs" libraries={['places']}>
+            <LoadScript googleMapsApiKey="klsflsanfsldfnldnfsln" libraries={['places']}>
               <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
                 <input
                   type="text"

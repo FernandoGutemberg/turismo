@@ -209,6 +209,8 @@ router.get('/Tabelalocais', async (req, res) => {
       },
       { $sort: { "_id.ano": 1, "_id.mes": 1 } }
     ]);
+    console.log("Locais encontradas dados formatados:", dadosPorMes);
+
 
     // Formatação dos dados para enviar para o frontend
     const dadosFormatados = dadosPorMes.map(item => ({
@@ -216,6 +218,8 @@ router.get('/Tabelalocais', async (req, res) => {
       mes: item._id.mes,
       total: item.total
     }));
+    console.log("Locais dadosFormatados encontradas dados formatados:", dadosFormatados);
+
 
     res.json(locais);
 

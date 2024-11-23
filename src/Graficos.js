@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
 const Graficos = () => {
   const [dadosLocais, setDadosLocais] = useState([]);
@@ -10,71 +10,39 @@ const Graficos = () => {
     const buscarDados = async () => {
       try {
         // Locais
-        console.log("Buscando dados de Locais...");
         const respostaLocais = await fetch("http://localhost:9000/Tabelalocais");
         if (!respostaLocais.ok) throw new Error("Erro ao buscar dados de Locais");
         const locais = await respostaLocais.json();
-        console.log("Dados de Locais recebidos (array):", locais);
-
         const contagemMensalLocais = {};
         locais.forEach((local) => {
           const data = new Date(local.dataCadastro);
           const anoMes = `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, "0")}`;
           contagemMensalLocais[anoMes] = (contagemMensalLocais[anoMes] || 0) + 1;
         });
-        console.log("Contagem Mensal de Locais:", contagemMensalLocais);
-
         setDadosLocais(
           Object.entries(contagemMensalLocais).map(([mes, total]) => ({ mes, total }))
         );
 
         // Orçamentos
-        console.log("Buscando dados de Orçamentos...");
         const orcamentos = [
           { mes: "2024-01", total: 5 },
           { mes: "2024-02", total: 8 },
         ];
         setDadosOrcamento(orcamentos);
-        console.log("Dados de Orçamentos recebidos:", orcamentos);
-
-        if (Array.isArray(orcamentos)) {
-          const contagemMensalOrcamento = {};
-          orcamentos.forEach((orcamento) => {
-            const data = new Date(orcamento.dataCadastro);
-            const anoMes = `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, "0")}`;
-            contagemMensalOrcamento[anoMes] = (contagemMensalOrcamento[anoMes] || 0) + 1;
-          });
-          console.log("Contagem Mensal de Orçamentos:", contagemMensalOrcamento);
-
-          setDadosOrcamento(
-            Object.entries(contagemMensalOrcamento).map(([mes, total]) => ({ mes, total }))
-          );
-        } else {
-          console.error("Erro: Dados de Orçamentos não estão no formato de array", orcamentos);
-        }
 
         // Mensagens
-        console.log("Buscando dados de Mensagens...");
         const respostaMensagens = await fetch("http://localhost:9000/Tabelamensagens");
         if (!respostaMensagens.ok) throw new Error("Erro ao buscar dados de Mensagens");
         const mensagens = await respostaMensagens.json();
-        console.log("Dados de Mensagens recebidos:", mensagens);
-
-        if (Array.isArray(mensagens)) {
-          const contagemMensalMensagens = {};
-          mensagens.forEach((mensagem) => {
-            const data = new Date(mensagem.dataCadastro);
-            const anoMes = `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, "0")}`;
-            contagemMensalMensagens[anoMes] = (contagemMensalMensagens[anoMes] || 0) + 1;
-          });
-          console.log("Contagem Mensal de Mensagens:", contagemMensalMensagens);
-
-          setDadosMensagens(
-            Object.entries(contagemMensalMensagens).map(([mes, total]) => ({ mes, total }))
-          );
-        } else {
-          console.error("Erro: Dados de Mensagens não estão no formato de array", mensagens);
-        }
+        const contagemMensalMensagens = {};
+        mensagens.forEach((mensagem) => {
+          const data = new Date(mensagem.dataCadastro);
+          const anoMes = `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, "0")}`;
+          contagemMensalMensagens[anoMes] = (contagemMensalMensagens[anoMes] || 0) + 1;
+        });
+        setDadosMensagens(
+          Object.entries(contagemMensalMensagens).map(([mes, total]) => ({ mes, total }))
+        );
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
       }
@@ -83,46 +51,92 @@ const Graficos = () => {
     buscarDados();
   }, []);
 
+  const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#d84a38", "#4a90e2"];
+
+  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+    const RADIAN = Math.PI / 180;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="white"
+        textAnchor={x > cx ? "start" : "end"}
+        dominantBaseline="central"
+      >
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
 
   return (
     <div>
-      <h2>Gráfico de Locais</h2>
+      <h2 className='titulo-principal'>Gráfico de Locais</h2>
       <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={dadosLocais}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="mes" label={{ value: "Mês", position: "insideBottomRight", offset: -5 }} />
-          <YAxis label={{ value: "Total de Locais", angle: -90, position: "insideLeft" }} />
+        <PieChart>
+          <Pie
+            data={dadosLocais}
+            dataKey="total"
+            nameKey="mes"
+            cx="50%"
+            cy="50%"
+            outerRadius={150}
+            label={renderCustomizedLabel}
+            fill="#8884d8"
+          >
+            {dadosLocais.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
           <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="total" stroke="#8884d8" activeDot={{ r: 8 }} />
-        </LineChart>
+        </PieChart>
       </ResponsiveContainer>
 
-      <h2>Gráfico de Orçamentos</h2>
+      <h2 className='titulo-principal'>Gráfico de Orçamentos</h2>
       <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={dadosOrcamentos}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="mes" label={{ value: "Mês", position: "insideBottomRight", offset: -5 }} />
-          <YAxis label={{ value: "Total de Orçamentos", angle: -90, position: "insideLeft" }} />
+        <PieChart>
+          <Pie
+            data={dadosOrcamentos}
+            dataKey="total"
+            nameKey="mes"
+            cx="50%"
+            cy="50%"
+            outerRadius={150}
+            label={renderCustomizedLabel}
+            fill="#82ca9d"
+          >
+            {dadosOrcamentos.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
           <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="total" stroke="#82ca9d" activeDot={{ r: 8 }} />
-        </LineChart>
+        </PieChart>
       </ResponsiveContainer>
 
-      <h2>Gráfico de Mensagens</h2>
+      <h2 className='titulo-principal'>Gráfico de Mensagens</h2>
       <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={dadosMensagens}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="mes" label={{ value: "Mês", position: "insideBottomRight", offset: -5 }} />
-          <YAxis label={{ value: "Total de Mensagens", angle: -90, position: "insideLeft" }} />
+        <PieChart>
+          <Pie
+            data={dadosMensagens}
+            dataKey="total"
+            nameKey="mes"
+            cx="50%"
+            cy="50%"
+            outerRadius={150}
+            label={renderCustomizedLabel}
+            fill="#ffc658"
+          >
+            {dadosMensagens.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
           <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="total" stroke="#ffc658" activeDot={{ r: 8 }} />
-        </LineChart>
+        </PieChart>
       </ResponsiveContainer>
     </div>
-
   );
 };
 

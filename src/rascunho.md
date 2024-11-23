@@ -24,3 +24,5 @@ COLOCAR UM GŔAFICO NA TELA INICIAL, ENTÃO MUDAR A TELA QUE ANTES ERA O LOCAL P
 
 Eu que preciso inserir um data junto ao dado quando for salvo, ele levar um data e hora de criação para que ai eu possa pegar
 com o gráfico e fazer a organização. 
+
+corrigir inversão do gráfico - colocar de gráfico de pizza - 
