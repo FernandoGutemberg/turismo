@@ -198,6 +198,8 @@ router.get('/Tabelalocais', async (req, res) => {
     let LocalModel = mongoose.model('Locais', locaisSchema);
 
     let locais = await LocalModel.find();
+    // console.log("Locais recebido no backend:", locais);
+
 
     // Agregação para obter a contagem de locais cadastrados por mês
     const dadosPorMes = await LocalModel.aggregate([
@@ -426,11 +428,13 @@ router.get('/getCadastroorcamentoFromId/:id', async (req, res) => {
 router.get('/Tabelaorcamento', async (req, res) => {
   try {
     const localId = req.query.localId;  // Pegando o localId da query string
+    console.log("LocalId recebido no backend:", localId);
 
     let OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
     let LocalModel = mongoose.model('Locais', locaisSchema);
 
     let orcamentos = await OrcamentoModel.find({ localId });
+    console.log("Orçamentos encontrados:", orcamentos);
 
     // Agregação para obter a contagem de orcamentos cadastrados por mês
     const dadosPorMes = await OrcamentoModel.aggregate([
