@@ -92,6 +92,8 @@ const Cadastroorcamento = () => {
       custoAtividades: parseFloat(custoAtividades),
       dataCadastro: new Date(),
     };
+    console.log('Dados enviados ao backend:', dados);
+
 
     const configuracaoEnvio = {
       headers: { "Content-Type": "application/json" },

@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import { useParams } from 'react-router-dom';
+
 
 const Graficos = () => {
+  const { id } = useParams();
+  console.log("ID recebido:", id);
+
   const [dadosLocais, setDadosLocais] = useState([]);
   const [dadosOrcamentos, setDadosOrcamentos] = useState([]);
   const [dadosMensagens, setDadosMensagens] = useState([]);
