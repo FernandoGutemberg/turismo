@@ -475,6 +475,37 @@ router.get('/Tabelaorcamento', async (req, res) => {
   }
 });
 
+// Rota para obter dados dos gráficos de orçamentos
+router.get('/Tabelaorcamentosgraficos', async (req, res) => {
+  let OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
+
+  let orcamentos = await OrcamentoModel.find();
+  console.log("Orçamentos encontrados:", orcamentos);
+
+
+  try {
+    const dadosPorMes = await OrcamentoModel.aggregate([
+      {
+        $group: {
+          _id: { ano: { $year: "$dataCadastro" }, mes: { $month: "$dataCadastro" } },
+          total: { $sum: 1 }
+        }
+      },
+      { $sort: { "_id.ano": 1, "_id.mes": 1 } }
+    ]);
+
+    const dadosFormatados = dadosPorMes.map(item => ({
+      ano: item._id.ano,
+      mes: item._id.mes,
+      total: item.total
+    }));
+
+    res.json(dadosFormatados);
+  } catch (error) {
+    res.status(500).json({ erro: error.message });
+  }
+});
+
 // Exclui um orçamento específico baseado em seu ID
 router.delete('/Tabelaorcamento/:id', async (req, res) => {
   try {
@@ -600,6 +631,36 @@ router.get('/Tabelamensagens', async (req, res) => {
 
 
     res.json(mensagensComLocal);
+  } catch (error) {
+    res.status(500).json({ erro: error.message });
+  }
+});
+
+// Rota para obter dados dos gráficos de mensagens
+router.get('/Tabelamensagensgraficos', async (req, res) => {
+  let MensagensModel = mongoose.model('Mensagens', mensagensSchema);
+
+  let mensagens = await MensagensModel.find();
+
+
+  try {
+    const dadosPorMes = await MensagensModel.aggregate([
+      {
+        $group: {
+          _id: { ano: { $year: "$dataCadastro" }, mes: { $month: "$dataCadastro" } },
+          total: { $sum: 1 }
+        }
+      },
+      { $sort: { "_id.ano": 1, "_id.mes": 1 } }
+    ]);
+
+    const dadosFormatados = dadosPorMes.map(item => ({
+      ano: item._id.ano,
+      mes: item._id.mes,
+      total: item.total
+    }));
+
+    res.json(dadosFormatados);
   } catch (error) {
     res.status(500).json({ erro: error.message });
   }

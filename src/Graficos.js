@@ -36,41 +36,17 @@ const Graficos = () => {
         console.log("Resposta de locais", setDadosLocais);
 
 
-        // Orçamentos
-        const respostaOrcamentos = await fetch("http://localhost:9000/Tabelaorcamento");
-        console.log("dados da resposta orcamentos", respostaOrcamentos);
-
+        // Buscar dados de orçamentos
+        const respostaOrcamentos = await fetch("http://localhost:9000/Tabelaorcamentosgraficos");
         if (!respostaOrcamentos.ok) throw new Error("Erro ao buscar dados de Orçamentos");
         const orcamentos = await respostaOrcamentos.json();
+        setDadosOrcamentos(orcamentos);
 
-        const contagemMensalOrcamentos = {};
-        orcamentos.forEach((orcamento) => {
-          const { ano, mes } = orcamento._id; // Corrigindo para acessar _id
-          const anoMes = `${ano}-${String(mes).padStart(2, "0")}`;
-          contagemMensalOrcamentos[anoMes] = (contagemMensalOrcamentos[anoMes] || 0) + orcamento.total;
-        });
-        console.log("Resposta de orcamentos aqui", contagemMensalOrcamentos);
-
-        setDadosOrcamentos(
-          Object.entries(contagemMensalOrcamentos).map(([mes, total]) => ({ mes, total }))
-        );
-        console.log("Resposta de orcamentos", setDadosOrcamentos);
-
-
-        // Mensagens
-        const respostaMensagens = await fetch("http://localhost:9000/Tabelamensagens");
+        // Buscar dados de mensagens
+        const respostaMensagens = await fetch("http://localhost:9000/Tabelamensagensgraficos");
         if (!respostaMensagens.ok) throw new Error("Erro ao buscar dados de Mensagens");
         const mensagens = await respostaMensagens.json();
-
-        const contagemMensalMensagens = {};
-        mensagens.forEach((mensagem) => {
-          const { ano, mes } = mensagem._id; // Corrigindo para acessar _id
-          const anoMes = `${ano}-${String(mes).padStart(2, "0")}`;
-          contagemMensalMensagens[anoMes] = (contagemMensalMensagens[anoMes] || 0) + mensagem.total;
-        });
-        setDadosMensagens(
-          Object.entries(contagemMensalMensagens).map(([mes, total]) => ({ mes, total }))
-        );
+        setDadosMensagens(mensagens);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
       }

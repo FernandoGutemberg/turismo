@@ -62,7 +62,7 @@ function AppContent() {
         <Route path="/" element={<Login />} />
         
         <Route path="/Graficos/:id?" element={<ProtectedRoute element={Graficos} />} />
-        <Route path="/Graficos/:localId" element={<ProtectedRoute element={Graficos} />} />
+        <Route path="/Graficos/:localId/:id?" element={<ProtectedRoute element={Graficos} />} />
 
 
         <Route path="/Cadastrousuarios/:id?" element={<ProtectedRoute element={Cadastrousuarios} />} />
