@@ -50,10 +50,8 @@ const Tabelaorcamento = () => {
     }
   }, [navigate]);
 
-
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
-
 
   const fetchOrcamentos = async () => {
     try {
@@ -102,13 +100,10 @@ const Tabelaorcamento = () => {
 
   const redirecionarParaCadastroOrcamento = () => {
     navigate(`/Cadastroorcamento/${localId}`); // Usando crases para interpolar a variável
-
   };
-
   const redirecionarParaTabelalocais = () => {
     navigate('/Tabelalocais');
   };
-
 
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
@@ -141,9 +136,6 @@ const Tabelaorcamento = () => {
     }
   };
 
-
-
-
   const DeleteModal = ({ show, handleClose }) => (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -166,7 +158,7 @@ const Tabelaorcamento = () => {
   return (
     <div className="table-container">
       <Button onClick={redirecionarParaTabelalocais} variant="secondary" className="botao-tabela-voltar">
-      <ArrowCounterclockwise /> Locais
+        <ArrowCounterclockwise /> Locais
       </Button>
 
       <h2 className='titulo-principal'>Orçamentos</h2>
@@ -228,9 +220,6 @@ const Tabelaorcamento = () => {
           <ArrowRight />
         </Button>
       </div>
-
-
-
       <ToastContainer />
       <DeleteModal show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} />
     </div>

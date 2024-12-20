@@ -7,16 +7,12 @@ import { useNavigate } from 'react-router-dom';
 import "./Tabela.css";
 import { Trash, Pencil, Camera, Calculator, Envelope, ArrowRight, ArrowLeft } from 'react-bootstrap-icons';
 
-
 const Tabelalocais = () => {
   const navigate = useNavigate();
 
   const notifyDelete = () => toast("Local deletado com sucesso!");
   const notifyCadastro = () => toast("Local salvo com sucesso!");
-
   const [locais, setLocais] = useState([]);
-
-
   const [tokenValido, setTokenValido] = useState(false);
 
   useEffect(() => {
@@ -49,10 +45,8 @@ const Tabelalocais = () => {
     }
   }, [navigate]);
 
-
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 3;
-
 
   const fetchLocais = async () => {
     try {
@@ -130,26 +124,20 @@ const Tabelalocais = () => {
     }
   };
 
-
-
   // Redireciona para a página de cadastro de locais
   const redirecionarParaCadastroLocais = () => {
     navigate('/Cadastrolocais');
   };
-
   // ESSA ALTER 
   const handleNavigateParaFotos = (localId) => {
     navigate(`/Tabelafotos/${localId}`);
   };
-
   const handleNavigateParaOrcamento = (localId) => {
     navigate(`/Tabelaorcamento/${localId}`);
   };
-
   const handleNavigateParaMensagens = (localId) => {
     navigate(`/Tabelamensagens/${localId}`);
   };
-
   return (
     <div className="table-container">
       <h2 className='titulo-principal'>Locais</h2>
@@ -198,60 +186,46 @@ const Tabelalocais = () => {
                   <Trash />
                 </Button>
 
-
                 <Button
                   className='update'
                   type='button'
                   onClick={() => window.location.href = '/Cadastrolocais/' + local._id}
                 >
                   <Pencil />
-
-
                 </Button>
 
                 <Button
                   variant="warning"
                   className='delete'
                   type='button'
-
-                  // ESSA ALTER 
-
                   onClick={() => handleNavigateParaFotos(local._id)}
                 >
                   <Camera />
                 </Button>
-
                 <Button
                   variant="warning"
                   className='delete'
                   type='button'
                   onClick={() => handleNavigateParaOrcamento(local._id)}
-
                 >
                   <Calculator />
                 </Button>
-
                 <Button
                   variant="warning"
                   className='delete'
                   type='button'
                   onClick={() => handleNavigateParaMensagens(local._id)}
-
                 >
                   <Envelope />
                 </Button>
-
-
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
-
       <div className="pagination-info">
         Página {currentPage} de {totalPages}
       </div>
-
       <div className="table-navigation">
         <Button variant="secondary" onClick={prevPage} disabled={currentPage === 1}>
           <ArrowLeft />
@@ -264,14 +238,8 @@ const Tabelalocais = () => {
           <ArrowRight />
         </Button>
       </div>
-
-
-
-
       <ToastContainer />
       <DeleteModal show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} />
-
-
     </div>
   );
 };

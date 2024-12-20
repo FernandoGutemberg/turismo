@@ -6,7 +6,6 @@ import { Col, Form, Row, Button } from 'react-bootstrap';
 import InputMask from "react-input-mask";
 import './Cadastros.css';
 
-
 const Cadastrousuarios = () => {
   const navigate = useNavigate();
 
@@ -16,7 +15,6 @@ const Cadastrousuarios = () => {
   const [telefone, setTelefone] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-
   const [tokenValido, setTokenValido] = useState(false);
 
   useEffect(() => {
@@ -78,23 +76,18 @@ const Cadastrousuarios = () => {
   const handleChangeNomeCompleto = (event) => {
     setNomeCompleto(event.target.value);
   };
-
   const handleChangeCpf = (event) => {
     setCpf(event.target.value);
   };
-
   const handleChangeSexo = (event) => {
     setSexo(event.target.value);
   };
-
   const handleChangeTelefone = (event) => {
     setTelefone(event.target.value);
   };
-
   const handleChangeEmail = (event) => {
     setEmail(event.target.value);
   };
-
   const handleChangeSenha = (event) => {
     setSenha(event.target.value);
   };
@@ -190,14 +183,13 @@ const Cadastrousuarios = () => {
           </Col>
         </Form.Group>
 
-        <Button 
-        variant="success"
-        type="button" 
-        onClick={handleOnClickSalvar}>
+        <Button
+          variant="success"
+          type="button"
+          onClick={handleOnClickSalvar}>
           Salvar
         </Button>
         &nbsp;
-
         <Button
           variant="secondary"
           className='voltar'

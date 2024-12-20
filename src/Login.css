@@ -1,18 +1,18 @@
 .App {
     height: 100vh;
     display: flex;
-    flex-direction: column; /* Alinha os filhos verticalmente */
+    flex-direction: column;
+    /* Alinha os filhos verticalmente */
     align-items: center;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-  }
-  
+}
+
 .container-center {
     display: flex;
     justify-content: center;
     margin-top: 10rem;
-
 }
 
 .login {
@@ -27,8 +27,6 @@
     border: 1px solid #d9d9d9;
     border-radius: 4px;
     padding-bottom: 20px;
-
-
 }
 
 .login-area {
@@ -37,7 +35,6 @@
     display: flex;
     justify-content: center;
     margin-left: 10rem;
-
 }
 
 .login-area img {

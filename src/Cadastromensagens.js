@@ -16,9 +16,7 @@ const Cadastromensagens = () => {
   const [selectedLocal, setSelectedLocal] = useState(null);
 
   const [tokenValido, setTokenValido] = useState(false);
-
   const { localId, id } = useParams();  // Captura ambos os parâmetros
-
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
@@ -50,7 +48,6 @@ const Cadastromensagens = () => {
     }
   }, [navigate]);
 
-
   useEffect(() => {
     fetch('http://localhost:9000/Tabelalocais')
       .then(response => response.json())
@@ -63,7 +60,6 @@ const Cadastromensagens = () => {
       })
       .catch(error => console.error('Erro ao buscar locais:', error));
   }, []);
-
 
   useEffect(() => {
     if (id) {
@@ -123,31 +119,23 @@ const Cadastromensagens = () => {
       });
   };
 
-
-
   const handleChangeTituloMensagem = (event) => {
     setTituloMensagem(event.target.value);
   };
-
   const handleChangeConteudoMensagem = (event) => {
     setConteudoMensagem(event.target.value);
   };
-
   const handleChangeTipoMensagem = (event) => {
     setTipoMensagem(event.target.value);
   };
-
-
   const handleChangeAvaliacao = (event) => {
     setAvaliacao(event.target.value);
   };
-
 
   return (
     <div className="form-geral">
       <h1 className='titulo-principal'>Cadastrar Experiência da Viagem</h1>
       <Form className="form-container">
-
         <Form.Group as={Row} className="mb-3">
           <input type="hidden" name="localId" value={localId} />
 
@@ -185,8 +173,6 @@ const Cadastromensagens = () => {
             <Form.Control type="number" placeholder="Avaliação de 1 a 5" value={avaliacao} onChange={handleChangeAvaliacao} />
           </Col>
         </Form.Group>
-
-
         <Button
           variant="success"
           type="button"
@@ -194,7 +180,6 @@ const Cadastromensagens = () => {
           Salvar
         </Button>
         &nbsp;
-
         <Button
           variant="secondary"
           className='voltar'

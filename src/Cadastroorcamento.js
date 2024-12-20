@@ -5,7 +5,6 @@ import { ToastContainer } from "react-toastify";
 import { Col, Form, Row, Button } from 'react-bootstrap';
 import './Cadastros.css';
 
-
 const Cadastroorcamento = () => {
   const navigate = useNavigate();
 
@@ -14,7 +13,6 @@ const Cadastroorcamento = () => {
   const [custoAtividades, setCustoAtividades] = useState(0);
   const [locais, setLocais] = useState([]);
   const [selectedLocal, setSelectedLocal] = useState(null);
-
   const [tokenValido, setTokenValido] = useState(false);
 
   useEffect(() => {
@@ -46,8 +44,6 @@ const Cadastroorcamento = () => {
       navigate('/');
     }
   }, [navigate]);
-
-
 
   const { localId, id } = useParams();  // Captura ambos os parâmetros
 
@@ -112,7 +108,6 @@ const Cadastroorcamento = () => {
         console.log("Dados salvos:", data);
         localStorage.setItem("notificacao", "true");
 
-
         // Redireciona para a página com os dados salvos usando o ID retornado
         const redirecionarId = data.localId || localId || selectedLocal?.value;
         navigate(`/Tabelaorcamento/${redirecionarId}`);
@@ -126,11 +121,9 @@ const Cadastroorcamento = () => {
   const handleChangeTituloOrcamento = (event) => {
     setTituloOrcamento(event.target.value);
   };
-
   const handleChangeCustoAlimentacao = (event) => {
     setCustoAlimentacao(event.target.value);
   };
-
   const handleChangeCustoAtividades = (event) => {
     setCustoAtividades(event.target.value);
   };
@@ -139,10 +132,8 @@ const Cadastroorcamento = () => {
     <div className="form-geral">
       <h1 className='titulo-principal'>Orçamento da Experiência de Viagem</h1>
       <Form className="form-container">
-
         <Form.Group as={Row} className="mb-3" controlId="formTituloOrcamento">
           <input type="hidden" name="localId" value={localId} />
-
           <Form.Label column sm="2">
             Título do Orçamento:
           </Form.Label>
@@ -187,7 +178,6 @@ const Cadastroorcamento = () => {
             />
           </Col>
         </Form.Group>
-
         <Button
           variant="success"
           type="button"

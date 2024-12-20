@@ -7,7 +7,6 @@ import './Cadastros.css';
 import { GoogleMap, LoadScript, MarkerF, Autocomplete } from "@react-google-maps/api";
 import fotoBranca from './images/foto_branco.jpg';
 
-
 const Cadastrolocais = () => {
   const navigate = useNavigate();
 
@@ -18,11 +17,7 @@ const Cadastrolocais = () => {
   const [rua, setRua] = useState("");
   const [cep, setCep] = useState("");
   const [local, setLocal] = useState("");
-
-
-  // State to hold the image as a base64 string
   const [fotoBase64, setFotoBase64] = useState(fotoBranca);
-
   const [tokenValido, setTokenValido] = useState(false);
 
   // Estados para Geolocalização
@@ -60,7 +55,6 @@ const Cadastrolocais = () => {
     }
   }, [navigate]);
 
-
   const { id } = useParams();
 
   useEffect(() => {
@@ -83,10 +77,10 @@ const Cadastrolocais = () => {
           setLocal(data.local);
 
           if (data.latitude && data.longitude) {
-            
+
             setLocation({ latitude: data.latitude, longitude: data.longitude });
           } else {
-            
+
             getLocation();
           }
         })
@@ -99,11 +93,9 @@ const Cadastrolocais = () => {
   const handleChangePaisLocal = (event) => {
     setPaisLocal(event.target.value);
   };
-
   const handleChangeEstado = (event) => {
     setEstado(event.target.value);
   };
-
   const handleChangeCidade = (event) => {
     setCidade(event.target.value);
   };
@@ -120,7 +112,6 @@ const Cadastrolocais = () => {
     setLocal(event.target.value);
   };
 
-
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -129,8 +120,6 @@ const Cadastrolocais = () => {
       reader.readAsDataURL(file);
     }
   };
-
-
 
   const handleOnClickSalvar = () => {
     const dados = {
@@ -169,8 +158,6 @@ const Cadastrolocais = () => {
         console.error("Erro ao salvar dados:", error);
       });
   };
-
-
   // Função para buscar localização
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -291,12 +278,9 @@ const Cadastrolocais = () => {
     }
   };
 
-
   return (
     <div className="form-geral">
       <h1 className='titulo-principal'>Cadastro dos Locais Turistado</h1>
-
-
 
       <Form className="form-container">
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
@@ -307,7 +291,6 @@ const Cadastrolocais = () => {
             <Form.Control type="text" placeholder="Nome do País visitado" name="nome" value={paisLocal} onChange={handleChangePaisLocal} />
           </Col>
         </Form.Group>
-
 
         <Form.Group as={Row} className="mb-3">
           <Form.Label column sm="2">CEP:</Form.Label>
@@ -344,7 +327,6 @@ const Cadastrolocais = () => {
           </Col>
         </Form.Group>
 
-
         <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
           <Form.Label column sm="2">
             Local:
@@ -354,8 +336,6 @@ const Cadastrolocais = () => {
           </Col>
         </Form.Group>
 
-
-
         <Form.Group as={Row} className="mb-3">
           <Form.Label column sm="2">Foto do Local:</Form.Label>
           <Col sm="10">
@@ -363,18 +343,15 @@ const Cadastrolocais = () => {
           </Col>
         </Form.Group>
 
-
         <Form.Group as={Row} className="mb-3">
           <input type="hidden" name="latitude" value={location ? location.latitude : ''} />
           <input type="hidden" name="longitude" value={location ? location.longitude : ''} />
         </Form.Group>
 
-
-
         <div className="form-geral">
           <Button type="button" onClick={getLocation}>BUSCAR LOCAL</Button>
           <div className="mt-3">
-            <LoadScript googleMapsApiKey="klsflsanfsldfnldnfsln" libraries={['places']}>
+            <LoadScript googleMapsApiKey="token-da-api-googlemapsaqui" libraries={['places']}>
               <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
                 <input
                   type="text"
@@ -402,9 +379,6 @@ const Cadastrolocais = () => {
 
                   </GoogleMap>
 
-
-
-
                 </div>
               ) : (
                 <p>{error || "Clique no botão para que possamos utilizar suas coordenada para uma melhor experiência."}</p>
@@ -418,7 +392,6 @@ const Cadastrolocais = () => {
             Salvar
           </Button>
           &nbsp;
-
           <Button
             variant="secondary"
             className='voltar'
@@ -428,17 +401,8 @@ const Cadastrolocais = () => {
             Voltar
           </Button>
         </div>
-
-
         <ToastContainer />
       </Form>
-
-      {/* colocar estrutura do código Geolocalizacao aqui */}
-
-
-
-
-
     </div>
   );
 };

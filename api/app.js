@@ -15,7 +15,6 @@ app.set('view engine', 'pug');
 
 app.use(express.json({ limit: '10mb' })); // Ajuste o limite conforme necessário.
 
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

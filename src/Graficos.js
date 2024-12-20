@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import { useParams } from 'react-router-dom';
 
-
 const Graficos = () => {
   const { id } = useParams();
   console.log("ID recebido:", id);
@@ -35,13 +34,11 @@ const Graficos = () => {
         );
         console.log("Resposta de locais", setDadosLocais);
 
-
         // Buscar dados de orçamentos
         const respostaOrcamentos = await fetch("http://localhost:9000/Tabelaorcamentosgraficos");
         if (!respostaOrcamentos.ok) throw new Error("Erro ao buscar dados de Orçamentos");
         const orcamentos = await respostaOrcamentos.json();
         setDadosOrcamentos(orcamentos);
-
         // Buscar dados de mensagens
         const respostaMensagens = await fetch("http://localhost:9000/Tabelamensagensgraficos");
         if (!respostaMensagens.ok) throw new Error("Erro ao buscar dados de Mensagens");
@@ -111,7 +108,6 @@ const Graficos = () => {
             outerRadius={150}
             label={renderCustomizedLabel}
             fill="#82ca9d"
-            
           >
 
             {dadosOrcamentos.map((entry, index) => (
@@ -121,7 +117,6 @@ const Graficos = () => {
           <Tooltip />
         </PieChart>
       </ResponsiveContainer>
-
 
       <h2 className='titulo-principal'>Gráfico de Mensagens</h2>
       <ResponsiveContainer width="100%" height={400}>
@@ -136,7 +131,6 @@ const Graficos = () => {
             label={renderCustomizedLabel}
             fill="#ffc658"
           >
-
             {dadosMensagens.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
@@ -145,9 +139,7 @@ const Graficos = () => {
         </PieChart>
       </ResponsiveContainer>
       console.log("Resposta de locais", dadosMensagens);
-
     </div>
-    
   );
 };
 

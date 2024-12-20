@@ -7,16 +7,13 @@ import './Cadastros.css';
 
 const Cadastrofotolocais = () => {
   const navigate = useNavigate();
-  
+
   const [uploadfoto, setUploadFoto] = useState("");
   const [descricao, setDescricao] = useState("");
   const [locais, setLocais] = useState([]);
   const [selectedLocal, setSelectedLocal] = useState(null);
-
   const [tokenValido, setTokenValido] = useState(false);
 
-  // MUDANDO AQUI:
-  // Captura de localId e id da URL
   const { localId, id } = useParams();  // Captura ambos os parâmetros
 
   useEffect(() => {
@@ -62,7 +59,6 @@ const Cadastrofotolocais = () => {
       .catch(error => console.error('Erro ao buscar locais:', error));
   }, []);
 
-
   useEffect(() => {
     console.log("Parâmetros da URL:", { localId, id });
 
@@ -86,8 +82,6 @@ const Cadastrofotolocais = () => {
     }
   }, [id]);
 
-
-
   const handleChangeUploadFoto = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -101,8 +95,6 @@ const Cadastrofotolocais = () => {
   const handleChangeDescricao = (event) => {
     setDescricao(event.target.value);
   };
-
-  // MUDANDO AQUI:
 
   const handleOnClickSalvar = () => {
     const dados = {
@@ -136,8 +128,6 @@ const Cadastrofotolocais = () => {
     <div className="form-geral">
       <h1 className='titulo-principal'>Cadastrar foto dos locais</h1>
 
-      {/* // MUDANDO AQUI: */}
-
       <Form className="form-container">
         <Form.Group as={Row} className="mb-3" controlId="formFile">
           {/* Campo hidden com o localId */}
@@ -163,10 +153,10 @@ const Cadastrofotolocais = () => {
           </Col>
         </Form.Group>
 
-        <Button 
-        variant="success"
-        type="button" 
-        onClick={handleOnClickSalvar}>
+        <Button
+          variant="success"
+          type="button"
+          onClick={handleOnClickSalvar}>
           Salvar
         </Button>
         &nbsp;

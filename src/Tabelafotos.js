@@ -14,17 +14,12 @@ const Tabelafotos = () => {
 
   const navigate = useNavigate();
   const { localId } = useParams();
-
-
-
   const [fotos, setFotos] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [fotoIdToDelete, setFotoIdToDelete] = useState('');
   const [selectedFoto, setSelectedFoto] = useState(null);
   const [tokenValido, setTokenValido] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
-
   /*FLuxo do Código 
   /1. useEffect para verificar o Token:
   /Carregando o componente, o useEffect roda para verificar se o token de autenticação é válido. Isso é feito 
@@ -81,17 +76,14 @@ const Tabelafotos = () => {
     setSelectedFoto(foto);
     setShowModal(true);
   };
-
   const handleCloseModal = () => {
     setShowModal(false);
     setSelectedFoto(null);
   };
-
   const handleDelete = async (fotoId) => {
     setShowDeleteModal(true);
     setFotoIdToDelete(fotoId);
   };
-
   const handleDeleteConfirmed = async () => {
     try {
       await fetch(`http://localhost:9000/tabelafotos/${fotoIdToDelete}`, {
@@ -127,7 +119,6 @@ const Tabelafotos = () => {
   const redirecionarParaCadastroFotos = () => {
     navigate(`/Cadastrofotolocais/${localId}`);
   };
-
   const redirecionarParaTabelalocais = () => {
     navigate('/Tabelalocais');
   };
@@ -195,7 +186,6 @@ const Tabelafotos = () => {
       </Carousel>
       <ToastContainer />
 
-
       {selectedFoto && (
         <Modal show={showModal} onHide={handleCloseModal} centered size="lg">
           <Modal.Body>
@@ -207,7 +197,6 @@ const Tabelafotos = () => {
           </Modal.Body>
         </Modal>
       )}
-
       <DeleteModal show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} />
     </div>
   );

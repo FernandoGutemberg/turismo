@@ -12,15 +12,9 @@ import { useParams } from 'react-router-dom';
 
 const Tabelamensagens = () => {
   const navigate = useNavigate();
-
-  // ESSA ALTER 
-
   const { localId } = useParams();
-
   const notifyCadastro = () => toast("Mensagem salva com sucesso!");
-
   const [mensagens, setMensagens] = useState([]);
-
   const [tokenValido, setTokenValido] = useState(false);
 
   useEffect(() => {
@@ -53,11 +47,8 @@ const Tabelamensagens = () => {
     }
   }, [navigate]);
 
-
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
-
-
   const fetchMensagens = async () => {
     try {
       const response = await fetch('http://localhost:9000/tabelamensagens');
@@ -114,7 +105,6 @@ const Tabelamensagens = () => {
     navigate('/Tabelalocais');
   };
 
-
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = mensagens.slice(indexOfFirstUser, indexOfLastUser);
@@ -132,8 +122,6 @@ const Tabelamensagens = () => {
     }
   };
 
-  // ESSA ALTER 
-
   useEffect(() => {
     fetchMensagensPorLocal(localId);  // Chama a função de buscar fotos com o localId
   }, [localId]);
@@ -147,7 +135,6 @@ const Tabelamensagens = () => {
       console.error(error);
     }
   };
-
 
   const DeleteModal = ({ show, handleClose }) => {
     return (
@@ -175,7 +162,6 @@ const Tabelamensagens = () => {
       <Button onClick={redirecionarParaTabelalocais} variant="secondary" className="botao-tabela-voltar">
         <ArrowCounterclockwise /> Locais
       </Button>
-
 
       <h2 className='titulo-principal'>Mensagens</h2>
       <Button onClick={redirecionarParaCadastroMensagens} className="botao-cadastrar">Cadastrar Mensagem</Button>
@@ -238,10 +224,7 @@ const Tabelamensagens = () => {
           <ArrowRight />
         </Button>
       </div>
-
-
       <ToastContainer />
-
       <DeleteModal show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} />
     </div>
   );

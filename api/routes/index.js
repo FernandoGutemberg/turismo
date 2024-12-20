@@ -30,7 +30,6 @@ router.get('/', function (req, res, next) {
 });
 
 console.log("Olhá, o Back-End está rodando viu!");
-
 //Aqui estão os esquemas, seria como o modelo para criar o espaço de dados no MongoDB
 const userSchema = require('./models/userSchema');
 const locaisSchema = require('./models/locaisSchema');
@@ -44,7 +43,6 @@ router.post('/Cadastrousuarios', async (req, res) => {
   try {
     //Cria um novo usuário com base nos dados do corpo da requisição
     let UserModel = mongoose.model('User', userSchema);
-
     //Cria uma nova instância de usuário com base nos dados recebidos na requisição
     let usuario = new UserModel({
       nomecompleto: req.body.nomeCompleto,
@@ -54,10 +52,8 @@ router.post('/Cadastrousuarios', async (req, res) => {
       email: req.body.email,
       senha: req.body.senha,
     });
-
     // Capturar os dados
     await usuario.save();
-
     // Responde com o objeto de usuário salvo
     res.json("Salvei");
   } catch (error) {
@@ -68,12 +64,9 @@ router.post('/Cadastrousuarios', async (req, res) => {
 
 //Pega os dados para atualizar
 router.get('/getCadastrousuariosFromId/:id', async (req, res) => {
-
   try {
     const userId = req.params.id;
-
     const UserModel = mongoose.model('Users', userSchema);
-
     const usuario = await UserModel.findById(userId);
 
     if (!usuario) {
@@ -85,13 +78,10 @@ router.get('/getCadastrousuariosFromId/:id', async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 });
-
-
 //Aqui vai pegar os dados do MongoDB com a rota Get e atualiza na tabela
 router.get('/Tabelausuarios', async (req, res) => {
   try {
     let UserModel = mongoose.model('Users', userSchema);
-
     let usuarios = await UserModel.find();
 
     res.json(usuarios);
@@ -100,8 +90,6 @@ router.get('/Tabelausuarios', async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 });
-
-
 // Esta rota lida com requisições HTTP DELETE e é usada para excluir um usuário específico do banco de dados, baseado em seu ID.
 //  O ID é extraído da URL e o usuário correspondente é removido do banco de dados. O registro excluído é retornado como resposta.
 router.delete('/tabelausuarios/:id', async (req, res) => {
@@ -113,14 +101,11 @@ router.delete('/tabelausuarios/:id', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
 //Aqui é a rota para ATUALIZAR
 router.patch('/Cadastrousuarios/:id?', async (req, res) => {
   try {
     const userId = req.params.id;
-
     const UserModel = mongoose.model('Users', userSchema);
-
     let usuario;
 
     usuario = await UserModel.findById(userId);
@@ -139,12 +124,6 @@ router.patch('/Cadastrousuarios/:id?', async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 });
-
-
-//____________AQUIIIIIIIIIIIIIIIIIIIIIII PRA FRENTE
-
-//--------------------------------------------------------------------------------------------------------------------------------------------
-
 //parte dos LOCAIS
 //Define uma rota http para '/cadastro' - AQUI NOS MANDAMOS OS DADOS PARA O MONGODB
 router.post('/Cadastrolocais', async (req, res) => {
@@ -171,15 +150,12 @@ router.post('/Cadastrolocais', async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 });
-
 //Pega os dados para atualizar
 router.get('/getCadastrolocaisFromId/:id', async (req, res) => {
 
   try {
     const locaisId = req.params.id;
-
     const LocalModel = mongoose.model('Locais', locaisSchema);
-
     const locais = await LocalModel.findById(locaisId);
 
     if (!locais) {
@@ -191,16 +167,12 @@ router.get('/getCadastrolocaisFromId/:id', async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 });
-
 //Aqui vai pegar os dados do MongoDB com a rota Get e atualiza na tabela
 router.get('/Tabelalocais', async (req, res) => {
   try {
     let LocalModel = mongoose.model('Locais', locaisSchema);
-
     let locais = await LocalModel.find();
     // console.log("Locais recebido no backend:", locais);
-
-
     // Agregação para obter a contagem de locais cadastrados por mês
     const dadosPorMes = await LocalModel.aggregate([
       {
@@ -212,8 +184,6 @@ router.get('/Tabelalocais', async (req, res) => {
       { $sort: { "_id.ano": 1, "_id.mes": 1 } }
     ]);
     console.log("Locais encontradas dados formatados:", dadosPorMes);
-
-
     // Formatação dos dados para enviar para o frontend
     const dadosFormatados = dadosPorMes.map(item => ({
       ano: item._id.ano,
@@ -221,7 +191,6 @@ router.get('/Tabelalocais', async (req, res) => {
       total: item.total
     }));
     console.log("Locais dadosFormatados encontradas dados formatados:", dadosFormatados);
-
 
     res.json(locais);
 
@@ -247,9 +216,7 @@ router.delete('/tabelalocais/:id', async (req, res) => {
 router.patch('/Cadastrolocais/:id?', async (req, res) => {
   try {
     const localId = req.params.id;
-
     const LocalModel = mongoose.model('Locais', locaisSchema);
-
     let local;
 
     local = await LocalModel.findById(localId);
@@ -270,12 +237,6 @@ router.patch('/Cadastrolocais/:id?', async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 });
-
-
-//____________AQUIIIIIIIIIIIIIIIIIIIIIII PRA TRÁS
-
-//---------------------------------------------------------------------------------------
-
 //parte da Foto dos locais
 router.post('/Cadastrofotolocais', async (req, res) => {
   try {
@@ -295,11 +256,8 @@ router.post('/Cadastrofotolocais', async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 });
-
-
 //Pega os dados para atualizar
 router.get('/getCadastrofotolocaisFromId/:id', async (req, res) => {
-
   try {
     const fotolocaisId = req.params.id;
 
@@ -317,14 +275,11 @@ router.get('/getCadastrofotolocaisFromId/:id', async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 });
-
 //Aqui vai pegar os dados do MongoDB com a rota Get e atualiza na tabela
 router.get('/Tabelafotos', async (req, res) => {
   try {
     // ----- ESSA ALTE
     const localId = req.query.localId;  // Pegando o localId da query string
-    // ----- ESSA ALTE
-
 
     let FotolocaisModel = mongoose.model('Fotolocais', fotolocaisSchema);
     let LocalModel = mongoose.model('Locais', locaisSchema);
@@ -346,8 +301,6 @@ router.get('/Tabelafotos', async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 });
-
-
 // Esta rota lida com requisições HTTP DELETE e é usada para excluir um usuário específico do banco de dados, baseado em seu ID.
 router.delete('/Tabelafotos/:id', async (req, res) => {
   try {
@@ -360,7 +313,6 @@ router.delete('/Tabelafotos/:id', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
 //Aqui é a rota para ATUALIZAR
 router.patch('/Cadastrofotolocais/:id?', async (req, res) => {
   try {
@@ -382,10 +334,7 @@ router.patch('/Cadastrofotolocais/:id?', async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 });
-
-// ----------------------------------------------------------------------------
 //parte do Orçamento 
-
 router.post('/Cadastroorcamento', async (req, res) => {
   try {
     let OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
@@ -404,14 +353,11 @@ router.post('/Cadastroorcamento', async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 });
-
 // Pega os dados para atualizar
 router.get('/getCadastroorcamentoFromId/:id', async (req, res) => {
   try {
     const orcamentoId = req.params.id;
-
     const OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
-
     const orcamento = await OrcamentoModel.findById(orcamentoId);
 
     if (!orcamento) {
@@ -423,7 +369,6 @@ router.get('/getCadastroorcamentoFromId/:id', async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 });
-
 // Pega todos os orçamentos do MongoDB
 router.get('/Tabelaorcamento', async (req, res) => {
   try {
@@ -455,9 +400,6 @@ router.get('/Tabelaorcamento', async (req, res) => {
     }));
     console.log("Orcamento encontradas dados formatados:", dadosFormatados);
 
-
-
-
     let orcamentosComLocal = await Promise.all(orcamentos.map(async (orcamento) => {
       let local = await LocalModel.findById(orcamento.localId).exec();
       return {
@@ -467,21 +409,17 @@ router.get('/Tabelaorcamento', async (req, res) => {
     }));
     console.log("orcamentosComLocal encontradas dados formatados:", orcamentosComLocal);
 
-
-
     res.json(orcamentosComLocal);
   } catch (error) {
     res.status(500).json({ erro: error.message });
   }
 });
-
 // Rota para obter dados dos gráficos de orçamentos
 router.get('/Tabelaorcamentosgraficos', async (req, res) => {
   let OrcamentoModel = mongoose.model('Orcamento', orcamentoSchema);
 
   let orcamentos = await OrcamentoModel.find();
   console.log("Orçamentos encontrados:", orcamentos);
-
 
   try {
     const dadosPorMes = await OrcamentoModel.aggregate([
@@ -505,7 +443,6 @@ router.get('/Tabelaorcamentosgraficos', async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 });
-
 // Exclui um orçamento específico baseado em seu ID
 router.delete('/Tabelaorcamento/:id', async (req, res) => {
   try {
@@ -518,7 +455,6 @@ router.delete('/Tabelaorcamento/:id', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
 // Atualiza um orçamento específico
 router.patch('/Cadastroorcamento/:id?', async (req, res) => {
   try {
@@ -543,10 +479,7 @@ router.patch('/Cadastroorcamento/:id?', async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 });
-
-
 //parte das mensagens
-
 // Rota para criar uma nova mensagem
 router.post('/Cadastromensagens', async (req, res) => {
   try {
@@ -567,7 +500,6 @@ router.post('/Cadastromensagens', async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 });
-
 // Rota para pegar uma mensagem específica pelo ID
 router.get('/getCadastromensagensFromId/:id', async (req, res) => {
   try {
@@ -592,7 +524,6 @@ router.get('/getCadastromensagensFromId/:id', async (req, res) => {
 router.get('/Tabelamensagens', async (req, res) => {
   try {
     const localId = req.query.localId;  // Pegando o localId da query string
-
     let MensagensModel = mongoose.model('Mensagens', mensagensSchema);
     let LocalModel = mongoose.model('Locais', locaisSchema);
 
@@ -628,20 +559,15 @@ router.get('/Tabelamensagens', async (req, res) => {
 
     console.log("Mensagens encontradas com local:", mensagensComLocal);
 
-
-
     res.json(mensagensComLocal);
   } catch (error) {
     res.status(500).json({ erro: error.message });
   }
 });
-
 // Rota para obter dados dos gráficos de mensagens
 router.get('/Tabelamensagensgraficos', async (req, res) => {
   let MensagensModel = mongoose.model('Mensagens', mensagensSchema);
-
   let mensagens = await MensagensModel.find();
-
 
   try {
     const dadosPorMes = await MensagensModel.aggregate([
@@ -665,7 +591,6 @@ router.get('/Tabelamensagensgraficos', async (req, res) => {
     res.status(500).json({ erro: error.message });
   }
 });
-
 // Rota para excluir uma mensagem específica pelo ID
 router.delete('/Tabelamensagens/:id', async (req, res) => {
   try {
@@ -708,11 +633,9 @@ router.patch('/Cadastromensagens/:id?', async (req, res) => {
 // Array para armazenar tokens gerados
 let tokens = [];
 
-
 // Rota para login
 router.get('/login', async (req, res) => {
   const { email, senha } = req.query;
-
   // Loga os dados recebidos para fins de depuração
   console.log('Dados recebidos:', email, senha);
 
@@ -744,7 +667,6 @@ router.get('/login', async (req, res) => {
 
       return resultado; // Retorna a string aleatória gerada
     }
-
     // Função para gerar um token único
     function gerarTokenUnico() {
       // Gera uma string aleatória inicial
@@ -757,17 +679,14 @@ router.get('/login', async (req, res) => {
         token = gerarStringAleatoria(6);
       }
       // Ação 1: Retorna o token único gerado (implicando que ele será inserido na lista depois)
-
       return token; // Retorna o token único gerado
     }
 
     // Se o usuário for encontrado, gera um token único
     const token = gerarTokenUnico();
     tokens.push(token); // Armazena o token gerado na lista
-
     // Mostrar lista de tokens
     console.log('Tokens gerados:', tokens);
-
     // Retorna um status de sucesso com o token gerado
     return res.status(200).json({ sucesso: true, mensagem: 'Login bem-sucedido', token });
   } catch (error) {
@@ -777,7 +696,6 @@ router.get('/login', async (req, res) => {
     res.status(500).json({ erro: 'Ocorreu um erro ao tentar fazer login. Por favor, tente novamente.' });
   }
 });
-
 // Rota para verificar se um token é válido
 router.post('/verificarToken', (req, res) => {
   console.log('Rota /verificarToken foi acessada.');
@@ -794,17 +712,13 @@ router.post('/verificarToken', (req, res) => {
     console.log("Mensagem retornando", false);
   }
 });
-
-
 // Rota para logout e remoção do token
 router.get('/logoutToken', (req, res) => {
   console.log('Rota /logoutToken foi acessada.');
   const token = req.query.token; // Obtém o token dos parâmetros da query string
   console.log('Token recebido:', token);
-
   // Verifica o estado da lista de tokens antes da verificação
   console.log('Lista de tokens antes da verificação:', tokens);
-
   // Verifica se o token está presente na lista de tokens
   if (tokens.includes(token)) {
     // Remove o token da lista de tokens
@@ -819,9 +733,5 @@ router.get('/logoutToken', (req, res) => {
   // Verifica o estado da lista de tokens após a remoção
   console.log('Lista de tokens após a remoção:', tokens);
 });
-
-
-
-
 
 module.exports = router;

@@ -13,7 +13,7 @@ import Tabelalocais from "./Tabelalocais";
 import Tabelafotos from "./Tabelafotos";
 import Tabelaorcamento from "./Tabelaorcamento";
 import Tabelamensagens from "./Tabelamensagens";
-import ProtectedRoute from './ProtectedRoute'; 
+import ProtectedRoute from './ProtectedRoute';
 import { Button } from 'react-bootstrap';
 import Graficos from './Graficos';
 
@@ -46,7 +46,6 @@ function AppContent() {
             <Nav.Link as={Link} to="/Tabelalocais">Locais</Nav.Link>
             <Nav.Link as={Link} to="/Graficos">Graficos</Nav.Link>
 
-
             {/* <Nav.Link as={Link} to="/Tabelafotos">Fotos</Nav.Link> */}
             {/* <Nav.Link as={Link} to="/Tabelaorcamento">Orçamento</Nav.Link> */}
             {/* <Nav.Link as={Link} to="/Tabelamensagens">Mensagens</Nav.Link> */}
@@ -58,24 +57,19 @@ function AppContent() {
 
         {/* AQUI Uma rota para abrir direto nos gráficos */}
 
-
         <Route path="/" element={<Login />} />
-        
         <Route path="/Graficos/:id?" element={<ProtectedRoute element={Graficos} />} />
         <Route path="/Graficos/:localId/:id?" element={<ProtectedRoute element={Graficos} />} />
-
-
         <Route path="/Cadastrousuarios/:id?" element={<ProtectedRoute element={Cadastrousuarios} />} />
         <Route path="/Cadastrolocais/:id?" element={<ProtectedRoute element={Cadastrolocais} />} />
-        
+
         {/* preparando para pegar o localId para atualizar a entidade Fotos assiaciado a um local.  */}
         <Route path="/Cadastrofotolocais/:localId/:id?" element={<ProtectedRoute element={Cadastrofotolocais} />} />
-
         <Route path="/Cadastroorcamento/:localId/:id?" element={<ProtectedRoute element={Cadastroorcamento} />} />
         <Route path="/Cadastromensagens/:localId/:id?" element={<ProtectedRoute element={Cadastromensagens} />} />
         <Route path="/Tabelausuarios" element={<ProtectedRoute element={Tabelausuarios} />} />
         <Route path="/Tabelalocais" element={<ProtectedRoute element={Tabelalocais} />} />
-        <Route path="/Tabelafotos/:localId/:id?"element={<ProtectedRoute element={Tabelafotos} />} />
+        <Route path="/Tabelafotos/:localId/:id?" element={<ProtectedRoute element={Tabelafotos} />} />
         <Route path="/Tabelaorcamento/:localId/:id?" element={<ProtectedRoute element={Tabelaorcamento} />} />
         <Route path="/Tabelamensagens/:localId/:id?" element={<ProtectedRoute element={Tabelamensagens} />} />
       </Routes>
