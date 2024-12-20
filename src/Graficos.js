@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import { useParams } from 'react-router-dom';
+import './Graficos.css';
 
 const Graficos = () => {
   const { id } = useParams();
@@ -75,70 +76,81 @@ const Graficos = () => {
 
   return (
     <div>
-      <h2 className='titulo-principal'>Gráfico de Locais</h2>
-      <ResponsiveContainer width="100%" height={400}>
-        <PieChart>
-          <Pie
-            data={dadosLocais}
-            dataKey="total"
-            nameKey="mes"
-            cx="50%"
-            cy="50%"
-            outerRadius={150}
-            label={renderCustomizedLabel}
-            fill="#8884d8"
-          >
-            {dadosLocais.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-        </PieChart>
-      </ResponsiveContainer>
+      <h2 className='titulo-principal'>Gráficos</h2>
+      <div className="graficos-container">
+        <div className="grafico-individual">
 
-      <h2 className='titulo-principal'>Gráfico de Orçamentos</h2>
-      <ResponsiveContainer width="100%" height={400}>
-        <PieChart>
-          <Pie
-            data={dadosOrcamentos}
-            dataKey="total"
-            nameKey="mes"
-            cx="50%"
-            cy="50%"
-            outerRadius={150}
-            label={renderCustomizedLabel}
-            fill="#82ca9d"
-          >
+          <h3>Gráfico de Locais</h3>
+          <ResponsiveContainer width={300} height={300}>
+            <PieChart>
+              <Pie
+                data={dadosLocais}
+                dataKey="total"
+                nameKey="mes"
+                cx="50%"
+                cy="50%"
+                outerRadius={150}
+                label={renderCustomizedLabel}
+                fill="#8884d8"
+              >
+                {dadosLocais.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
 
-            {dadosOrcamentos.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-        </PieChart>
-      </ResponsiveContainer>
+        <div className="grafico-individual">
+          <h3>Gráfico de Orçamentos</h3>
 
-      <h2 className='titulo-principal'>Gráfico de Mensagens</h2>
-      <ResponsiveContainer width="100%" height={400}>
-        <PieChart>
-          <Pie
-            data={dadosMensagens}
-            dataKey="total"
-            nameKey="mes"
-            cx="50%"
-            cy="50%"
-            outerRadius={150}
-            label={renderCustomizedLabel}
-            fill="#ffc658"
-          >
-            {dadosMensagens.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-        </PieChart>
-      </ResponsiveContainer>
-      console.log("Resposta de locais", dadosMensagens);
+          <ResponsiveContainer width={300} height={300}>
+            <PieChart>
+              <Pie
+                data={dadosOrcamentos}
+                dataKey="total"
+                nameKey="mes"
+                cx="50%"
+                cy="50%"
+                outerRadius={150}
+                label={renderCustomizedLabel}
+                fill="#82ca9d"
+              >
+                {dadosOrcamentos.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="grafico-individual">
+
+          <h3>Gráfico de Mensagens</h3>
+
+          <ResponsiveContainer width={300} height={300}>
+            <PieChart>
+              <Pie
+                data={dadosMensagens}
+                dataKey="total"
+                nameKey="mes"
+                cx="50%"
+                cy="50%"
+                outerRadius={150}
+                label={renderCustomizedLabel}
+                fill="#ffc658"
+              >
+                {dadosMensagens.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
     </div>
   );
 };
